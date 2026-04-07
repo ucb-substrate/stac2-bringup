@@ -2,7 +2,7 @@
 
 ## Setup
 
-First, update the COM ports in `py/bebe_host.py`.
+First, ensure that the config in `Stac.toml` is up to date.
 
 Requirements:
 - [Rust](https://rust-lang.org/tools/install/)
@@ -24,7 +24,7 @@ In the `irust` repl, run the following commands:
 
 ```
 :add --path rs
-:load rs/examples/prelude.rs
+use stac2::*;
 ```
 
 You should now be able to run bringup commands such as `bebe_write`, `bebe_read`, `tsi_write`, and `tsi_read`.

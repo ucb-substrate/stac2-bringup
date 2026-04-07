@@ -1,8 +1,30 @@
 import argparse
 import struct
 
-fp_out = open("/dev/ttyUSB2", "rb")
-fp_in = open("/dev/ttyUSB2", "wb")
+BEBE_NOCK_REQ = b'A'
+BEBE_NOCK_MAGIC = b"GOBEARS!"
+
+BEBE_CMD_READV  = b'R'
+BEBE_CMD_WRITEV = b'W'
+BEBE_CMD_JUMP   = b'J'
+
+BEBE_CMD_ACK = b'Y'
+BEBE_CMD_NACK = b'N'
+
+parser = argparse.ArgumentParser("bebe_host")
+parser.add_argument("--quiet", help="Disable debugging print statements; will only print read output", action='store_true')
+parser.add_argument("--no_wait", help="Assume the DUT is already awake and skip the nock procedure", action='store_true')
+parser.add_argument("--port", help="COM port to interact with")
+parser.add_argument("--addr", help="Address to interact with")
+parser.add_argument("--wfile", help="File to write to the DUT")
+parser.add_argument("--wdata", help="Write some given data to the DUT")
+parser.add_argument("--wlen", help="The length of the data to write to the DUT")
+parser.add_argument("--rlen", help="Read length from the DUT")
+parser.add_argument("--jump", help="Begin executing at the given address (DUT fence.i's)", action='store_true')
+args = parser.parse_args()
+
+fp_out = open(args.port, "rb")
+fp_in = open(args.port, "wb")
 
 def log(*pargs, **kwargs):
     if not args.quiet:
@@ -44,29 +66,6 @@ def tx(arr:bytes):
 
 def rx(size):
     return fp_out.read(size)
-
-
-
-BEBE_NOCK_REQ = b'A'
-BEBE_NOCK_MAGIC = b"GOBEARS!"
-
-BEBE_CMD_READV  = b'R'
-BEBE_CMD_WRITEV = b'W'
-BEBE_CMD_JUMP   = b'J'
-
-BEBE_CMD_ACK = b'Y'
-BEBE_CMD_NACK = b'N'
-
-parser = argparse.ArgumentParser("bebe_host")
-parser.add_argument("--quiet", help="Disable debugging print statements; will only print read output", action='store_true')
-parser.add_argument("--no_wait", help="Assume the DUT is already awake and skip the nock procedure", action='store_true')
-parser.add_argument("--addr", help="Address to interact with")
-parser.add_argument("--wfile", help="File to write to the DUT")
-parser.add_argument("--wdata", help="Write some given data to the DUT")
-parser.add_argument("--wlen", help="The length of the data to write to the DUT")
-parser.add_argument("--rlen", help="Read length from the DUT")
-parser.add_argument("--jump", help="Begin executing at the given address (DUT fence.i's)", action='store_true')
-args = parser.parse_args()
 
 
 if not args.addr:

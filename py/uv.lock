@@ -222,27 +222,27 @@ wheels = [
 ]
 
 [[package]]
-name = "stac2-bringup"
+name = "stac2"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
-    { name = "ipython" },
     { name = "pyuartsi" },
 ]
 
 [package.dev-dependencies]
 dev = [
+    { name = "ipython" },
     { name = "ty" },
 ]
 
 [package.metadata]
-requires-dist = [
-    { name = "ipython", specifier = ">=9.12.0" },
-    { name = "pyuartsi", specifier = ">=2026.1.20" },
-]
+requires-dist = [{ name = "pyuartsi", specifier = ">=2026.1.20" }]
 
 [package.metadata.requires-dev]
-dev = [{ name = "ty", specifier = ">=0.0.29" }]
+dev = [
+    { name = "ipython", specifier = ">=9.12.0" },
+    { name = "ty", specifier = ">=0.0.29" },
+]
 
 [[package]]
 name = "stack-data"

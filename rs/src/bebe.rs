@@ -1,3 +1,4 @@
+use crate::config::CONFIG;
 use crate::executor::Executor;
 use crate::pattern::{SramAddr, SramWord};
 use crate::{BEBE_HOST, PY_DIR};
@@ -11,6 +12,8 @@ pub fn bebe_write(addr: u64, data: u64, len: u64) {
         .args([
             "run",
             BEBE_HOST,
+            "--port",
+            &CONFIG.stac_com_port,
             "--no_wait",
             "--quiet",
             "--addr",

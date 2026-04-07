@@ -1,0 +1,10 @@
+Script started on Tue Apr  7 08:43:44 2026
+Command: ipython -i main.py
+[?12l[?25h[22;0t]0;IPython: stac2-bringup/pyPython 3.13.12 | packaged by conda-forge | (main, Feb  5 2026, 06:11:05) [Clang 19.1.7 ]
+Type 'copyright', 'credits' or 'license' for more information
+IPython 9.12.0 -- An enhanced Interactive Python. Type '?' for help.
+Tip: You can use Ctrl-O to force a new line in terminal IPython
+[TerminalIPythonApp] WARNING | File 'main.py' doesn't exist
+[TerminalIPythonApp] WARNING | File not found: 'main.py'
+
+[6n[?2004h[?1l[?25l[0m[?7l[0m[J[0;32mIn [[0;92;1m1[0;32m]: [8D[8C[?7h[0m[?12l[?25h[?25l[?7l[?7h[0m[?12l[?25h[?25l[?7l[0mrest[?7h[0m[?12l[?25h[?25l[?7l[4D[0mt[3C[?7h[0m[?12l[?25h[?25l[?7l[4D[0mb[3C[?7h[0m[?12l[?25h[?25l[?7l[4D[0mt[3C[?7h[0m[?12l[?25h[?25l[?7l[4D[0mabc[0m[K[?7h[0m[?12l[?25h[?25l[?7l[3D[0mtest[?7h[0m[?12l[?25h[?25l[?7l[4D[0mr[3C[?7h[0m[?12l[?25h[?25l[?7l[4D[0mt[3C[?7h[0m[?12l[?25h[?25l[?7l[3D[0msi.read_longword[0;38;5;16;48;5;152m([0;32m0x90000000[0;38;5;16;48;5;152m)[?7h[0m[?12l[?25h[?25l[?7l[26D[0m = UARTTSI[0;38;5;16;48;5;152m([0;33m"/dev/tty.usbserial-210319B7CBD91"[0m, [0;32m115200[0;38;5;16;48;5;152m)[?7h[0m[?12l[?25h
