@@ -1,0 +1,13 @@
+[project]
+name = "stac2-bringup"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "pyuartsi>=2026.1.20",
+]
+
+[dependency-groups]
+dev = [
+    "ipython>=9.12.0",
+    "ty>=0.0.29",
+]
