@@ -44,6 +44,10 @@ import freechips.rocketchip.diplomacy.DisableMonitors
 import freechips.rocketchip.prci.ClockGroupAggregateNode
 import testchipip.serdes.DecoupledInternalSyncPhitIO
 
+object Stac2Bringup {
+  val freqMHz: Int = 50
+}
+
 
 // Similar to ExtMem but instantiates a TL mem port
 case object ExtTLMem extends Field[Option[MemoryPortParams]](None)
@@ -119,7 +123,7 @@ class Stac2BringupConfig extends Config(
       ))
     )),
     client = Some(testchipip.serdes.SerialTLClientParams()),                                        // Allow chip to access this device's memory (DRAM)
-    phyParams = testchipip.serdes.DecoupledInternalSyncSerialPhyParams(phitWidth=1, flitWidth=16, freqMHz = 25) // bringup platform provides the clock
+    phyParams = testchipip.serdes.DecoupledInternalSyncSerialPhyParams(phitWidth=1, flitWidth=16, freqMHz = Stac2Bringup.freqMHz) // bringup platform provides the clock
   ))) ++
 
   //============================
@@ -146,10 +150,10 @@ class Stac2BringupConfig extends Config(
   //=============================
   // Set up clocks/buses of the bringup system
   //=============================
-  new edu.berkeley.cs.chippy.clocking.WithUniformBusFrequencies(25.0) ++   // run all buses of this system at 75 MHz
+  new edu.berkeley.cs.chippy.clocking.WithUniformBusFrequencies(Stac2Bringup.freqMHz) ++   // run all buses of this system at 75 MHz
   new Config((site, here, up) => { case OffchipBusKey =>
     up(OffchipBusKey, site)
-      .copy(dtsFrequency = Some(BigInt((25.0 * 1e6).toLong)))
+      .copy(dtsFrequency = Some(BigInt(Stac2Bringup.freqMHz * 1_000_000L)))
   }) ++
   new edu.berkeley.cs.chippy.clocking.WithNoSubsystemClockIO ++ 
   new freechips.rocketchip.subsystem.WithCoherentBusTopology ++
@@ -243,7 +247,7 @@ class Stac2BringupTop(implicit p: Parameters) extends LazyModule with BindingSco
   val pllSourceNode = ClockGroupSourceNode(
     Seq(ClockGroupSourceParameters())
   )
-  val dutClock = ClockSinkNode(freqMHz = 25)
+  val dutClock = ClockSinkNode(freqMHz = Stac2Bringup.freqMHz)
   val dutWrangler = LazyModule(new ResetWrangler())
   val dutGroup = ClockGroup()
   dutClock := dutWrangler.node := dutGroup := pllSourceNode

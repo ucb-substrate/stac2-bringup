@@ -102,9 +102,7 @@ update_ip_catalog -rebuild
 create_ip -name clk_wiz -vendor xilinx.com -library ip -version 6.0 -module_name \\
  mmcm -dir $$ipdir -force
 set_property -dict [list \\
- CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {25.0} \\
- CONFIG.MMCM_CLKFBOUT_MULT_F {9.125} \\
- CONFIG.MMCM_CLKOUT0_DIVIDE_F {36.5} \\
+ CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {50.0} \\
 ] [get_ips mmcm]
 
 # AR 58526 <http://www.xilinx.com/support/answers/58526.html>

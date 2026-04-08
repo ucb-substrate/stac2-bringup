@@ -37,7 +37,7 @@ class StacControllerIO extends Bundle {
 class StacController(
     beatBytes: Int,
     address: BigInt = 0x90000000L,
-    halfClkDivRatioDefault: Int = 125
+    halfClkDivRatioDefault: Int = 1
 )(implicit
     p: Parameters
 ) extends ClockSinkDomain(ClockSinkParameters())(p) {
