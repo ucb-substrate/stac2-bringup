@@ -127,8 +127,6 @@ class StacController(
         toRegFieldRw(pllArstb, "pllArstb"),
         toRegFieldRw(halfClkDivRatio, "halfClkDivRatio"),
         toRegFieldRw(clkEn, "clkEn"),
-        toRegFieldRw(divClk, "divClk"),
-        toRegFieldRw(cycles, "cycles"),
         toRegFieldRw(resetReg, "resetReg"),
         toRegFieldR(io.sramBistDone, "sramBistDone")
       )
