@@ -289,10 +289,8 @@ class Stac2BringupTop(implicit p: Parameters) extends LazyModule with BindingSco
     // Tie off interupts and chip ID
     system.module.interrupts := DontCare
 
-    val serial_tl = IO(
-      new DecoupledInternalSyncPhitIO(p(SerialTLKey)(0).phyParams.phitWidth)
-    )
-    serial_tl <> system.serial_tls(0)
+    // TODO: Get correct serial TL directionality.
+    system.serial_tls(0) := DontCare
 
     val uart = IO(chiselTypeOf(system.uart_tsi.get.uart))
     uart <> system.uart_tsi.get.uart
