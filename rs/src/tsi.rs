@@ -42,8 +42,10 @@ pub fn tsi_read(addr: u64) -> u64 {
         .output()
         .expect("failed to run pyuartsi");
     let output = String::from_utf8(output.stdout).expect("failed to parse pyuartsi output");
-    output
-        .trim()
-        .parse()
-        .expect("failed to convert pyuartsi output to u64")
+    println!("{}", output);
+    // output
+    //     .trim()
+    //     .parse()
+    //     .expect("failed to convert pyuartsi output to u64")
+    0
 }

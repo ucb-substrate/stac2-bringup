@@ -25,14 +25,14 @@ object Utils {
       objDir: Path,
       sourceFilesList: Path,
       topModule: String,
-      incDirs: Seq[Path] = Seq.empty,
+      incDirs: Seq[Path] = Seq.empty
   ) = {
     os.makeDir.all(path / os.up)
     os.write.over(
       path,
-      s"""set name {nexys_video}
-set part_fpga {xc7a200tsbg484-1}
-set part_board {digilentinc.com:nexys_video:part0:1.1}
+      s"""set name {arty-a7-100}
+set part_fpga {xc7a100ticsg324-1L}
+set part_board {digilentinc.com:arty-a7-100:part0:1.1}
 set bootrom_inst {rom}
 
 set wrkdir ${objDir.toString}
@@ -205,7 +205,9 @@ set property_include_dirs [get_property include_dirs $$obj]
 set ip_include_dirs [concat $$property_include_dirs [findincludedir $$ipdir "*.vh"]]
 
 # Synthesis
-synth_design -top $topModule -flatten_hierarchy rebuilt${incDirs.map(incDir => s" -include_dirs ${incDir.toString}").mkString}
+synth_design -top $topModule -flatten_hierarchy rebuilt${incDirs
+          .map(incDir => s" -include_dirs ${incDir.toString}")
+          .mkString}
 write_checkpoint -force [file join $$wrkdir post_synth]
 report_timing -file synth_timing.rpt 
 report_utilization -file synth_utilization.rpt
@@ -281,7 +283,7 @@ if {$$timing_slack < 0} {
 
   def genBitstream(
       workDir: Path,
-      module: => RawModule,
+      module: => RawModule
   ) = {
     os.makeDir.all(workDir)
     val sourceDir = workDir / "src"
@@ -291,13 +293,14 @@ if {$$timing_slack < 0} {
     os.makeDir.all(artifactsDir)
 
     os.remove.all(sourceDir)
-    val design = ChiselStage.emitSystemVerilogFile(
-      module,
-      args = Array(
-        "--target-dir",
-        sourceDir.toString
+    val design = ChiselStage
+      .emitSystemVerilogFile(
+        module,
+        args = Array(
+          "--target-dir",
+          sourceDir.toString
+        )
       )
-    )
       .collectFirst { case a: DesignAnnotation[_] => a.design }
       .get
     freechips.rocketchip.util.ElaborationArtefacts.files.foreach {

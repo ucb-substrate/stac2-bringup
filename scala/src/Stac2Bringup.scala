@@ -1,4 +1,4 @@
-package edu.berkeley.cs.kodiak.bringup
+package edu.berkeley.cs.stac2.bringup
 
 import chisel3._
 import chisel3.util._
@@ -107,7 +107,7 @@ class NoCoresConfig extends Config(
   new edu.berkeley.cs.chippy.clocking.WithNoTileResetSetters ++ 
   new freechips.rocketchip.system.BaseConfig)
 
-class KodiakBringupConfig extends Config(
+class Stac2BringupConfig extends Config(
     //=============================
   // Setup the SerialTL side on the bringup device
   //=============================
@@ -119,7 +119,7 @@ class KodiakBringupConfig extends Config(
       ))
     )),
     client = Some(testchipip.serdes.SerialTLClientParams()),                                        // Allow chip to access this device's memory (DRAM)
-    phyParams = testchipip.serdes.DecoupledInternalSyncSerialPhyParams(phitWidth=1, flitWidth=16, freqMHz = 75) // bringup platform provides the clock
+    phyParams = testchipip.serdes.DecoupledInternalSyncSerialPhyParams(phitWidth=1, flitWidth=16, freqMHz = 25) // bringup platform provides the clock
   ))) ++
 
   //============================
@@ -141,7 +141,7 @@ class KodiakBringupConfig extends Config(
   //=============================
   // Generate the TSI-over-UART side of the bringup system
   //=============================
-  new testchipip.tsi.WithUARTTSIClient(initBaudRate = BigInt(57600)) ++       // nonstandard baud rate to improve performance
+  new testchipip.tsi.WithUARTTSIClient(initBaudRate = BigInt(115200)) ++       // nonstandard baud rate to improve performance
 
   //=============================
   // Set up clocks/buses of the bringup system
@@ -163,7 +163,7 @@ class KodiakBringupConfig extends Config(
   // Base is the no-cores config
   new NoCoresConfig)
 
-class KodiakBringupSystem(implicit p: Parameters)
+class Stac2BringupSystem(implicit p: Parameters)
     extends edu.berkeley.cs.chippy.ChippySystem
     with testchipip.soc.CanHaveSubsystemInjectors // Enables the subsystem injector API
     with testchipip.soc.CanHaveSwitchableOffchipBus // Enables optional off-chip-bus with interface-switch
@@ -172,13 +172,13 @@ class KodiakBringupSystem(implicit p: Parameters)
     with edu.berkeley.cs.chippy.clocking.HasChippyPRCI
     with CanHaveMasterTLMemPort {
     val pbus = locateTLBusWrapper(SBUS)
-    val resetReg = LazyModule(new ResetReg(ResetRegParams(), pbus.beatBytes))
-    resetReg.clockNode := pbus.fixedClockNode
-    pbus.coupleTo("resetReg") { resetReg.node := TLFragmenter(pbus.beatBytes, pbus.blockBytes) := _ }
-    val reset_out = InModuleBody {
-      val reset_out = IO(Output(Bool()))
-      reset_out := resetReg.module.reset_out
-      reset_out
+    val stacController = LazyModule(new StacController(pbus.beatBytes))
+    stacController.clockNode := pbus.fixedClockNode
+    pbus.coupleTo("resetReg") { stacController.node := TLFragmenter(pbus.beatBytes, pbus.blockBytes) := _ }
+    val ctl = InModuleBody {
+      val ctl = IO(new StacControllerIO())
+      ctl := stacController.module.io
+      ctl
     }
 }
 
@@ -238,24 +238,22 @@ class LedPattern(counterMax: Int = 1000000) extends Module {
   io.led_7 := leds(7)
 }
 
-class KodiakBringupTop(implicit p: Parameters) extends LazyModule with BindingScope {
-  val system0 = LazyModule(new KodiakBringupSystem)
-  val system1 = LazyModule(new KodiakBringupSystem)
+class Stac2BringupTop(implicit p: Parameters) extends LazyModule with BindingScope {
+  val system = LazyModule(new Stac2BringupSystem)
   val pllSourceNode = ClockGroupSourceNode(
     Seq(ClockGroupSourceParameters())
   )
-  val dutClock = ClockSinkNode(freqMHz = 50)
+  val dutClock = ClockSinkNode(freqMHz = 25)
   val dutWrangler = LazyModule(new ResetWrangler())
   val dutGroup = ClockGroup()
   dutClock := dutWrangler.node := dutGroup := pllSourceNode
   val dutSourceNode = ClockGroupSourceNode(
     Seq(ClockGroupSourceParameters(), ClockGroupSourceParameters())
   )
-  system0.chiptopClockGroupsNode := dutSourceNode
-  system1.chiptopClockGroupsNode := dutSourceNode
+  system.chiptopClockGroupsNode := dutSourceNode
 
-  override lazy val module = new KodiakBringupTopImpl
-  class KodiakBringupTopImpl extends LazyRawModuleImp(this) with DontTouch {
+  override lazy val module = new Stac2BringupTopImpl
+  class Stac2BringupTopImpl extends LazyRawModuleImp(this) with DontTouch {
     val io = IO(new Bundle {
       val clock = Input(Clock())
       val reset = Input(AsyncReset())
@@ -286,33 +284,17 @@ class KodiakBringupTop(implicit p: Parameters) extends LazyModule with BindingSc
     }
 
     // Tie off interupts and chip ID
-    system0.module.interrupts := DontCare
+    system.module.interrupts := DontCare
 
-    val serial_tl_0 = IO(
+    val serial_tl = IO(
       new DecoupledInternalSyncPhitIO(p(SerialTLKey)(0).phyParams.phitWidth)
     )
-    serial_tl_0 <> system0.serial_tls(0)
+    serial_tl <> system.serial_tls(0)
 
-    val uart_0 = IO(chiselTypeOf(system0.uart_tsi.get.uart))
+    val uart_0 = IO(chiselTypeOf(system.uart_tsi.get.uart))
     uart_0 <> system0.uart_tsi.get.uart
 
-    system0.mem_tl := DontCare
-
-    // Tie off interupts and chip ID
-    system1.module.interrupts := DontCare
-
-    val serial_tl_1 = IO(
-      new DecoupledInternalSyncPhitIO(p(SerialTLKey)(0).phyParams.phitWidth)
-    )
-    serial_tl_1 <> system1.serial_tls(0)
-
-    val uart_1 = IO(chiselTypeOf(system1.uart_tsi.get.uart))
-    uart_1 <> system1.uart_tsi.get.uart
-    val uart_1_rtsn = IO(Output(Bool()))
-    val uart_1_ctsn = IO(Input(Bool()))
-    uart_1_rtsn := false.B
-
-    system1.mem_tl := DontCare
+    system.mem_tl := DontCare
 
     val led_0 = IO(Output(Bool()))
     val led_1 = IO(Output(Bool()))
@@ -334,25 +316,14 @@ class KodiakBringupTop(implicit p: Parameters) extends LazyModule with BindingSc
     led_6 := pattern.io.led_6
     led_7 := pattern.io.led_7
 
-    val reset_u_0_btn = IO(Input(Bool()))
-    val reset_u_1_btn = IO(Input(Bool()))
-    val reset_u_0_chip_rst = IO(Output(Bool()))
-    val reset_u_1_chip_rst = IO(Output(Bool()))
-    reset_u_0_chip_rst := reset_u_0_btn || system0.reset_out
-    reset_u_1_chip_rst := reset_u_1_btn || system1.reset_out
+    val reset_btn = IO(Input(Bool()))
+    val chip_rst = IO(Output(Bool()))
+    chip_rst := reset_btn || system.ctl.reset
 
-    led_0 := system0.uart_tsi.get.tsi2tl_state(0)
-    led_1 := system0.uart_tsi.get.tsi2tl_state(1)
-    led_2 := system0.uart_tsi.get.tsi2tl_state(2)
-    led_3 := system0.uart_tsi.get.tsi2tl_state(3)
+    // led_0 := system0.uart_tsi.get.tsi2tl_state(0)
+    // led_1 := system0.uart_tsi.get.tsi2tl_state(1)
+    // led_2 := system0.uart_tsi.get.tsi2tl_state(2)
+    // led_3 := system0.uart_tsi.get.tsi2tl_state(3)
     // led_4 := reset_u_0_chip_rst || reset_u_1_chip_rst
   }
-}
-
-class ForceReset extends Module {
-  val reset_u_0_chip_rst = IO(Output(Bool()))
-  val reset_u_1_chip_rst = IO(Output(Bool()))
-
-  reset_u_0_chip_rst := true.B
-  reset_u_1_chip_rst := true.B
 }

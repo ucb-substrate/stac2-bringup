@@ -1,4 +1,4 @@
-package edu.berkeley.cs.kodiak.bringup
+package edu.berkeley.cs.stac2.bringup
 
 import chisel3._
 import chisel3.util.HasBlackBoxInline
@@ -19,12 +19,12 @@ class IBUFG extends BlackBox {
 
 class mmcm extends BlackBox {
   val io = IO(new Bundle {
-    val clk_in1  = Input(Clock())
+    val clk_in1 = Input(Clock())
     val clk_out1 = Output(Clock())
     val clk_out2 = Output(Clock())
     val clk_out3 = Output(Clock())
-    val reset   = Input(Bool())
-    val locked   = Output(Bool())
+    val reset = Input(Bool())
+    val locked = Output(Bool())
   })
 }
 
@@ -34,7 +34,8 @@ class PowerOnResetFPGAOnly extends BlackBox with HasBlackBoxInline {
     val power_on_reset = Output(Bool())
   })
 
-  setInline(s"PowerOnResetFPGAOnly.v",
+  setInline(
+    s"PowerOnResetFPGAOnly.v",
     s"""(* keep_hierarchy = "yes" *)
        |module PowerOnResetFPGAOnly(
        |  input wire clock,
@@ -47,16 +48,16 @@ class PowerOnResetFPGAOnly extends BlackBox with HasBlackBoxInline {
        |    power_on_reset <= 1'b0;
        |  end
        |endmodule
-       |""".stripMargin)
+       |""".stripMargin
+  )
 }
 
 object PowerOnResetFPGAOnly {
-  def apply (clk: Clock, name: String): Bool = {
+  def apply(clk: Clock, name: String): Bool = {
     val por = Module(new PowerOnResetFPGAOnly())
     por.suggestName(name)
     por.io.clock := clk
     por.io.power_on_reset
   }
-  def apply (clk: Clock): Bool = apply(clk, "fpga_power_on")
+  def apply(clk: Clock): Bool = apply(clk, "fpga_power_on")
 }
-
