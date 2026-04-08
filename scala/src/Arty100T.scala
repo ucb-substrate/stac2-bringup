@@ -21,8 +21,6 @@ class mmcm extends BlackBox {
   val io = IO(new Bundle {
     val clk_in1 = Input(Clock())
     val clk_out1 = Output(Clock())
-    val clk_out2 = Output(Clock())
-    val clk_out3 = Output(Clock())
     val reset = Input(Bool())
     val locked = Output(Bool())
   })

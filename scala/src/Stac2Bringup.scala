@@ -177,12 +177,12 @@ class Stac2BringupSystem(implicit p: Parameters)
     pbus.coupleTo("resetReg") { stacController.node := TLFragmenter(pbus.beatBytes, pbus.blockBytes) := _ }
     val ctl = InModuleBody {
       val ctl = IO(new StacControllerIO())
-      ctl := stacController.module.io
+      ctl <> stacController.module.io
       ctl
     }
 }
 
-class LedPattern(counterMax: Int = 1000000) extends Module {
+class LedPattern(counterMax: Int = 25_000_000) extends Module {
   val io = IO(new Bundle {
     val led_0 = Output(Bool())
     val led_1 = Output(Bool())
@@ -248,7 +248,7 @@ class Stac2BringupTop(implicit p: Parameters) extends LazyModule with BindingSco
   val dutGroup = ClockGroup()
   dutClock := dutWrangler.node := dutGroup := pllSourceNode
   val dutSourceNode = ClockGroupSourceNode(
-    Seq(ClockGroupSourceParameters(), ClockGroupSourceParameters())
+    Seq(ClockGroupSourceParameters())
   )
   system.chiptopClockGroupsNode := dutSourceNode
 
@@ -257,7 +257,10 @@ class Stac2BringupTop(implicit p: Parameters) extends LazyModule with BindingSco
     val io = IO(new Bundle {
       val clock = Input(Clock())
       val reset = Input(AsyncReset())
+      val ctl = new StacControllerIO()
     })
+
+    io.ctl <> system.ctl
 
     val rstBuf = Module(new IBUF)
     rstBuf.io.I := io.reset.asBool
@@ -291,8 +294,8 @@ class Stac2BringupTop(implicit p: Parameters) extends LazyModule with BindingSco
     )
     serial_tl <> system.serial_tls(0)
 
-    val uart_0 = IO(chiselTypeOf(system.uart_tsi.get.uart))
-    uart_0 <> system0.uart_tsi.get.uart
+    val uart = IO(chiselTypeOf(system.uart_tsi.get.uart))
+    uart <> system.uart_tsi.get.uart
 
     system.mem_tl := DontCare
 
@@ -317,8 +320,7 @@ class Stac2BringupTop(implicit p: Parameters) extends LazyModule with BindingSco
     led_7 := pattern.io.led_7
 
     val reset_btn = IO(Input(Bool()))
-    val chip_rst = IO(Output(Bool()))
-    chip_rst := reset_btn || system.ctl.reset
+    io.ctl.reset := !(reset_btn || system.ctl.reset)
 
     // led_0 := system0.uart_tsi.get.tsi2tl_state(0)
     // led_1 := system0.uart_tsi.get.tsi2tl_state(1)

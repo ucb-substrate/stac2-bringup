@@ -87,6 +87,15 @@ class StacController(
       val cycles = RegInit(0.U(32.W))
       val resetReg = RegInit(false.B)
 
+      io.sramExtEn := sramExtEn
+      io.sramScanMode := sramScanMode
+      io.sramEn := sramEn
+      io.sramBistEn := sramBistEn
+      io.sramBistStart := sramBistStart
+      io.pllSel := pllSel
+      io.pllScanRstn := pllScanRstn
+      io.pllArstb := pllArstb
+
       io.sramScanIn := true.B
       io.sramScanEn := false.B
       io.pllScanEn := false.B

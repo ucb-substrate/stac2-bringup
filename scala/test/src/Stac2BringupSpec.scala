@@ -1,4 +1,4 @@
-package edu.berkeley.cs.kodiak.bringup
+package edu.berkeley.cs.stac2.bringup
 
 import chisel3._
 import org.scalatest.funspec.AnyFunSpec
