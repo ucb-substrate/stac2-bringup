@@ -1,5 +1,6 @@
 import argparse
 import struct
+import serial
 
 BEBE_NOCK_REQ = b'A'
 BEBE_NOCK_MAGIC = b"GOBEARS!"
@@ -13,7 +14,7 @@ BEBE_CMD_NACK = b'N'
 
 parser = argparse.ArgumentParser("bebe_host")
 parser.add_argument("--quiet", help="Disable debugging print statements; will only print read output", action='store_true')
-parser.add_argument("--no_wait", help="Assume the DUT is already awake and skip the nock procedure", action='store_true')
+parser.add_argument("--wait", help="Wait for DUT to wake up", action='store_true')
 parser.add_argument("--port", help="COM port to interact with")
 parser.add_argument("--addr", help="Address to interact with")
 parser.add_argument("--wfile", help="File to write to the DUT")
@@ -23,8 +24,7 @@ parser.add_argument("--rlen", help="Read length from the DUT")
 parser.add_argument("--jump", help="Begin executing at the given address (DUT fence.i's)", action='store_true')
 args = parser.parse_args()
 
-fp_out = open(args.port, "rb")
-fp_in = open(args.port, "wb")
+ser = serial.Serial(args.port, baudrate=14400, timeout=1)
 
 def log(*pargs, **kwargs):
     if not args.quiet:
@@ -61,18 +61,15 @@ def hexdump(bytes_input, width=16):
 
 def tx(arr:bytes):
     log(hexdump(arr))
-    fp_in.write(arr)
-    fp_in.flush()
+    ser.write(arr)
+    ser.flush()
 
 def rx(size):
-    return fp_out.read(size)
+    return ser.read(size)
 
-
-if not args.addr:
-    parser.print_help()
-    exit(1)
-
-if not args.no_wait:
+performed_operation = False
+if args.wait:
+    performed_operation = True
     log("[bebe host] Waiting for DUT...")
     while True:
         b = rx(1)
@@ -92,13 +89,20 @@ while True:
     elif b == BEBE_CMD_ACK:
         break
     else:
-        log("[bebe host] Unexpected response from DUT during nock:", str(b))
-        exit(1)
+        if not args.wait:
+            log("[bebe host] Unexpected response from DUT during nock:", str(b))
+            exit(1)
 
 log("[bebe host] Connected to DUT!")
 
+if not args.addr:
+    if not performed_operation:
+        parser.print_help()
+        exit(1)
+    else:
+        exit(0)
+
 addr = int(args.addr, base=16)
-performed_operation = False
 if (args.wfile):
     performed_operation = True
     with open(args.wfile, "rb") as fp:

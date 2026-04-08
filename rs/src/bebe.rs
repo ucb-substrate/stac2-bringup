@@ -14,7 +14,6 @@ pub fn bebe_write(addr: u64, data: u64, len: u64) {
             BEBE_HOST,
             "--port",
             &CONFIG.stac_com_port,
-            "--no_wait",
             "--quiet",
             "--addr",
             &addr,
@@ -38,7 +37,8 @@ pub fn bebe_read(addr: u64, len: u64) -> u64 {
         .args([
             "run",
             BEBE_HOST,
-            "--no_wait",
+            "--port",
+            &CONFIG.stac_com_port,
             "--quiet",
             "--addr",
             &addr,
