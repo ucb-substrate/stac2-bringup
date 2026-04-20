@@ -16,6 +16,7 @@ parser = argparse.ArgumentParser("bebe_host")
 parser.add_argument("--quiet", help="Disable debugging print statements; will only print read output", action='store_true')
 parser.add_argument("--wait", help="Wait for DUT to wake up", action='store_true')
 parser.add_argument("--port", help="COM port to interact with")
+parser.add_argument("--baudrate", help="Baud rate")
 parser.add_argument("--addr", help="Address to interact with")
 parser.add_argument("--wfile", help="File to write to the DUT")
 parser.add_argument("--wdata", help="Write some given data to the DUT")
@@ -24,7 +25,7 @@ parser.add_argument("--rlen", help="Read length from the DUT")
 parser.add_argument("--jump", help="Begin executing at the given address (DUT fence.i's)", action='store_true')
 args = parser.parse_args()
 
-ser = serial.Serial(args.port, baudrate=14400, timeout=1)
+ser = serial.Serial(args.port, baudrate=args.baudrate, timeout=1)
 
 def log(*pargs, **kwargs):
     if not args.quiet:

@@ -2,7 +2,14 @@
 
 ## Setup
 
-First, ensure that the config in `Stac.toml` is up to date.
+Ensure that the STAC board and Arty100T FPGA are connected via PMODs and that the FPGA has been flashed with the correct bitstream:
+
+```bash
+openFPGALoader -b arty_a7_100t --write-flash --verify --reset Stac2BringupTop.bit
+```
+
+Connect the UART of the board and FPGA to a host computer and note their respective serial ports.
+Update the config in `Stac.toml` with these serial ports.
 
 Requirements:
 - [Rust](https://rust-lang.org/tools/install/)
@@ -22,9 +29,23 @@ irust
 
 In the `irust` repl, run the following commands:
 
-```
+```rs
 :add --path rs
 use stac2::*;
+let mut l = BringupState::new();
 ```
 
-You should now be able to run bringup commands such as `bebe_write`, `bebe_read`, `tsi_write`, and `tsi_read`.
+Try initializing the chip:
+
+```rs
+l.init_chip();
+```
+
+The blue UART light on the STAC PCB should light up if the chip is functioning correctly.
+
+You should then be able to write and read scratchpad memory on chip:
+
+```rs
+l.bebe_write(SCRATCHPAD_BASE_ADDR, 0xdeadbeef, 8);
+l.bebe_read(SCRATCHPAD_BASE_ADDR, 8)
+```
