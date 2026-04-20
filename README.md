@@ -49,3 +49,6 @@ You should then be able to write and read scratchpad memory on chip:
 l.bebe_write(SCRATCHPAD_BASE_ADDR, 0xdeadbeef, 8);
 l.bebe_read(SCRATCHPAD_BASE_ADDR, 8)
 ```
+
+This will cause the blue light to turn off, which is expected.
+The custom boot ROM spams UART with `A`s until the first operation is transmitted.
