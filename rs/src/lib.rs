@@ -12,6 +12,7 @@ pub mod tsi;
 mod tests;
 
 pub use bebe::*;
+pub use executor::*;
 pub use memory::*;
 pub use tsi::*;
 
@@ -25,7 +26,7 @@ pub struct BringupState {
 
 impl Default for BringupState {
     fn default() -> Self {
-        tsi_write(HALF_CLK_DIV_RATIO, DEFAULT_HALF_CLK_DIV_RATIO as u64);
+        tsi_write(HALF_CLK_DIV_RATIO, DEFAULT_HALF_CLK_DIV_RATIO);
         BringupState {
             half_clk_div_ratio: DEFAULT_HALF_CLK_DIV_RATIO,
         }
@@ -38,7 +39,7 @@ impl BringupState {
     }
 
     pub fn set_div_ratio(&mut self, half_clk_div_ratio: u32) {
-        tsi_write(HALF_CLK_DIV_RATIO, half_clk_div_ratio as u64);
+        tsi_write(HALF_CLK_DIV_RATIO, half_clk_div_ratio);
         self.half_clk_div_ratio = half_clk_div_ratio;
     }
 

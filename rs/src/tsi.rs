@@ -1,9 +1,9 @@
 use std::process::Command;
 
 use crate::{
+    MemoryIntf, PY_DIR,
     config::CONFIG,
     executor::{ScratchpadExecutor, TestSramExecutor},
-    MemoryIntf, PY_DIR,
 };
 
 pub const FPGA_BAUDRATE: u64 = 115200;
@@ -24,7 +24,7 @@ pub const CLK_EN: u64 = 0x48 + CONTROLLER_BASE;
 pub const RESET_REG: u64 = 0x50 + CONTROLLER_BASE;
 pub const SRAM_BIST_DONE: u64 = 0x58 + CONTROLLER_BASE;
 
-pub fn tsi_write(addr: u64, data: u64) {
+pub fn tsi_write(addr: u64, data: u32) {
     let status = Command::new("uv")
         .args([
             "run",
@@ -46,7 +46,7 @@ pub fn tsi_write(addr: u64, data: u64) {
     }
 }
 
-pub fn tsi_read(addr: u64) -> u64 {
+pub fn tsi_read(addr: u64) -> u32 {
     let output = Command::new("uv")
         .args([
             "run",
@@ -64,10 +64,9 @@ pub fn tsi_read(addr: u64) -> u64 {
         .output()
         .expect("failed to run pyuartsi");
     let output = String::from_utf8(output.stdout).expect("failed to parse pyuartsi output");
-    println!("{}", output);
     let rhs = output.split_once("=>").unwrap().1.trim();
     let num = rhs.strip_prefix("0x").unwrap_or(rhs);
-    u64::from_str_radix(num, 16).unwrap()
+    u32::from_str_radix(num, 16).unwrap()
 }
 
 pub struct TsiIntf;
@@ -84,10 +83,13 @@ impl TsiIntf {
 
 impl MemoryIntf for TsiIntf {
     fn read(&mut self, addr: u64) -> u64 {
-        tsi_read(addr)
+        let r0 = tsi_read(addr);
+        let r1 = tsi_read(addr + 4);
+        ((r1 as u64) << 32) | r0 as u64
     }
 
     fn write(&mut self, addr: u64, data: u64) {
-        tsi_write(addr, data);
+        tsi_write(addr, (data & 0xffffffff) as u32);
+        tsi_write(addr + 4, (data >> 32) as u32);
     }
 }

@@ -1,6 +1,6 @@
 use crate::pattern::{FixedPattern, FixedSramOp, SramAddr, SramSize, SramWord};
 use crate::state::SramState;
-use crate::{MemoryIntf, ADDR, DIN, DOUT, EX, MASK, SCRATCHPAD_BASE_ADDR, SRAM_ID, SRAM_SEL, WE};
+use crate::{ADDR, DIN, DOUT, EX, MASK, MemoryIntf, SCRATCHPAD_BASE_ADDR, SRAM_ID, SRAM_SEL, WE};
 
 pub trait Executor {
     fn init(&mut self);
@@ -55,6 +55,7 @@ impl<I: MemoryIntf> Executor for TestSramExecutor<I> {
     fn read(&mut self, addr: SramAddr) -> SramWord {
         self.intf.write(ADDR, addr as u64);
         // no need to set the din/mask
+        self.intf.write(WE, 0);
         self.intf.write(SRAM_ID, self.sram_id);
         self.intf.write(SRAM_SEL, 0);
         self.intf.write(EX, u64::MAX);
@@ -83,7 +84,7 @@ impl<I> ScratchpadExecutor<I> {
 impl<I: MemoryIntf> Executor for ScratchpadExecutor<I> {
     fn init(&mut self) {}
     fn read(&mut self, addr: SramAddr) -> SramWord {
-        self.0.read128(SCRATCHPAD_BASE_ADDR + addr as u64 * 8)
+        self.0.read(SCRATCHPAD_BASE_ADDR + addr as u64 * 8) as SramWord
     }
 
     fn write(&mut self, addr: SramAddr, data: SramWord, mask: SramWord) {

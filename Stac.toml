@@ -1,2 +1,2 @@
 fpga_com_port = "/dev/tty.usbserial-210319B9B4A21"
-stac_com_port = "/dev/tty.usbserial-2101"
+stac_com_port = "/dev/tty.usbserial-101"

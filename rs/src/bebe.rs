@@ -1,6 +1,6 @@
 use crate::config::CONFIG;
 use crate::executor::{ScratchpadExecutor, TestSramExecutor};
-use crate::{BringupState, MemoryIntf, BEBE_HOST, FPGA_FREQ_MHZ, PY_DIR};
+use crate::{BEBE_HOST, BringupState, FPGA_FREQ_MHZ, MemoryIntf, PY_DIR};
 use std::process::{Child, Command};
 
 pub const CHIP_INTENDED_BAUDRATE: u64 = 115200;
@@ -82,7 +82,6 @@ impl BringupState {
             .output()
             .expect("failed to run bebe");
         let output = String::from_utf8(output.stdout).expect("failed to parse bebe output");
-        println!("{}", output);
         output
             .trim()
             .parse()
