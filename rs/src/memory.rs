@@ -1,0 +1,37 @@
+//! Utilities for accessing chip memory.
+
+pub const SCRATCHPAD_BASE_ADDR: u64 = 0x8000000;
+pub const BASE: u64 = 0x1000;
+#[allow(clippy::identity_op)]
+pub const ADDR: u64 = 0x0 + BASE;
+pub const DIN: u64 = 0x8 + BASE;
+pub const MASK: u64 = 0x18 + BASE;
+pub const WE: u64 = 0x28 + BASE;
+pub const SRAM_ID: u64 = 0x20 + BASE;
+pub const SRAM_SEL: u64 = 0x28 + BASE;
+pub const SAE_CTL: u64 = 0x30 + BASE;
+pub const SAE_SEL: u64 = 0x38 + BASE;
+pub const DOUT: u64 = 0x40 + BASE;
+pub const TDC: u64 = 0x48 + BASE;
+pub const DONE: u64 = 0x68 + BASE;
+pub const BIST_RAND_SEED: u64 = 0x70 + BASE;
+pub const BIST_SIG_SEED: u64 = 0x80 + BASE;
+pub const BIST_MAX_ROW_ADDR: u64 = 0x88 + BASE;
+pub const BIST_MAX_COL_ADDR: u64 = 0x90 + BASE;
+pub const BIST_INNER_DIM: u64 = 0x98 + BASE;
+pub const BIST_ELEMENT_SEQUENCE: u64 = 0xa0 + BASE;
+pub const BIST_PATTERN_TABLE: u64 = 0x120 + BASE;
+pub const BIST_MAX_ELEMENT_IDX: u64 = 0x140 + BASE;
+pub const BIST_CYCLE_LIMIT: u64 = 0x148 + BASE;
+pub const BIST_STOP_ON_FAILURE: u64 = 0x150 + BASE;
+pub const BIST_FAIL: u64 = 0x158 + BASE;
+pub const BIST_FAIL_CYCLE: u64 = 0x160 + BASE;
+pub const BIST_EXPECTED: u64 = 0x168 + BASE;
+pub const BIST_RECEIVED: u64 = 0x170 + BASE;
+pub const BIST_SIGNATURE: u64 = 0x178 + BASE;
+pub const EX: u64 = 0x180 + BASE;
+
+pub trait MemoryIntf {
+    fn read(&mut self, addr: u64) -> u64;
+    fn write(&mut self, addr: u64, data: u64);
+}
