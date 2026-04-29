@@ -123,7 +123,7 @@ class Stac2BringupConfig extends Config(
       ))
     )),
     client = Some(testchipip.serdes.old.SerialTLClientParams()),                                        // Allow chip to access this device's memory (DRAM)
-    phyParams = testchipip.serdes.old.ExternalSyncSerialParams(width = 1) // bringup platform provides the clock
+    phyParams = testchipip.serdes.old.ExternalSyncSerialParams(width = 1) // chip provides the clock
   ))) ++
 
   //============================
