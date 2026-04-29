@@ -115,15 +115,15 @@ class Stac2BringupConfig extends Config(
     //=============================
   // Setup the SerialTL side on the bringup device
   //=============================
-  new testchipip.serdes.WithSerialTL(Seq(testchipip.serdes.SerialTLParams(
-    manager = Some(testchipip.serdes.SerialTLManagerParams(
-      memParams = Seq(testchipip.serdes.ManagerRAMParams(                            // Bringup platform can access all memory from 0 to DRAM_BASE
+  new testchipip.serdes.old.WithSerialTL(Seq(testchipip.serdes.old.SerialTLParams(
+    manager = Some(testchipip.serdes.old.SerialTLManagerParams(
+      memParams = Seq(testchipip.serdes.old.ManagerRAMParams(                            // Bringup platform can access all memory from 0 to DRAM_BASE
         address = BigInt("00000000", 16),
         size    = BigInt("80000000", 16)
       ))
     )),
-    client = Some(testchipip.serdes.SerialTLClientParams()),                                        // Allow chip to access this device's memory (DRAM)
-    phyParams = testchipip.serdes.DecoupledInternalSyncSerialPhyParams(phitWidth=1, flitWidth=16, freqMHz = Stac2Bringup.freqMHz) // bringup platform provides the clock
+    client = Some(testchipip.serdes.old.SerialTLClientParams()),                                        // Allow chip to access this device's memory (DRAM)
+    phyParams = testchipip.serdes.old.ExternalSyncSerialParams(width = 1) // chip provides the clock
   ))) ++
 
   //============================
@@ -171,7 +171,7 @@ class Stac2BringupSystem(implicit p: Parameters)
     extends edu.berkeley.cs.chippy.ChippySystem
     with testchipip.soc.CanHaveSubsystemInjectors // Enables the subsystem injector API
     with testchipip.soc.CanHaveSwitchableOffchipBus // Enables optional off-chip-bus with interface-switch
-    with testchipip.serdes.CanHavePeripheryTLSerial
+    with testchipip.serdes.old.CanHavePeripheryTLSerial
     with testchipip.tsi.CanHavePeripheryUARTTSI
     with edu.berkeley.cs.chippy.clocking.HasChippyPRCI
     with CanHaveMasterTLMemPort {
@@ -294,7 +294,8 @@ class Stac2BringupTop(implicit p: Parameters) extends LazyModule with BindingSco
     system.module.interrupts := DontCare
 
     // TODO: Get correct serial TL directionality.
-    system.serial_tls(0) := DontCare
+    val serial_tl = IO(chiselTypeOf(system.old_serial_tls(0).getWrappedValue))
+    serial_tl <> system.old_serial_tls(0)
 
     val uart = IO(chiselTypeOf(system.uart_tsi.get.uart))
     uart <> system.uart_tsi.get.uart

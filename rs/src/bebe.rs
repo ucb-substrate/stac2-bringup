@@ -1,8 +1,7 @@
 use crate::config::CONFIG;
-use crate::executor::Executor;
-use crate::pattern::{SramAddr, SramWord};
-use crate::{BringupState, BEBE_HOST, FPGA_FREQ_MHZ, PY_DIR};
-use std::process::Command;
+use crate::executor::{ScratchpadExecutor, TestSramExecutor};
+use crate::{BringupState, MemoryIntf, BEBE_HOST, FPGA_FREQ_MHZ, PY_DIR};
+use std::process::{Child, Command};
 
 pub const CHIP_INTENDED_BAUDRATE: u64 = 115200;
 pub const CHIP_INTENDED_FREQ_MHZ: u64 = 100;
@@ -13,6 +12,25 @@ impl BringupState {
             / CHIP_INTENDED_FREQ_MHZ
             / self.half_clk_div_ratio as u64
             / 2
+    }
+
+    pub fn bebe_intf(&self) -> BebeIntf<'_> {
+        BebeIntf::new(self)
+    }
+
+    pub fn bebe_wait(&self) -> std::io::Result<Child> {
+        Command::new("uv")
+            .args([
+                "run",
+                BEBE_HOST,
+                "--port",
+                &CONFIG.stac_com_port,
+                "--baudrate",
+                &self.bebe_baudrate().to_string(),
+                "--wait",
+            ])
+            .current_dir(PY_DIR)
+            .spawn()
     }
 
     pub fn bebe_write(&self, addr: u64, data: u64, len: u64) {
@@ -72,60 +90,28 @@ impl BringupState {
     }
 }
 
-pub struct BebeExecutor<'a> {
-    state: &'a BringupState,
-    sram_id: u64,
-}
+pub struct BebeIntf<'a>(&'a BringupState);
 
-pub struct BebeScratchpadExecutor<'a>(&'a BringupState);
+impl<'a> BebeIntf<'a> {
+    pub fn new(state: &'a BringupState) -> Self {
+        Self(state)
+    }
 
-impl<'a> BebeExecutor<'a> {
-    pub fn new(state: &'a BringupState, sram_id: u64) -> Self {
-        Self { state, sram_id }
+    pub fn scratchpad_executor(self) -> ScratchpadExecutor<Self> {
+        ScratchpadExecutor::new(self)
+    }
+
+    pub fn test_sram_executor(self, sram_id: u64) -> TestSramExecutor<Self> {
+        TestSramExecutor::new(self, sram_id)
     }
 }
 
-impl<'a> Executor for BebeExecutor<'a> {
-    fn init(&mut self) {}
-    fn read(&mut self, addr: SramAddr) -> SramWord {
-        self.state.bebe_write(0x1000, addr as u64, 8);
-        // no need to set the mask
-        // bebe_write(0x1010, u64::MAX, 8);
-        self.state.bebe_write(0x1018, 0, 8);
-        self.state.bebe_write(0x1020, self.sram_id, 8);
-        self.state.bebe_write(0x1028, 0, 8);
-        self.state.bebe_write(0x1038, 0, 8);
-        self.state.bebe_write(0x1180, u64::MAX, 8);
-        self.state.bebe_read(0x1040, 8)
+impl<'a> MemoryIntf for BebeIntf<'a> {
+    fn read(&mut self, addr: u64) -> u64 {
+        self.0.bebe_read(addr, 8)
     }
 
-    fn write(&mut self, addr: SramAddr, data: SramWord, mask: SramWord) {
-        self.state.bebe_write(0x1000, addr as u64, 8);
-        self.state.bebe_write(0x1008, data, 8);
-        self.state.bebe_write(0x1010, mask, 8);
-        self.state.bebe_write(0x1018, u64::MAX, 8);
-        self.state.bebe_write(0x1020, self.sram_id, 8);
-        self.state.bebe_write(0x1028, 0, 8);
-        self.state.bebe_write(0x1038, 0, 8);
-        self.state.bebe_write(0x1180, u64::MAX, 8);
+    fn write(&mut self, addr: u64, data: u64) {
+        self.0.bebe_write(addr, data, 8);
     }
-
-    fn finish(&mut self) {}
-}
-
-pub const SCRATCHPAD_BASE_ADDR: u64 = 0x8000000;
-
-impl<'a> Executor for BebeScratchpadExecutor<'a> {
-    fn init(&mut self) {}
-    fn read(&mut self, addr: SramAddr) -> SramWord {
-        self.0.bebe_read(SCRATCHPAD_BASE_ADDR + addr as u64 * 8, 8)
-    }
-
-    fn write(&mut self, addr: SramAddr, data: SramWord, mask: SramWord) {
-        assert_eq!(mask, 0xFF, "scratchpad only supports mask of all 1s");
-        self.0
-            .bebe_write(SCRATCHPAD_BASE_ADDR + addr as u64 * 8, data, 8);
-    }
-
-    fn finish(&mut self) {}
 }

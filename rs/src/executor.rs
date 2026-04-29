@@ -1,5 +1,6 @@
 use crate::pattern::{FixedPattern, FixedSramOp, SramAddr, SramSize, SramWord};
 use crate::state::SramState;
+use crate::{MemoryIntf, ADDR, DIN, DOUT, EX, MASK, SCRATCHPAD_BASE_ADDR, SRAM_ID, SRAM_SEL, WE};
 
 pub trait Executor {
     fn init(&mut self);
@@ -31,6 +32,65 @@ impl Executor for IdealExecutor {
 
     fn write(&mut self, addr: SramAddr, data: SramWord, mask: SramWord) {
         self.state.write(addr, data, mask);
+    }
+
+    fn finish(&mut self) {}
+}
+
+pub struct TestSramExecutor<I> {
+    intf: I,
+    sram_id: u64,
+}
+
+pub struct ScratchpadExecutor<I>(I);
+
+impl<I> TestSramExecutor<I> {
+    pub fn new(intf: I, sram_id: u64) -> Self {
+        Self { intf, sram_id }
+    }
+}
+
+impl<I: MemoryIntf> Executor for TestSramExecutor<I> {
+    fn init(&mut self) {}
+    fn read(&mut self, addr: SramAddr) -> SramWord {
+        self.intf.write(ADDR, addr as u64);
+        // no need to set the din/mask
+        self.intf.write(SRAM_ID, self.sram_id);
+        self.intf.write(SRAM_SEL, 0);
+        self.intf.write(EX, u64::MAX);
+        self.intf.read128(DOUT)
+    }
+
+    fn write(&mut self, addr: SramAddr, data: SramWord, mask: SramWord) {
+        self.intf.write(ADDR, addr as u64);
+        self.intf.write128(DIN, data);
+        self.intf.write128(MASK, mask);
+        self.intf.write(WE, 1);
+        self.intf.write(SRAM_ID, self.sram_id);
+        self.intf.write(SRAM_SEL, 0);
+        self.intf.write(EX, u64::MAX);
+    }
+
+    fn finish(&mut self) {}
+}
+
+impl<I> ScratchpadExecutor<I> {
+    pub fn new(intf: I) -> Self {
+        Self(intf)
+    }
+}
+
+impl<I: MemoryIntf> Executor for ScratchpadExecutor<I> {
+    fn init(&mut self) {}
+    fn read(&mut self, addr: SramAddr) -> SramWord {
+        self.0.read128(SCRATCHPAD_BASE_ADDR + addr as u64 * 8)
+    }
+
+    fn write(&mut self, addr: SramAddr, data: SramWord, mask: SramWord) {
+        assert_eq!(mask, 0xFF, "scratchpad only supports mask of all 1s");
+        assert_eq!(data >> 64, 0, "scratchpad only supports 64 bit writes");
+        self.0
+            .write(SCRATCHPAD_BASE_ADDR + addr as u64 * 8, data as u64);
     }
 
     fn finish(&mut self) {}
