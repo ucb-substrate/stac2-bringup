@@ -1,8 +1,8 @@
 use crate::state::SramState;
-use rand_chacha::rand_core::{RngCore, SeedableRng};
+use rand::{Rng, RngExt, SeedableRng, rngs::ChaCha20Rng};
 use serde::{Deserialize, Serialize};
 
-pub type SramWord = u64;
+pub type SramWord = u128;
 pub type SramAddr = u32;
 
 /// A [`Pattern`] is a general pattern that may be applied
@@ -62,7 +62,7 @@ impl Pattern {
                     addr_seq: AddrSeq::Up,
                     ops: vec![SramOp::Write {
                         data: SramInput::Fixed(0),
-                        mask: SramInput::Fixed(u64::MAX),
+                        mask: SramInput::Fixed(u128::MAX),
                     }],
                 },
                 Element {
@@ -70,8 +70,8 @@ impl Pattern {
                     ops: vec![
                         SramOp::Read,
                         SramOp::Write {
-                            data: SramInput::Fixed(u64::MAX),
-                            mask: SramInput::Fixed(u64::MAX),
+                            data: SramInput::Fixed(u128::MAX),
+                            mask: SramInput::Fixed(u128::MAX),
                         },
                     ],
                 },
@@ -81,7 +81,7 @@ impl Pattern {
                         SramOp::Read,
                         SramOp::Write {
                             data: SramInput::Fixed(0),
-                            mask: SramInput::Fixed(u64::MAX),
+                            mask: SramInput::Fixed(u128::MAX),
                         },
                     ],
                 },
@@ -96,7 +96,7 @@ impl Pattern {
                     addr_seq: AddrSeq::Up,
                     ops: vec![SramOp::Write {
                         data: SramInput::Fixed(0),
-                        mask: SramInput::Fixed(u64::MAX),
+                        mask: SramInput::Fixed(u128::MAX),
                     }],
                 },
                 Element {
@@ -104,8 +104,8 @@ impl Pattern {
                     ops: vec![
                         SramOp::Read,
                         SramOp::Write {
-                            data: SramInput::Fixed(u64::MAX),
-                            mask: SramInput::Fixed(u64::MAX),
+                            data: SramInput::Fixed(u128::MAX),
+                            mask: SramInput::Fixed(u128::MAX),
                         },
                     ],
                 },
@@ -115,7 +115,7 @@ impl Pattern {
                         SramOp::Read,
                         SramOp::Write {
                             data: SramInput::Fixed(0),
-                            mask: SramInput::Fixed(u64::MAX),
+                            mask: SramInput::Fixed(u128::MAX),
                         },
                     ],
                 },
@@ -124,8 +124,8 @@ impl Pattern {
                     ops: vec![
                         SramOp::Read,
                         SramOp::Write {
-                            data: SramInput::Fixed(u64::MAX),
-                            mask: SramInput::Fixed(u64::MAX),
+                            data: SramInput::Fixed(u128::MAX),
+                            mask: SramInput::Fixed(u128::MAX),
                         },
                     ],
                 },
@@ -135,7 +135,7 @@ impl Pattern {
                         SramOp::Read,
                         SramOp::Write {
                             data: SramInput::Fixed(0),
-                            mask: SramInput::Fixed(u64::MAX),
+                            mask: SramInput::Fixed(u128::MAX),
                         },
                     ],
                 },
@@ -155,7 +155,7 @@ impl Pattern {
                     ops: vec![
                         SramOp::Write {
                             data: SramInput::Fixed(0),
-                            mask: SramInput::Fixed(u64::MAX),
+                            mask: SramInput::Fixed(u128::MAX),
                         },
                         SramOp::Read,
                     ],
@@ -163,7 +163,7 @@ impl Pattern {
                 Element {
                     addr_seq: AddrSeq::Rand(n),
                     ops: vec![SramOp::Rand {
-                        mask: RandMask::Fixed(u64::MAX),
+                        mask: RandMask::Fixed(u128::MAX),
                     }],
                 },
             ],
@@ -229,11 +229,11 @@ impl FixedPattern {
     }
 
     pub fn ops(&self) -> impl Iterator<Item = FixedSramOp> {
-        let mut rng = rand_chacha::ChaCha20Rng::seed_from_u64(self.seed);
+        let mut rng = ChaCha20Rng::seed_from_u64(self.seed);
         let mut state = SramState::new(self.size);
         let mut ops = Vec::new();
-        let dmask = u64::MAX >> (64 - self.size.width);
-        let mask_mask = u64::MAX >> (64 - self.size.mask_width);
+        let dmask = u128::MAX >> (64 - self.size.width);
+        let mask_mask = u128::MAX >> (64 - self.size.mask_width);
         for elt in self.pattern.elements.iter() {
             let addrs: Vec<u32> = match elt.addr_seq {
                 AddrSeq::Up => (0..self.size.depth).collect(),
@@ -256,11 +256,11 @@ impl FixedPattern {
                             addr,
                             data: match data {
                                 SramInput::Fixed(data) => *data & dmask,
-                                SramInput::Rand => rng.next_u64() & dmask,
+                                SramInput::Rand => rng.random::<u128>() & dmask,
                             },
                             mask: match mask {
                                 SramInput::Fixed(mask) => *mask & mask_mask,
-                                SramInput::Rand => rng.next_u64() & mask_mask,
+                                SramInput::Rand => rng.random::<u128>() & mask_mask,
                             },
                         },
                         SramOp::Rand { mask } => {
@@ -274,12 +274,12 @@ impl FixedPattern {
                             } else {
                                 let mask = match mask {
                                     RandMask::Fixed(mask) => *mask & mask_mask,
-                                    RandMask::Rand => rng.next_u64() & mask_mask,
+                                    RandMask::Rand => rng.random::<u128>() & mask_mask,
                                 };
 
                                 FixedSramOp::Write {
                                     addr,
-                                    data: rng.next_u64() & dmask,
+                                    data: rng.random::<u128>() & dmask,
                                     mask,
                                 }
                             }

@@ -1,13 +1,13 @@
 [package]
 name = "stac2"
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-const_format = "0.2.35"
-lazy_static = "1.5.0"
-rand_chacha = { version = "0.3.1", features = ["serde"] }
-serde = { version = "1.0.192", features = ["derive"] }
-toml = "1.1.2"
+const_format = "0.2"
+lazy_static = "1"
+rand = { version = "0.10", features = ["serde", "chacha"] }
+serde = { version = "1", features = ["derive"] }
+toml = "1"
