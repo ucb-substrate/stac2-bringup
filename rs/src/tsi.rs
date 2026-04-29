@@ -60,11 +60,9 @@ pub fn tsi_read(addr: u64) -> u64 {
         .expect("failed to run pyuartsi");
     let output = String::from_utf8(output.stdout).expect("failed to parse pyuartsi output");
     println!("{}", output);
-    // output
-    //     .trim()
-    //     .parse()
-    //     .expect("failed to convert pyuartsi output to u64")
-    0
+    let rhs = output.split_once("=>").unwrap().1.trim();
+    let num = rhs.strip_prefix("0x").unwrap_or(rhs);
+    u64::from_str_radix(num, 16).unwrap()
 }
 
 pub fn ctl_write(addr: u64, data: u64) {

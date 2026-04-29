@@ -55,7 +55,9 @@ impl BringupState {
     }
 
     pub fn init_chip(&self) {
+        let mut handle = self.bebe_wait().unwrap();
         self.enable_clk();
         self.reset_chip();
+        handle.wait().unwrap();
     }
 }

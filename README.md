@@ -14,23 +14,18 @@ Update the config in `Stac.toml` with these serial ports.
 Requirements:
 - [Rust](https://rust-lang.org/tools/install/)
 - [uv](https://docs.astral.sh/uv/getting-started/installation/#installation-methods)
+- [evcxr](https://github.com/evcxr/evcxr/blob/main/evcxr_repl/README.md)
 
-Install `irust`:
-
-```bash
-cargo install irust
-```
-
-Start an `irust` repl from the root of this repo:
+Start an `excvr` repl from the root of this repo:
 
 ```bash
-irust
+excvr
 ```
 
 In the `irust` repl, run the following commands:
 
 ```rs
-:add --path rs
+:dep stac2 = { path = "rs" }
 use stac2::*;
 let mut l = BringupState::new();
 ```

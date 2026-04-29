@@ -148,7 +148,7 @@ if (args.rlen):
     log(f"[bebe host] read result:")
     data = rx(read_len)
     if args.quiet:
-        print(int.from_bytes(data, "big"))
+        print(int.from_bytes(data, "little"))
     else:
         print(hexdump(data))
 
