@@ -30,9 +30,9 @@ class Stac2BringupSpec extends AnyFunSpec {
       }
     }
 
-    it("should generate a Arty100T bitstream") {
+    it("should generate Arty100T bitstream") {
       val targetDir =
-        Utils.buildRoot / "Stac2Bringup_should_generate_a_Arty100T_bistream"
+        Utils.buildRoot / "Stac2Bringup_should_generate_Arty100T_bistream"
       implicit val p = new Stac2BringupConfig
       Utils.genBitstream(targetDir, LazyModule(new Stac2BringupTop).module)
     }
