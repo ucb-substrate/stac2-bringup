@@ -1,6 +1,6 @@
 //! Utilities for accessing chip memory.
 
-pub const SCRATCHPAD_BASE_ADDR: u64 = 0x8000000;
+pub const SCRATCHPAD_BASE: u64 = 0x8000000;
 pub const BASE: u64 = 0x1000;
 #[allow(clippy::identity_op)]
 pub const ADDR: u64 = 0x0 + BASE;
@@ -18,7 +18,7 @@ pub const BIST_MAX_COL_ADDR: u64 = 0x98 + BASE;
 pub const BIST_INNER_DIM: u64 = 0xA0 + BASE;
 pub const BIST_ELEMENT_SEQUENCE: u64 = 0xA8 + BASE;
 pub const BIST_PATTERN_TABLE: u64 = 0x128 + BASE;
-pub const BIST_MAX_ELEMENT_IDX: u64 = 0x148 + BASE;
+pub const BIST_MAX_ELEMENT_IDX: u64 = 0x1A8 + BASE;
 pub const BIST_CYCLE_LIMIT: u64 = 0x1B0 + BASE;
 pub const BIST_STOP_ON_FAILURE: u64 = 0x1B8 + BASE;
 pub const BIST_FAIL: u64 = 0x1C0 + BASE;

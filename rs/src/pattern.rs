@@ -49,9 +49,9 @@ pub enum SramInput {
 
 #[derive(Copy, Clone, Eq, PartialEq, Hash, Debug, Serialize, Deserialize)]
 pub struct SramSize {
-    pub(crate) width: SramWord,
-    pub(crate) depth: SramAddr,
-    pub(crate) mask_width: SramWord,
+    pub(crate) depth: u32,
+    pub(crate) width: u32,
+    pub(crate) mask_width: u32,
 }
 
 impl Pattern {
@@ -172,13 +172,13 @@ impl Pattern {
 }
 
 impl SramSize {
-    pub fn new(width: SramWord, depth: SramAddr, mask_width: SramWord) -> Self {
+    pub const fn new(depth: u32, width: u32, wmask_granularity: u32) -> Self {
+        let mask_width = width / wmask_granularity;
         assert!(width > 0, "width must be greater than 0");
         assert!(depth > 0, "depth must be greater than 0");
         assert!(mask_width > 0, "mask width must be greater than 0");
-        assert_eq!(
-            width % mask_width,
-            0,
+        assert!(
+            width.is_multiple_of(mask_width),
             "SRAM width must be an even multiple of mask width"
         );
         Self {
@@ -188,13 +188,13 @@ impl SramSize {
         }
     }
 
-    pub fn width(&self) -> SramWord {
+    pub fn width(&self) -> u32 {
         self.width
     }
-    pub fn depth(&self) -> SramAddr {
+    pub fn depth(&self) -> u32 {
         self.depth
     }
-    pub fn mask_width(&self) -> SramWord {
+    pub fn mask_width(&self) -> u32 {
         self.mask_width
     }
 }
@@ -232,8 +232,8 @@ impl FixedPattern {
         let mut rng = ChaCha20Rng::seed_from_u64(self.seed);
         let mut state = SramState::new(self.size);
         let mut ops = Vec::new();
-        let dmask = u128::MAX >> (64 - self.size.width);
-        let mask_mask = u128::MAX >> (64 - self.size.mask_width);
+        let dmask = u128::MAX >> (128 - self.size.width);
+        let mask_mask = u128::MAX >> (128 - self.size.mask_width);
         for elt in self.pattern.elements.iter() {
             let addrs: Vec<u32> = match elt.addr_seq {
                 AddrSeq::Up => (0..self.size.depth).collect(),

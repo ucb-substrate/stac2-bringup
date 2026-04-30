@@ -1,12 +1,9 @@
-use std::process::Command;
-
 use crate::{
-    MemoryIntf, PY_DIR,
-    config::CONFIG,
+    BringupState, MemoryIntf,
     executor::{ScratchpadExecutor, TestSramExecutor},
 };
 
-pub const FPGA_BAUDRATE: u64 = 115200;
+pub const FPGA_BAUD_RATE: u32 = 115200;
 pub const FPGA_FREQ_MHZ: u64 = 50;
 
 pub const CONTROLLER_BASE: u64 = 0x90000000;
@@ -24,72 +21,36 @@ pub const CLK_EN: u64 = 0x48 + CONTROLLER_BASE;
 pub const RESET_REG: u64 = 0x50 + CONTROLLER_BASE;
 pub const SRAM_BIST_DONE: u64 = 0x58 + CONTROLLER_BASE;
 
-pub fn tsi_write(addr: u64, data: u32) {
-    let status = Command::new("uv")
-        .args([
-            "run",
-            "python3",
-            "-m",
-            "pyuartsi",
-            "--port",
-            &CONFIG.fpga_com_port,
-            "--baudrate",
-            &FPGA_BAUDRATE.to_string(),
-            "--init_write",
-            &format!("0x{addr:X}=0x{data:X}"),
-        ])
-        .current_dir(PY_DIR)
-        .status()
-        .expect("failed to run pyuartsi");
-    if !status.success() {
-        panic!("pyuartsi exited with non-zero exit code")
+impl BringupState {
+    pub fn tsi_intf(&mut self) -> TsiIntf<'_> {
+        TsiIntf::new(self)
     }
 }
 
-pub fn tsi_read(addr: u64) -> u32 {
-    let output = Command::new("uv")
-        .args([
-            "run",
-            "python3",
-            "-m",
-            "pyuartsi",
-            "--port",
-            &CONFIG.fpga_com_port,
-            "--baudrate",
-            &FPGA_BAUDRATE.to_string(),
-            "--init_read",
-            &format!("0x{addr:X}"),
-        ])
-        .current_dir(PY_DIR)
-        .output()
-        .expect("failed to run pyuartsi");
-    let output = String::from_utf8(output.stdout).expect("failed to parse pyuartsi output");
-    let rhs = output.split_once("=>").unwrap().1.trim();
-    let num = rhs.strip_prefix("0x").unwrap_or(rhs);
-    u32::from_str_radix(num, 16).unwrap()
-}
+pub struct TsiIntf<'a>(&'a mut BringupState);
 
-pub struct TsiIntf;
-
-impl TsiIntf {
-    pub fn scratchpad_executor() -> ScratchpadExecutor<Self> {
-        ScratchpadExecutor::new(TsiIntf)
+impl<'a> TsiIntf<'a> {
+    pub fn new(state: &'a mut BringupState) -> Self {
+        Self(state)
     }
 
-    pub fn test_sram_executor(sram_id: u64) -> TestSramExecutor<Self> {
-        TestSramExecutor::new(TsiIntf, sram_id)
+    pub fn scratchpad_executor(self) -> ScratchpadExecutor<Self> {
+        ScratchpadExecutor::new(self)
+    }
+
+    pub fn test_sram_executor(self, sram_id: u64) -> TestSramExecutor<Self> {
+        TestSramExecutor::new(self, sram_id)
     }
 }
 
-impl MemoryIntf for TsiIntf {
+impl<'a> MemoryIntf for TsiIntf<'a> {
     fn read(&mut self, addr: u64) -> u64 {
-        let r0 = tsi_read(addr);
-        let r1 = tsi_read(addr + 4);
+        let r0 = self.0.tsi.read_word(addr).expect("failed to read");
+        let r1 = self.0.tsi.read_word(addr + 4).expect("failed to read");
         ((r1 as u64) << 32) | r0 as u64
     }
 
     fn write(&mut self, addr: u64, data: u64) {
-        tsi_write(addr, (data & 0xffffffff) as u32);
-        tsi_write(addr + 4, (data >> 32) as u32);
+        self.0.tsi.write_word(addr, data).expect("failed to write");
     }
 }

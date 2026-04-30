@@ -1,4 +1,3 @@
-use crate::config::CONFIG;
 use crate::executor::{ScratchpadExecutor, TestSramExecutor};
 use crate::{BEBE_HOST, BringupState, FPGA_FREQ_MHZ, MemoryIntf, PY_DIR};
 use std::process::{Child, Command};
@@ -24,7 +23,7 @@ impl BringupState {
                 "run",
                 BEBE_HOST,
                 "--port",
-                &CONFIG.stac_com_port,
+                &self.config.stac_com_port,
                 "--baudrate",
                 &self.bebe_baudrate().to_string(),
                 "--wait",
@@ -42,7 +41,7 @@ impl BringupState {
                 "run",
                 BEBE_HOST,
                 "--port",
-                &CONFIG.stac_com_port,
+                &self.config.stac_com_port,
                 "--baudrate",
                 &self.bebe_baudrate().to_string(),
                 "--quiet",
@@ -69,7 +68,7 @@ impl BringupState {
                 "run",
                 BEBE_HOST,
                 "--port",
-                &CONFIG.stac_com_port,
+                &self.config.stac_com_port,
                 "--baudrate",
                 &self.bebe_baudrate().to_string(),
                 "--quiet",
