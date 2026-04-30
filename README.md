@@ -2,6 +2,12 @@
 
 ## Setup
 
+Requirements:
+- [openFPGALoader](https://trabucayre.github.io/openFPGALoader/guide/install.html)
+- [Rust](https://rust-lang.org/tools/install/)
+- [uv](https://docs.astral.sh/uv/getting-started/installation/#installation-methods)
+- [evcxr](https://github.com/evcxr/evcxr/blob/main/evcxr_repl/README.md)
+
 Ensure that the STAC board and Arty100T FPGA are connected via PMODs and that the FPGA has been flashed with the correct bitstream:
 
 ```bash
@@ -10,11 +16,6 @@ openFPGALoader -b arty_a7_100t --write-flash --verify --reset Stac2BringupTop.bi
 
 Connect the UART of the board and FPGA to a host computer and note their respective serial ports.
 Update the config in `Stac.toml` with these serial ports.
-
-Requirements:
-- [Rust](https://rust-lang.org/tools/install/)
-- [uv](https://docs.astral.sh/uv/getting-started/installation/#installation-methods)
-- [evcxr](https://github.com/evcxr/evcxr/blob/main/evcxr_repl/README.md)
 
 Start an `excvr` repl from the root of this repo:
 
