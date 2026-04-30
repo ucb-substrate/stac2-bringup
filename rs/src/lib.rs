@@ -1,6 +1,7 @@
 use const_format::concatcp;
 
 pub mod bebe;
+pub mod bist;
 pub mod config;
 pub mod executor;
 pub mod memory;
