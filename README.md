@@ -23,7 +23,7 @@ Start an `excvr` repl from the root of this repo:
 excvr
 ```
 
-In the `irust` repl, run the following commands:
+In the `evcxr` repl, run the following commands:
 
 ```rs
 :dep stac2 = { path = "rs" }
