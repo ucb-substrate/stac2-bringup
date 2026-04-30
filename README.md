@@ -7,20 +7,39 @@ Requirements:
 - [Rust](https://rust-lang.org/tools/install/)
 - [uv](https://docs.astral.sh/uv/getting-started/installation/#installation-methods)
 - [evcxr](https://github.com/evcxr/evcxr/blob/main/evcxr_repl/README.md)
+- STAC 2 evaluation board
+- Arty A7-100T FPGA development board
 
-Ensure that the STAC board and Arty100T FPGA are connected via PMODs and that the FPGA has been flashed with the correct bitstream:
+Your bringup setup should look like this:
+![Bringup setup with STAC2 and Arty A7-100T FPGA](docs/figures/bringup_setup.jpg)
+
+Checklist:
+- Use 4 headers to short right two pins of J2/J3, left two pins of J18, and pins of J19.
+- Ensure that both clksel switches (two leftmost switches of S5) are in the upmost position.
+  Remaining switches should be in the lower position.
+- All 3 big switches (S1, S2, S3) should be in the lower position.
+- CK_RST header of the FPGA should not be shorted.
+- A female-to-male jumper cable should be used to connect IO0 on the FPGA to pin 3 of J12 (bottom row, second to left).
+
+Connect the STAC board and FPGA via PMODs and connect the USBs of the two boards to a host computer.
+Note their respective serial ports. Update the config in `Stac.toml` with these serial ports.
+
+Flash the FPGA with the latest bitstream:
 
 ```bash
-openFPGALoader -b arty_a7_100t --write-flash --verify --reset Stac2BringupTop.bit
+openFPGALoader -b arty_a7_100t --write-flash --verify --reset fpga/Stac2BringupTop.bit
 ```
 
-Connect the UART of the board and FPGA to a host computer and note their respective serial ports.
-Update the config in `Stac.toml` with these serial ports.
+At this point:
+- The green, blue, and red LEDs at the top of the STAC2 evaluation board should be on.
+- The LEDs at the bottom of the FPGA should be changing colors.
 
-Start an `excvr` repl from the root of this repo:
+You may have to wait some time for the FPGA to start running the new RTL after flashing.
+
+Start an `evcxr` repl from the root of this repo:
 
 ```bash
-excvr
+evcxr
 ```
 
 In the `evcxr` repl, run the following commands:
@@ -61,6 +80,17 @@ Available tests can be found in `rs/tests.rs`. To run the MATS+ test on SRAM 0:
 ```rs
 l.mats_plus_tsi_test_sram(0)
 ```
+
+Other useful functions:
+
+```rs
+l.enable_clk(); // Enable chip clock.
+l.disable_clk(); // Disable chip clock.
+l.reset_chip(); // Reset chip.
+```
+
+The chip can also be physically reset using BTN0 on the FPGA.
+The reset switches on the STAC2 evaluation board are not functional.
 
 
 ## Development
