@@ -1,6 +1,8 @@
+use serde::{Deserialize, Serialize};
+
 use crate::pattern::{FixedPattern, FixedSramOp, SramAddr, SramSize, SramWord};
 use crate::state::SramState;
-use crate::{ADDR, DIN, DOUT, EX, MASK, MemoryIntf, SCRATCHPAD_BASE_ADDR, SRAM_ID, SRAM_SEL, WE};
+use crate::{ADDR, DIN, DOUT, EX, MASK, MemoryIntf, SCRATCHPAD_BASE, SRAM_ID, SRAM_SEL, WE};
 
 pub trait Executor {
     fn init(&mut self);
@@ -84,26 +86,25 @@ impl<I> ScratchpadExecutor<I> {
 impl<I: MemoryIntf> Executor for ScratchpadExecutor<I> {
     fn init(&mut self) {}
     fn read(&mut self, addr: SramAddr) -> SramWord {
-        self.0.read(SCRATCHPAD_BASE_ADDR + addr as u64 * 8) as SramWord
+        self.0.read(SCRATCHPAD_BASE + addr as u64 * 8) as SramWord
     }
 
     fn write(&mut self, addr: SramAddr, data: SramWord, mask: SramWord) {
         assert_eq!(mask, 0xFF, "scratchpad only supports mask of all 1s");
         assert_eq!(data >> 64, 0, "scratchpad only supports 64 bit writes");
-        self.0
-            .write(SCRATCHPAD_BASE_ADDR + addr as u64 * 8, data as u64);
+        self.0.write(SCRATCHPAD_BASE + addr as u64 * 8, data as u64);
     }
 
     fn finish(&mut self) {}
 }
 
 /// A collection of all errors produced by executing a test.
-#[derive(Debug, Clone, Eq, PartialEq, Hash)]
+#[derive(Debug, Clone, Eq, PartialEq, Hash, Serialize, Deserialize)]
 pub struct TestPatternErrors {
     pub errors: Vec<BistError>,
 }
 
-#[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
+#[derive(Debug, Copy, Clone, Eq, PartialEq, Hash, Serialize, Deserialize)]
 pub struct BistError {
     op: usize,
     expected: SramWord,

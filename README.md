@@ -36,7 +36,17 @@ Try initializing the chip:
 l.init_chip();
 ```
 
-The blue UART light on the STAC PCB should light up if the chip is functioning correctly.
+You should see the following output. If you don't, rerun `l.init_chip()`.
+
+```bash
+[bebe host] Waiting for DUT...
+[bebe host] DUT found!
+[bebe host] Trying to nock...
+47 4F 42 45 41 52 53 21                           GOBEARS!
+
+[bebe host] Connected to DUT!
+()
+```
 
 You should then be able to write and read scratchpad memory on chip:
 
