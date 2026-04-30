@@ -1,3 +1,6 @@
+use crate::memory::*;
+use crate::MemoryIntf;
+
 const ELEMENT_TABLE_LENGTH: usize = 8;
 const OPERATIONS_PER_ELEMENT: usize = 8;
 const PATTERN_TABLE_LENGTH: usize = 8;
@@ -15,7 +18,7 @@ enum OperationType {
 enum OpElementSeq {
     Up,
     Down,
-    Rand(usize),
+    Rand(u64),
 }
 
 enum InnerDim {
@@ -38,7 +41,7 @@ struct OpElement {
 }
 
 struct WaitElement {
-    cycles: usize,
+    cycles: u64,
 }
 
 enum Element {
@@ -48,8 +51,8 @@ enum Element {
 
 pub struct BistExecutor<I> {
     intf: I,
-    rows: usize,
-    cols: usize,
+    rows: u64,
+    cols: u64,
     inner_dim: InnerDim,
     // TODO: seed
     patterns: Vec<u128>,
@@ -59,8 +62,10 @@ pub struct BistExecutor<I> {
 
 impl<I> BistExecutor<I> {
     pub fn validate(&self) {
-        assert!(self.rows <= 2usize.strict_pow(MAX_ROW_ADDR_WIDTH as u32));
-        assert!(self.cols <= 2usize.strict_pow(MAX_COL_ADDR_WIDTH as u32));
+        assert!(self.rows > 0);
+        assert!(self.cols > 0);
+        assert!(self.rows <= 2u64.strict_pow(MAX_ROW_ADDR_WIDTH as u32));
+        assert!(self.cols <= 2u64.strict_pow(MAX_COL_ADDR_WIDTH as u32));
         assert!(self.patterns.len() <= PATTERN_TABLE_LENGTH);
         assert!(self.elts.len() <= ELEMENT_TABLE_LENGTH);
         for elt in self.elts.iter() {
@@ -72,13 +77,57 @@ impl<I> BistExecutor<I> {
                         assert!(op.mask_pattern_idx < self.patterns.len());
                     }
                     if let OpElementSeq::Rand(n) = e.seq {
-                        assert!(n < 2usize.strict_pow(RAND_ADDR_WIDTH as u32));
+                        assert!(n < 2u64.strict_pow(RAND_ADDR_WIDTH as u32));
                     }
                 }
                 Element::Wait(e) => {
-                    assert!(e.cycles < 2usize.strict_pow(RAND_ADDR_WIDTH as u32));
+                    assert!(e.cycles < 2u64.strict_pow(RAND_ADDR_WIDTH as u32));
                 }
             }
+        }
+    }
+}
+
+impl<I: MemoryIntf> BistExecutor<I> {
+    fn init(&self) {
+        self.intf.write(BIST_MAX_ROW_ADDR, self.rows - 1);
+        self.intf.write(BIST_MAX_COL_ADDR, self.cols - 1);
+        self.intf.write(BIST_INNER_DIM, self.inner_dim.encode());
+        todo!("Claude: continue filling this in.");
+    }
+}
+
+impl InnerDim {
+    pub fn encode(&self) -> u64 {
+        match self {
+            Self::Row => 0,
+            Self::Col => 1,
+        }
+    }
+}
+
+impl Element {
+    pub fn encode(&self) -> u128 {
+        match self {
+            Self::Op(e) => e.encode() << (RAND_ADDR_WIDTH + 1) | 1,
+            Self::Wait(e) => (e.cycles as u128) << 1,
+        }
+    }
+}
+
+impl OpElementSeq {
+    pub fn encode(&self) -> u128 {
+        match self {
+            Self::Up => 0,
+            Self::Down => 1,
+            Self::Rand(_) => 2,
+        }
+    }
+    pub fn encode_full(&self) -> u128 {
+        match self {
+            Self::Up => 0,
+            Self::Down => 1 << RAND_ADDR_WIDTH,
+            Self::Rand(n) => 2 << RAND_ADDR_WIDTH | *n as u128,
         }
     }
 }
