@@ -34,7 +34,7 @@ At this point:
 - The green, blue, and red LEDs at the top of the STAC2 evaluation board should be on.
 - The LEDs at the bottom of the FPGA should be changing colors.
 
-You may have to wait some time for the FPGA to start running the new RTL after flashing.
+You may have to wait some time for the FPGA LEDs to start strobing after the new bitstream has been flashed.
 
 Start an `evcxr` repl from the root of this repo:
 
@@ -71,8 +71,8 @@ You should see the following output. If you don't, rerun `l.init_chip()`.
 You should then be able to write and read scratchpad memory on chip:
 
 ```rs
-l.tsi_intf().write(SCRATCHPAD_BASE_ADDR, 0xdeadbeef);
-l.tsi_intf().read(SCRATCHPAD_BASE_ADDR)
+l.tsi_intf().write(SCRATCHPAD_BASE, 0xdeadbeef);
+l.tsi_intf().read(SCRATCHPAD_BASE)
 ```
 
 Available tests can be found in `rs/tests.rs`. To run the MATS+ test on SRAM 0:
@@ -84,9 +84,9 @@ l.mats_plus_tsi_test_sram(0)
 Other useful functions:
 
 ```rs
-l.enable_clk(); // Enable chip clock.
+l.enable_clk();  // Enable chip clock.
 l.disable_clk(); // Disable chip clock.
-l.reset_chip(); // Reset chip.
+l.reset_chip();  // Reset chip.
 ```
 
 The chip can also be physically reset using BTN0 on the FPGA.
