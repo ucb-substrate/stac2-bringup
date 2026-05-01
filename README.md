@@ -114,6 +114,9 @@ Chip tests should be declared in `rs/tests.rs` as methods on `BringupState`. Ref
 
 ### Updating the FPGA bitstream
 
+Requirements:
+- [chippy](https://github.com/ucb-substrate/chippy)
+
 To modify FPGA MMIO registers, update `scala/Controller.scala`.
 
 To update top level RTL (e.g. top level IOs), update `scala/Stac2Bringup.scala`.
