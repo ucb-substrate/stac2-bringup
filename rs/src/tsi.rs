@@ -45,9 +45,7 @@ impl<'a> TsiIntf<'a> {
 
 impl<'a> MemoryIntf for TsiIntf<'a> {
     fn read(&mut self, addr: u64) -> u64 {
-        let r0 = self.0.tsi.read_word(addr).expect("failed to read");
-        let r1 = self.0.tsi.read_word(addr + 4).expect("failed to read");
-        ((r1 as u64) << 32) | r0 as u64
+        self.0.tsi.read_word(addr).expect("failed to read")
     }
 
     fn write(&mut self, addr: u64, data: u64) {
