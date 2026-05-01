@@ -1,5 +1,5 @@
-use crate::memory::*;
 use crate::MemoryIntf;
+use crate::memory::*;
 
 const ELEMENT_TABLE_LENGTH: usize = 8;
 const OPERATIONS_PER_ELEMENT: usize = 8;
@@ -8,6 +8,9 @@ const MAX_ROW_ADDR_WIDTH: usize = 11;
 const MAX_COL_ADDR_WIDTH: usize = 3;
 const DATA_WIDTH: usize = 128;
 const RAND_ADDR_WIDTH: usize = 14;
+const ELEMENT_WIDTH: usize = 122;
+
+const SRAM_SEL_BIST: u64 = 1;
 
 enum OperationType {
     Read,
@@ -51,13 +54,24 @@ enum Element {
 
 pub struct BistExecutor<I> {
     intf: I,
+    sram_id: u64,
     rows: u64,
     cols: u64,
     inner_dim: InnerDim,
-    // TODO: seed
+    rand_seed: u64,
+    sig_seed: u128,
     patterns: Vec<u128>,
     elts: Vec<Element>,
     cycle_limit: u64,
+    stop_on_failure: bool,
+}
+
+pub struct BistResult {
+    pub fail: bool,
+    pub fail_cycle: u64,
+    pub expected: u128,
+    pub received: u128,
+    pub signature: u128,
 }
 
 impl<I> BistExecutor<I> {
@@ -89,11 +103,68 @@ impl<I> BistExecutor<I> {
 }
 
 impl<I: MemoryIntf> BistExecutor<I> {
-    fn init(&self) {
+    pub fn execute(&mut self) -> BistResult {
+        self.init();
+        self.execute();
+        self.read_result()
+    }
+
+    fn init(&mut self) {
+        self.intf.write(SRAM_ID, self.sram_id);
+        self.intf.write(SRAM_SEL, SRAM_SEL_BIST);
+        self.intf.write(BIST_RAND_SEED, self.rand_seed);
+        for i in 1u64..5 {
+            self.intf.write(BIST_RAND_SEED + 8 * i, 0);
+        }
+        self.intf.write128(BIST_SIG_SEED, self.sig_seed);
         self.intf.write(BIST_MAX_ROW_ADDR, self.rows - 1);
         self.intf.write(BIST_MAX_COL_ADDR, self.cols - 1);
         self.intf.write(BIST_INNER_DIM, self.inner_dim.encode());
-        todo!("Claude: continue filling this in.");
+        let mut packed = [0u64; 16];
+        for (i, elt) in self.elts.iter().enumerate() {
+            let encoded = elt.encode();
+            let bit_offset = ELEMENT_WIDTH * i;
+            let word = bit_offset / 64;
+            let bit = bit_offset % 64;
+            let lo = encoded as u64;
+            let hi = (encoded >> 64) as u64;
+            if bit == 0 {
+                packed[word] |= lo;
+                packed[word + 1] |= hi;
+            } else {
+                packed[word] |= lo << bit;
+                packed[word + 1] |= (lo >> (64 - bit)) | (hi << bit);
+                if word + 2 < packed.len() {
+                    packed[word + 2] |= hi >> (64 - bit);
+                }
+            }
+        }
+        for (i, &word) in packed.iter().enumerate() {
+            self.intf.write(BIST_ELEMENT_SEQUENCE + 8 * i as u64, word);
+        }
+        for (i, &pat) in self.patterns.iter().enumerate() {
+            self.intf.write128(BIST_PATTERN_TABLE + 16 * i as u64, pat);
+        }
+        self.intf
+            .write(BIST_MAX_ELEMENT_IDX, (self.elts.len() - 1) as u64);
+        self.intf.write(BIST_CYCLE_LIMIT, self.cycle_limit);
+        self.intf
+            .write(BIST_STOP_ON_FAILURE, self.stop_on_failure as u64);
+    }
+
+    fn execute_inner(&mut self) {
+        self.intf.write(EX, 1);
+        while self.intf.read(DONE) & 0x1 == 0 {}
+    }
+
+    fn read_result(&mut self) -> BistResult {
+        BistResult {
+            fail: self.intf.read(BIST_FAIL) & 0x1 != 0,
+            fail_cycle: self.intf.read(BIST_FAIL_CYCLE),
+            expected: self.intf.read128(BIST_EXPECTED),
+            received: self.intf.read128(BIST_RECEIVED),
+            signature: self.intf.read128(BIST_SIGNATURE),
+        }
     }
 }
 
@@ -109,8 +180,8 @@ impl InnerDim {
 impl Element {
     pub fn encode(&self) -> u128 {
         match self {
-            Self::Op(e) => e.encode() << (RAND_ADDR_WIDTH + 1) | 1,
-            Self::Wait(e) => (e.cycles as u128) << 1,
+            Self::Op(e) => e.encode(),
+            Self::Wait(e) => ((e.cycles as u128) << 107) | (1u128 << 121),
         }
     }
 }
@@ -124,10 +195,44 @@ impl OpElementSeq {
         }
     }
     pub fn encode_full(&self) -> u128 {
+        let num_addrs: u128 = match self {
+            Self::Up | Self::Down => 0,
+            Self::Rand(n) => *n as u128,
+        };
+        self.encode() | (num_addrs << 2)
+    }
+}
+
+impl OperationType {
+    fn encode(&self) -> u128 {
         match self {
-            Self::Up => 0,
-            Self::Down => 1 << RAND_ADDR_WIDTH,
-            Self::Rand(n) => 2 << RAND_ADDR_WIDTH | *n as u128,
+            Self::Read => 0,
+            Self::Write => 1,
+            Self::Rand => 2,
         }
+    }
+}
+
+impl Op {
+    fn encode(&self) -> u128 {
+        let mut val = self.typ.encode();
+        val |= (self.rand_data as u128) << 2;
+        val |= (self.rand_mask as u128) << 3;
+        val |= (self.data_pattern_idx as u128) << 4;
+        val |= (self.mask_pattern_idx as u128) << 7;
+        val |= (self.flip_data as u128) << 10;
+        val
+    }
+}
+
+impl OpElement {
+    pub fn encode(&self) -> u128 {
+        let mut val: u128 = 0;
+        for (i, op) in self.ops.iter().enumerate() {
+            val |= op.encode() << (11 * i);
+        }
+        val |= ((self.ops.len() - 1) as u128) << (OPERATIONS_PER_ELEMENT * 11);
+        val |= self.seq.encode_full() << (OPERATIONS_PER_ELEMENT * 11 + 3);
+        val
     }
 }
