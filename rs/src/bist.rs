@@ -1,5 +1,6 @@
 use crate::MemoryIntf;
 use crate::memory::*;
+use crate::tests::SRAM_SIZES;
 
 const ELEMENT_TABLE_LENGTH: usize = 8;
 const OPERATIONS_PER_ELEMENT: usize = 8;
@@ -12,7 +13,8 @@ const ELEMENT_WIDTH: usize = 122;
 
 const SRAM_SEL_BIST: u64 = 1;
 
-pub fn basic_bist<I>(intf: I) -> BistController<I> {
+pub fn basic_bist<I>(intf: I, id: u64) -> BistController<I> {
+    let size = SRAM_SIZES[id as usize];
     BistController {
         intf,
         sram_id: id,
@@ -190,17 +192,6 @@ impl<I> BistController<I> {
         }
     }
 
-    pub fn pack_elts(&self) -> [u64; 16] {}
-}
-
-impl<I: MemoryIntf> BistController<I> {
-    pub fn execute(&mut self) -> BistResult {
-        self.validate();
-        self.init();
-        self.execute_inner();
-        self.read_result()
-    }
-
     fn encode_elts(&self) -> [u64; 16] {
         let mut packed = [0u64; 16];
         for (i, elt) in self.elts.iter().enumerate() {
@@ -222,6 +213,15 @@ impl<I: MemoryIntf> BistController<I> {
             }
         }
         packed
+    }
+}
+
+impl<I: MemoryIntf> BistController<I> {
+    pub fn execute(&mut self) -> BistResult {
+        self.validate();
+        self.init();
+        self.execute_inner();
+        self.read_result()
     }
 
     fn init(&mut self) {
@@ -336,8 +336,29 @@ impl OpElement {
 
 #[cfg(test)]
 mod tests {
-    const BASIC_BIST_PACKED: [u64; 8] = {};
+    use crate::bist::basic_bist;
+
+    const BASIC_BIST_PACKED: [u64; 16] = [
+        0x100280c00000001,
+        0x400801002004008,
+        0x2005010032000000,
+        0x10020040080100,
+        0x801406008a0000,
+        0x400801002004,
+        0x1002004008030000,
+        0x20040080,
+        0x40080100200400,
+        0x801002,
+        0x801002004008010,
+        0x4000000000020040,
+        0x20040080100200,
+        0x100000000000801,
+        0x400801002004008,
+        0x20,
+    ];
 
     #[test]
-    fn basic_bist() {}
+    fn basic_bist_packs_correctly() {
+        assert_eq!(basic_bist((), 0).encode_elts(), BASIC_BIST_PACKED);
+    }
 }

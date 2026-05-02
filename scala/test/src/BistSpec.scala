@@ -104,7 +104,7 @@ class BistSpec extends AnyFunSpec with ChiselSim {
         )
 
         val elementTable = Vec.Lit(elements: _*).asTypeOf(Vec(16, UInt(64.W)))
-        for (i <- 0 until ProgrammableBistParams.elementTableLength) {
+        for (i <- 0 until 16) {
           println(
             f"0x${elementTable(i).asUInt.litValue}%x"
           )
