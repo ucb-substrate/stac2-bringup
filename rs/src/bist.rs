@@ -444,7 +444,7 @@ pub fn rand_bist<I>(intf: I, id: u64) -> BistController<I> {
                 };
                 8
             ],
-            seq: OpElementSeq::Rand(16384),
+            seq: OpElementSeq::Rand(16383),
         }));
     }
     BistController {
