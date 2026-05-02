@@ -99,6 +99,8 @@ pub fn basic_bist<I>(intf: I, id: u64) -> BistController<I> {
         ],
         cycle_limit: u64::MAX,
         stop_on_failure: true,
+        data_width: size.width(),
+        mask_granularity: size.width() / size.mask_width(),
     }
 }
 
@@ -230,6 +232,8 @@ pub fn march_cm_bist<I>(intf: I, id: u64) -> BistController<I> {
         ],
         cycle_limit: u64::MAX,
         stop_on_failure: true,
+        data_width: size.width(),
+        mask_granularity: size.width() / size.mask_width(),
     }
 }
 
@@ -414,6 +418,8 @@ pub fn march_b_bist<I>(intf: I, id: u64) -> BistController<I> {
         ],
         cycle_limit: u64::MAX,
         stop_on_failure: true,
+        data_width: size.width(),
+        mask_granularity: size.width() / size.mask_width(),
     }
 }
 
@@ -459,6 +465,8 @@ pub fn rand_bist<I>(intf: I, id: u64) -> BistController<I> {
         elts,
         cycle_limit: u64::MAX,
         stop_on_failure: true,
+        data_width: size.width(),
+        mask_granularity: size.width() / size.mask_width(),
     }
 }
 
@@ -518,6 +526,10 @@ pub struct BistController<I> {
     pub elts: Vec<Element>,
     pub cycle_limit: u64,
     pub stop_on_failure: bool,
+    /// Data width of the target SRAM in bits (e.g. 32 for a 32-bit SRAM).
+    pub data_width: u32,
+    /// Number of data bits controlled by each write-mask bit (wmask granularity).
+    pub mask_granularity: u32,
 }
 
 #[derive(Debug, Clone)]
@@ -554,6 +566,129 @@ impl<I> BistController<I> {
                 }
             }
         }
+    }
+
+    /// Simulate the BIST on a defect-free SRAM and return the expected MISR signature.
+    ///
+    /// Models `BistTop.scala` exactly: runs the `ProgrammableBist` address/data sequence,
+    /// applies writes and reads to a software SRAM, and accumulates all read results through
+    /// the 128-bit Fibonacci MISR (taps {128,127,126,121}, initial state = `sig_seed`).
+    ///
+    /// Panics if any element or operation uses randomised addresses/data (not yet supported).
+    pub fn expected_signature(&self) -> u128 {
+        let sram_mask = bitmask_u128(self.data_width);
+        let mask_width = self.data_width / self.mask_granularity;
+
+        let total_words = (self.rows * self.mux_ratio) as usize;
+        let mut sram = vec![0u128; total_words];
+        let mut misr = self.sig_seed;
+
+        let max_row = self.rows - 1;
+        let max_col = self.mux_ratio - 1;
+        let max_elt = self.elts.len() - 1;
+
+        let mut elt_idx = 0usize;
+        let (mut row, mut col) = elt_start_addr(&self.elts[0], max_row, max_col);
+
+        'done: loop {
+            match &self.elts[elt_idx] {
+                Element::Wait(_) => {
+                    // Wait elements produce no SRAM ops; skip straight to the next element.
+                    elt_idx += 1;
+                    if elt_idx > max_elt {
+                        break 'done;
+                    }
+                    (row, col) = elt_start_addr(&self.elts[elt_idx], max_row, max_col);
+                }
+
+                Element::Op(op_elt) => {
+                    assert!(
+                        !matches!(op_elt.seq, OpElementSeq::Rand(_)),
+                        "random address order is not supported in expected_signature"
+                    );
+
+                    let up = matches!(op_elt.seq, OpElementSeq::Up);
+                    let row_end: u64 = if up { max_row } else { 0 };
+                    let col_end: u64 = if up { max_col } else { 0 };
+                    let row_start: u64 = if up { 0 } else { max_row };
+                    let col_start: u64 = if up { 0 } else { max_col };
+
+                    loop {
+                        let addr = (row * self.mux_ratio + col) as usize;
+
+                        for op in op_elt.ops.iter() {
+                            assert!(
+                                !op.rand_data && !op.rand_mask,
+                                "random data/mask is not supported in expected_signature"
+                            );
+                            assert!(
+                                !matches!(op.typ, OperationType::Rand),
+                                "random op type is not supported in expected_signature"
+                            );
+
+                            let raw = self.patterns[op.data_pattern_idx];
+                            let data = if op.flip_data {
+                                !raw & sram_mask
+                            } else {
+                                raw & sram_mask
+                            };
+                            let mask = self.patterns[op.mask_pattern_idx];
+
+                            match op.typ {
+                                OperationType::Write => {
+                                    sram[addr] = bist_masked_write(
+                                        sram[addr],
+                                        data,
+                                        mask,
+                                        mask_width,
+                                        self.mask_granularity,
+                                    );
+                                }
+                                OperationType::Read => {
+                                    misr = misr_step_128(misr, sram[addr] & sram_mask);
+                                }
+                                OperationType::Rand => unreachable!(),
+                            }
+                        }
+
+                        // Advance address (mirrors the Chisel state-update logic).
+                        let rows_done = row == row_end;
+                        let cols_done = col == col_end;
+
+                        if rows_done && cols_done {
+                            // Last address for this element – move to the next one.
+                            elt_idx += 1;
+                            if elt_idx > max_elt {
+                                break 'done;
+                            }
+                            (row, col) = elt_start_addr(&self.elts[elt_idx], max_row, max_col);
+                            break;
+                        }
+
+                        match self.inner_dim {
+                            InnerDim::Col => {
+                                if cols_done {
+                                    col = col_start;
+                                    row = if up { row + 1 } else { row - 1 };
+                                } else {
+                                    col = if up { col + 1 } else { col - 1 };
+                                }
+                            }
+                            InnerDim::Row => {
+                                if rows_done {
+                                    row = row_start;
+                                    col = if up { col + 1 } else { col - 1 };
+                                } else {
+                                    row = if up { row + 1 } else { row - 1 };
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        misr
     }
 
     fn encode_elts(&self) -> [u64; 16] {
@@ -720,10 +855,81 @@ impl OpElement {
     }
 }
 
+// ---------------------------------------------------------------------------
+// MISR helpers (models MaxPeriodFibonacciMISR from MISR.scala, width=128)
+// ---------------------------------------------------------------------------
+
+/// One step of the 128-bit Fibonacci MISR.
+///
+/// The hardware delta function (FibonacciMISR.delta) is:
+///   new[0]  = in[0] ^ XOR(s[tap-1] for tap in taps)
+///   new[i]  = s[i-1] ^ in[i]   for i = 1..127
+///
+/// Taps for width 128 (from MISR.tapsMaxPeriod): {128, 127, 126, 121}.
+fn misr_step_128(state: u128, input: u128) -> u128 {
+    // taps {128,127,126,121} → 0-indexed bit positions {127,126,125,120}
+    let tap_xor = ((state >> 127) ^ (state >> 126) ^ (state >> 125) ^ (state >> 120)) & 1;
+    let new_s0 = (input & 1) ^ tap_xor;
+    // bits 1..127: new[i] = s[i-1] ^ in[i]  (left-shift state, then XOR input)
+    ((state << 1) ^ input) & !1u128 | new_s0
+}
+
+/// Return the starting (row, col) for an element based on its direction.
+fn elt_start_addr(elt: &Element, max_row: u64, max_col: u64) -> (u64, u64) {
+    match elt {
+        Element::Op(e) => match e.seq {
+            OpElementSeq::Up | OpElementSeq::Rand(_) => (0, 0),
+            OpElementSeq::Down => (max_row, max_col),
+        },
+        Element::Wait(_) => (0, 0),
+    }
+}
+
+/// Apply a masked write to an SRAM word, mirroring the hardware mask-expansion
+/// logic (each of the `mask_width` mask bits enables writing `mask_gran` data bits).
+fn bist_masked_write(
+    old: u128,
+    data: u128,
+    mask_raw: u128,
+    mask_width: u32,
+    mask_gran: u32,
+) -> u128 {
+    let actual_mask = mask_raw & bitmask_u128(mask_width);
+    let mut result = old;
+    for i in 0..mask_width {
+        if (actual_mask >> i) & 1 == 1 {
+            let lo = i * mask_gran;
+            let hi = lo + mask_gran;
+            // Build a mask covering bits lo..hi-1.
+            let lo_mask = if lo == 0 { 0u128 } else { (1u128 << lo) - 1 };
+            let hi_mask = if hi >= 128 {
+                u128::MAX
+            } else {
+                (1u128 << hi) - 1
+            };
+            let group_mask = hi_mask ^ lo_mask;
+            result = (result & !group_mask) | (data & group_mask);
+        }
+    }
+    result
+}
+
+/// Return a u128 with the lower `n` bits set (handles n == 128 without overflow).
+fn bitmask_u128(n: u32) -> u128 {
+    if n >= 128 {
+        u128::MAX
+    } else {
+        (1u128 << n) - 1
+    }
+}
+
+// ---------------------------------------------------------------------------
+
 #[cfg(test)]
 mod tests {
     use crate::bist::{
-        BistController, Element, InnerDim, Op, OpElement, OpElementSeq, OperationType, basic_bist,
+        BistController, Element, InnerDim, Op, OpElement, OpElementSeq, OperationType, WaitElement,
+        basic_bist, misr_step_128,
     };
 
     const BASIC_BIST_PACKED: [u64; 16] = [
@@ -859,6 +1065,8 @@ mod tests {
             ],
             cycle_limit: 0,
             stop_on_failure: true,
+            data_width: 128,
+            mask_granularity: 8,
         }
     }
 
@@ -873,5 +1081,209 @@ mod tests {
             copied_march_bist(()).encode_elts(),
             COPIED_MARCH_BIST_PACKED
         );
+    }
+
+    // -----------------------------------------------------------------------
+    // expected_signature tests
+    // -----------------------------------------------------------------------
+
+    /// Single-address SRAM (rows=1, mux_ratio=1), write 0 then read 0.
+    /// MISR taps for width 128: {128,127,126,121}.
+    ///
+    /// sig_seed = 1 = 0x00...001
+    /// Read value = 0.
+    ///   tap_xor = bits 127,126,125,120 of 1 = all zero → 0
+    ///   new_s0  = in[0] ^ tap_xor = 0 ^ 0 = 0
+    ///   upper   = (1 << 1) ^ 0 = 2  → bits 1..127 = old bit 0 = 0 apart from bit 1
+    ///   result  = 2 & !1 | 0 = 2
+    #[test]
+    fn single_addr_write_then_read() {
+        let ctrl = BistController {
+            intf: (),
+            sram_id: 0,
+            rows: 1,
+            mux_ratio: 1,
+            inner_dim: InnerDim::Col,
+            rand_seed: 1,
+            sig_seed: 1,
+            patterns: vec![0, u128::MAX],
+            elts: vec![
+                Element::Op(OpElement {
+                    ops: vec![Op {
+                        typ: OperationType::Write,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0, // write 0
+                        mask_pattern_idx: 1, // full mask
+                        flip_data: false,
+                    }],
+                    seq: OpElementSeq::Up,
+                }),
+                Element::Op(OpElement {
+                    ops: vec![Op {
+                        typ: OperationType::Read,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: false,
+                    }],
+                    seq: OpElementSeq::Up,
+                }),
+            ],
+            cycle_limit: u64::MAX,
+            stop_on_failure: false,
+            data_width: 128,
+            mask_granularity: 8,
+        };
+
+        let expected = misr_step_128(1, 0); // one read of 0 into seed=1
+        assert_eq!(ctrl.expected_signature(), expected);
+        assert_eq!(expected, 2);
+    }
+
+    /// Two reads: write all-ones then read twice.
+    /// Verifies the MISR chains correctly across multiple reads.
+    #[test]
+    fn single_addr_write_ones_read_twice() {
+        let ctrl = BistController {
+            intf: (),
+            sram_id: 0,
+            rows: 1,
+            mux_ratio: 1,
+            inner_dim: InnerDim::Col,
+            rand_seed: 1,
+            sig_seed: 1,
+            patterns: vec![0, u128::MAX],
+            elts: vec![
+                Element::Op(OpElement {
+                    ops: vec![Op {
+                        typ: OperationType::Write,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 1, // write all-ones
+                        mask_pattern_idx: 1,
+                        flip_data: false,
+                    }],
+                    seq: OpElementSeq::Up,
+                }),
+                Element::Op(OpElement {
+                    ops: vec![
+                        Op {
+                            typ: OperationType::Read,
+                            rand_data: false,
+                            rand_mask: false,
+                            data_pattern_idx: 1,
+                            mask_pattern_idx: 1,
+                            flip_data: false,
+                        },
+                        Op {
+                            typ: OperationType::Read,
+                            rand_data: false,
+                            rand_mask: false,
+                            data_pattern_idx: 1,
+                            mask_pattern_idx: 1,
+                            flip_data: false,
+                        },
+                    ],
+                    seq: OpElementSeq::Up,
+                }),
+            ],
+            cycle_limit: u64::MAX,
+            stop_on_failure: false,
+            data_width: 128,
+            mask_granularity: 8,
+        };
+
+        // Two reads of u128::MAX starting from seed=1.
+        let s1 = misr_step_128(1, u128::MAX);
+        let s2 = misr_step_128(s1, u128::MAX);
+        assert_eq!(ctrl.expected_signature(), s2);
+    }
+
+    /// Wait element between two Op elements does not affect the signature.
+    #[test]
+    fn wait_element_is_transparent() {
+        let base = BistController {
+            intf: (),
+            sram_id: 0,
+            rows: 1,
+            mux_ratio: 1,
+            inner_dim: InnerDim::Col,
+            rand_seed: 1,
+            sig_seed: 1,
+            patterns: vec![0, u128::MAX],
+            elts: vec![
+                Element::Op(OpElement {
+                    ops: vec![Op {
+                        typ: OperationType::Write,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: false,
+                    }],
+                    seq: OpElementSeq::Up,
+                }),
+                Element::Op(OpElement {
+                    ops: vec![Op {
+                        typ: OperationType::Read,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: false,
+                    }],
+                    seq: OpElementSeq::Up,
+                }),
+            ],
+            cycle_limit: u64::MAX,
+            stop_on_failure: false,
+            data_width: 128,
+            mask_granularity: 8,
+        };
+
+        // Insert a wait element between write and read – signature must be identical.
+        let with_wait = BistController {
+            elts: vec![
+                Element::Op(OpElement {
+                    ops: vec![Op {
+                        typ: OperationType::Write,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: false,
+                    }],
+                    seq: OpElementSeq::Up,
+                }),
+                Element::Wait(WaitElement { cycles: 100 }),
+                Element::Op(OpElement {
+                    ops: vec![Op {
+                        typ: OperationType::Read,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: false,
+                    }],
+                    seq: OpElementSeq::Up,
+                }),
+            ],
+            intf: (),
+            sram_id: 0,
+            rows: 1,
+            mux_ratio: 1,
+            inner_dim: InnerDim::Col,
+            rand_seed: 1,
+            sig_seed: 1,
+            patterns: vec![0, u128::MAX],
+            cycle_limit: u64::MAX,
+            stop_on_failure: false,
+            data_width: 128,
+            mask_granularity: 8,
+        };
+
+        assert_eq!(base.expected_signature(), with_wait.expected_signature());
     }
 }
