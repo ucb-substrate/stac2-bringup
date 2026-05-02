@@ -1,9 +1,12 @@
 use std::path::Path;
 
-use crate::bist::{BistController, Element, InnerDim, Op, OpElement, OpElementSeq, OperationType};
+use crate::BringupState;
+use crate::bist::{
+    BistController, Element, InnerDim, Op, OpElement, OpElementSeq, OperationType, basic_bist,
+    march_cm_bist,
+};
 use crate::executor::execute;
 use crate::pattern::{FixedPattern, Pattern, SramSize};
-use crate::BringupState;
 
 /// The size of the scratchpad on the STAC-V2 test chip.
 pub const SCRATCHPAD_SIZE: SramSize = SramSize {
@@ -55,92 +58,15 @@ impl BringupState {
     pub fn basic_bist_tsi_test_sram(&mut self, id: u64) {
         let size = SRAM_SIZES[id as usize];
         let intf = self.tsi_intf();
-        let mut bist = BistController {
-            intf,
-            sram_id: id,
-            rows: size.rows() as u64,
-            mux_ratio: size.mux_ratio() as u64,
-            inner_dim: InnerDim::Col,
-            rand_seed: 0x22,
-            sig_seed: 0x12345678,
-            patterns: vec![
-                0,
-                0xffffffffffffffffffffffffffffffff,
-                0x123456789abcdefdeadbeef123456789,
-                0xfa70ec3c686eff304ab421a404f650ee,
-                0xaf899304f192ffb2e75aa2036786a6e3,
-                0x5472e4c65ef7294ca10efb8dd3975e50,
-            ],
-            elts: vec![
-                Element::Op(OpElement {
-                    ops: vec![Op {
-                        typ: OperationType::Write,
-                        rand_data: false,
-                        rand_mask: false,
-                        data_pattern_idx: 0,
-                        mask_pattern_idx: 1,
-                        flip_data: false,
-                    }],
-                    seq: OpElementSeq::Up,
-                }),
-                Element::Op(OpElement {
-                    ops: vec![
-                        Op {
-                            typ: OperationType::Read,
-                            rand_data: false,
-                            rand_mask: false,
-                            data_pattern_idx: 0,
-                            mask_pattern_idx: 1,
-                            flip_data: false,
-                        },
-                        Op {
-                            typ: OperationType::Write,
-                            rand_data: false,
-                            rand_mask: false,
-                            data_pattern_idx: 0,
-                            mask_pattern_idx: 1,
-                            flip_data: true,
-                        },
-                    ],
-                    seq: OpElementSeq::Up,
-                }),
-                Element::Op(OpElement {
-                    ops: vec![
-                        Op {
-                            typ: OperationType::Read,
-                            rand_data: false,
-                            rand_mask: false,
-                            data_pattern_idx: 0,
-                            mask_pattern_idx: 1,
-                            flip_data: true,
-                        },
-                        Op {
-                            typ: OperationType::Write,
-                            rand_data: false,
-                            rand_mask: false,
-                            data_pattern_idx: 0,
-                            mask_pattern_idx: 1,
-                            flip_data: false,
-                        },
-                    ],
-                    seq: OpElementSeq::Down,
-                }),
-                Element::Op(OpElement {
-                    ops: vec![Op {
-                        typ: OperationType::Read,
-                        rand_data: false,
-                        rand_mask: false,
-                        data_pattern_idx: 0,
-                        mask_pattern_idx: 1,
-                        flip_data: false,
-                    }],
-                    seq: OpElementSeq::Up,
-                }),
-            ],
-            cycle_limit: u64::MAX,
-            stop_on_failure: true,
-        };
+        let mut bist = basic_bist(intf, id);
+        let res = bist.execute();
+        println!("{res:#?}");
+    }
 
+    pub fn march_cm_bist_tsi_test_sram(&mut self, id: u64) {
+        let size = SRAM_SIZES[id as usize];
+        let intf = self.tsi_intf();
+        let mut bist = march_cm_bist(intf, id);
         let res = bist.execute();
         println!("{res:#?}");
     }
@@ -177,9 +103,8 @@ impl BringupState {
 #[cfg(test)]
 mod software {
     use crate::{
-        execute,
+        IdealExecutor, execute,
         pattern::{FixedPattern, Pattern, SramSize},
-        IdealExecutor,
     };
 
     #[test]
