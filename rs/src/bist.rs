@@ -1,6 +1,6 @@
+use crate::MemoryIntf;
 use crate::memory::*;
 use crate::tests::SRAM_SIZES;
-use crate::MemoryIntf;
 
 const ELEMENT_TABLE_LENGTH: usize = 8;
 const OPERATIONS_PER_ELEMENT: usize = 8;
@@ -417,6 +417,47 @@ pub fn march_b_bist<I>(intf: I, id: u64) -> BistController<I> {
     }
 }
 
+pub fn rand_bist<I>(intf: I, id: u64) -> BistController<I> {
+    let size = SRAM_SIZES[id as usize];
+    let d = size.depth() as u64;
+    BistController {
+        intf,
+        sram_id: id,
+        rows: size.rows() as u64,
+        mux_ratio: size.mux_ratio() as u64,
+        inner_dim: InnerDim::Col,
+        rand_seed: 0x22,
+        sig_seed: 0x12345678,
+        patterns: vec![0, 0xffffffffffffffffffffffffffffffff],
+        elts: vec![
+            Element::Op(OpElement {
+                ops: vec![Op {
+                    typ: OperationType::Write,
+                    rand_data: false,
+                    rand_mask: false,
+                    data_pattern_idx: 0,
+                    mask_pattern_idx: 1,
+                    flip_data: false,
+                }],
+                seq: OpElementSeq::Up,
+            }),
+            Element::Op(OpElement {
+                ops: vec![Op {
+                    typ: OperationType::Rand,
+                    rand_data: true,
+                    rand_mask: true,
+                    data_pattern_idx: 0,
+                    mask_pattern_idx: 0,
+                    flip_data: false,
+                }],
+                seq: OpElementSeq::Rand(4 * d * d),
+            }),
+        ],
+        cycle_limit: u64::MAX,
+        stop_on_failure: true,
+    }
+}
+
 pub enum OperationType {
     Read,
     Write,
@@ -674,7 +715,7 @@ impl OpElement {
 #[cfg(test)]
 mod tests {
     use crate::bist::{
-        basic_bist, BistController, Element, InnerDim, Op, OpElement, OpElementSeq, OperationType,
+        BistController, Element, InnerDim, Op, OpElement, OpElementSeq, OperationType, basic_bist,
     };
 
     const BASIC_BIST_PACKED: [u64; 16] = [

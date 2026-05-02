@@ -3,7 +3,7 @@ use std::path::Path;
 use crate::BringupState;
 use crate::bist::{
     BistController, Element, InnerDim, Op, OpElement, OpElementSeq, OperationType, basic_bist,
-    march_b_bist, march_cm_bist,
+    march_b_bist, march_cm_bist, rand_bist,
 };
 use crate::executor::execute;
 use crate::pattern::{FixedPattern, Pattern, SramSize};
@@ -75,6 +75,14 @@ impl BringupState {
         let size = SRAM_SIZES[id as usize];
         let intf = self.tsi_intf();
         let mut bist = march_b_bist(intf, id);
+        let res = bist.execute();
+        println!("{res:#?}");
+    }
+
+    pub fn rand_bist_tsi_test_sram(&mut self, id: u64) {
+        let size = SRAM_SIZES[id as usize];
+        let intf = self.tsi_intf();
+        let mut bist = rand_bist(intf, id);
         let res = bist.execute();
         println!("{res:#?}");
     }
