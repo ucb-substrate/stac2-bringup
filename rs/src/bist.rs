@@ -12,60 +12,61 @@ const ELEMENT_WIDTH: usize = 122;
 
 const SRAM_SEL_BIST: u64 = 1;
 
-enum OperationType {
+pub enum OperationType {
     Read,
     Write,
     Rand,
 }
 
-enum OpElementSeq {
+pub enum OpElementSeq {
     Up,
     Down,
     Rand(u64),
 }
 
-enum InnerDim {
+pub enum InnerDim {
     Row,
     Col,
 }
 
-struct Op {
-    typ: OperationType,
-    rand_data: bool,
-    rand_mask: bool,
-    data_pattern_idx: usize,
-    mask_pattern_idx: usize,
-    flip_data: bool,
+pub struct Op {
+    pub typ: OperationType,
+    pub rand_data: bool,
+    pub rand_mask: bool,
+    pub data_pattern_idx: usize,
+    pub mask_pattern_idx: usize,
+    pub flip_data: bool,
 }
 
-struct OpElement {
-    ops: Vec<Op>,
-    seq: OpElementSeq,
+pub struct OpElement {
+    pub ops: Vec<Op>,
+    pub seq: OpElementSeq,
 }
 
-struct WaitElement {
-    cycles: u64,
+pub struct WaitElement {
+    pub cycles: u64,
 }
 
-enum Element {
+pub enum Element {
     Op(OpElement),
     Wait(WaitElement),
 }
 
-pub struct BistExecutor<I> {
-    intf: I,
-    sram_id: u64,
-    rows: u64,
-    cols: u64,
-    inner_dim: InnerDim,
-    rand_seed: u64,
-    sig_seed: u128,
-    patterns: Vec<u128>,
-    elts: Vec<Element>,
-    cycle_limit: u64,
-    stop_on_failure: bool,
+pub struct BistController<I> {
+    pub intf: I,
+    pub sram_id: u64,
+    pub rows: u64,
+    pub cols: u64,
+    pub inner_dim: InnerDim,
+    pub rand_seed: u64,
+    pub sig_seed: u128,
+    pub patterns: Vec<u128>,
+    pub elts: Vec<Element>,
+    pub cycle_limit: u64,
+    pub stop_on_failure: bool,
 }
 
+#[derive(Debug, Clone)]
 pub struct BistResult {
     pub fail: bool,
     pub fail_cycle: u64,
@@ -74,7 +75,7 @@ pub struct BistResult {
     pub signature: u128,
 }
 
-impl<I> BistExecutor<I> {
+impl<I> BistController<I> {
     pub fn validate(&self) {
         assert!(self.rows > 0);
         assert!(self.cols > 0);
@@ -102,10 +103,10 @@ impl<I> BistExecutor<I> {
     }
 }
 
-impl<I: MemoryIntf> BistExecutor<I> {
+impl<I: MemoryIntf> BistController<I> {
     pub fn execute(&mut self) -> BistResult {
         self.init();
-        self.execute();
+        self.execute_inner();
         self.read_result()
     }
 
