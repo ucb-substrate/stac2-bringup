@@ -233,6 +233,190 @@ pub fn march_cm_bist<I>(intf: I, id: u64) -> BistController<I> {
     }
 }
 
+pub fn march_b_bist<I>(intf: I, id: u64) -> BistController<I> {
+    let size = SRAM_SIZES[id as usize];
+    BistController {
+        intf,
+        sram_id: id,
+        rows: size.rows() as u64,
+        mux_ratio: size.mux_ratio() as u64,
+        inner_dim: InnerDim::Col,
+        rand_seed: 0x22,
+        sig_seed: 0x12345678,
+        patterns: vec![
+            0,
+            0xffffffffffffffffffffffffffffffff,
+            0x123456789abcdefdeadbeef123456789,
+            0xfa70ec3c686eff304ab421a404f650ee,
+            0xaf899304f192ffb2e75aa2036786a6e3,
+            0x5472e4c65ef7294ca10efb8dd3975e50,
+        ],
+        elts: vec![
+            Element::Op(OpElement {
+                ops: vec![Op {
+                    typ: OperationType::Write,
+                    rand_data: false,
+                    rand_mask: false,
+                    data_pattern_idx: 0,
+                    mask_pattern_idx: 1,
+                    flip_data: false,
+                }],
+                seq: OpElementSeq::Up,
+            }),
+            Element::Op(OpElement {
+                ops: vec![
+                    Op {
+                        typ: OperationType::Read,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: false,
+                    },
+                    Op {
+                        typ: OperationType::Write,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: true,
+                    },
+                    Op {
+                        typ: OperationType::Read,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: true,
+                    },
+                    Op {
+                        typ: OperationType::Write,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: false,
+                    },
+                    Op {
+                        typ: OperationType::Read,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: false,
+                    },
+                    Op {
+                        typ: OperationType::Write,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: true,
+                    },
+                ],
+                seq: OpElementSeq::Up,
+            }),
+            Element::Op(OpElement {
+                ops: vec![
+                    Op {
+                        typ: OperationType::Read,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: true,
+                    },
+                    Op {
+                        typ: OperationType::Write,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: false,
+                    },
+                    Op {
+                        typ: OperationType::Write,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: true,
+                    },
+                ],
+                seq: OpElementSeq::Up,
+            }),
+            Element::Op(OpElement {
+                ops: vec![
+                    Op {
+                        typ: OperationType::Read,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: true,
+                    },
+                    Op {
+                        typ: OperationType::Write,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: false,
+                    },
+                    Op {
+                        typ: OperationType::Write,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: true,
+                    },
+                    Op {
+                        typ: OperationType::Write,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: false,
+                    },
+                ],
+                seq: OpElementSeq::Down,
+            }),
+            Element::Op(OpElement {
+                ops: vec![
+                    Op {
+                        typ: OperationType::Read,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: false,
+                    },
+                    Op {
+                        typ: OperationType::Write,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: true,
+                    },
+                    Op {
+                        typ: OperationType::Write,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: false,
+                    },
+                ],
+                seq: OpElementSeq::Down,
+            }),
+        ],
+        cycle_limit: u64::MAX,
+        stop_on_failure: true,
+    }
+}
+
 pub enum OperationType {
     Read,
     Write,
