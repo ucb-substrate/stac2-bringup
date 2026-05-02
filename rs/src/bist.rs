@@ -1,5 +1,5 @@
-use crate::MemoryIntf;
 use crate::memory::*;
+use crate::MemoryIntf;
 
 const ELEMENT_TABLE_LENGTH: usize = 8;
 const OPERATIONS_PER_ELEMENT: usize = 8;
@@ -105,6 +105,7 @@ impl<I> BistController<I> {
 
 impl<I: MemoryIntf> BistController<I> {
     pub fn execute(&mut self) -> BistResult {
+        self.validate();
         self.init();
         self.execute_inner();
         self.read_result()
