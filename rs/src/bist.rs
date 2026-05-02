@@ -336,7 +336,9 @@ impl OpElement {
 
 #[cfg(test)]
 mod tests {
-    use crate::bist::basic_bist;
+    use crate::bist::{
+        BistController, Element, InnerDim, Op, OpElement, OpElementSeq, OperationType, basic_bist,
+    };
 
     const BASIC_BIST_PACKED: [u64; 16] = [
         0x100280c00000001,
@@ -357,8 +359,137 @@ mod tests {
         0x20,
     ];
 
+    const COPIED_MARCH_BIST_PACKED: [u64; 16] = [
+        0x320628cd80000001,
+        0x4188310620c4182,
+        0x8c818a336000000,
+        0x10620c41883106,
+        0x182320628cd80000,
+        0x4188310620c4,
+        0x10608c818a336000,
+        0x620c41883,
+        0x40080100200400,
+        0x801002,
+        0x801002004008010,
+        0x4000000000020040,
+        0x20040080100200,
+        0x100000000000801,
+        0x400801002004008,
+        0x20,
+    ];
+
+    fn copied_march_bist<I>(intf: I) -> BistController<I> {
+        let march_element = || {
+            Element::Op(OpElement {
+                ops: vec![
+                    Op {
+                        typ: OperationType::Write,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 3,
+                        mask_pattern_idx: 1,
+                        flip_data: false,
+                    },
+                    Op {
+                        typ: OperationType::Read,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 3,
+                        mask_pattern_idx: 0,
+                        flip_data: false,
+                    },
+                    Op {
+                        typ: OperationType::Write,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 3,
+                        mask_pattern_idx: 1,
+                        flip_data: true,
+                    },
+                    Op {
+                        typ: OperationType::Read,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 3,
+                        mask_pattern_idx: 0,
+                        flip_data: true,
+                    },
+                    Op {
+                        typ: OperationType::Read,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 3,
+                        mask_pattern_idx: 0,
+                        flip_data: false,
+                    },
+                    Op {
+                        typ: OperationType::Read,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 3,
+                        mask_pattern_idx: 0,
+                        flip_data: false,
+                    },
+                    Op {
+                        typ: OperationType::Read,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 3,
+                        mask_pattern_idx: 0,
+                        flip_data: false,
+                    },
+                    Op {
+                        typ: OperationType::Read,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 3,
+                        mask_pattern_idx: 0,
+                        flip_data: false,
+                    },
+                ],
+                seq: OpElementSeq::Up,
+            })
+        };
+
+        BistController {
+            intf,
+            sram_id: 0,
+            rows: 1,
+            cols: 1,
+            inner_dim: InnerDim::Row,
+            rand_seed: 1,
+            sig_seed: 1,
+            patterns: vec![
+                0,
+                0xffffffff,
+                0x5f1a950d9af236fcc76148fef684be4e,
+                0xa0e56af2650dc903389eb701097b41b1,
+            ],
+            elts: vec![
+                march_element(),
+                march_element(),
+                march_element(),
+                march_element(),
+                Element::Wait(crate::bist::WaitElement { cycles: 0 }),
+                Element::Wait(crate::bist::WaitElement { cycles: 0 }),
+                Element::Wait(crate::bist::WaitElement { cycles: 0 }),
+                Element::Wait(crate::bist::WaitElement { cycles: 0 }),
+            ],
+            cycle_limit: 0,
+            stop_on_failure: true,
+        }
+    }
+
     #[test]
     fn basic_bist_packs_correctly() {
         assert_eq!(basic_bist((), 0).encode_elts(), BASIC_BIST_PACKED);
+    }
+
+    #[test]
+    fn copied_march_bist_packs_correctly() {
+        assert_eq!(
+            copied_march_bist(()).encode_elts(),
+            COPIED_MARCH_BIST_PACKED
+        );
     }
 }
