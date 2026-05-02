@@ -419,7 +419,34 @@ pub fn march_b_bist<I>(intf: I, id: u64) -> BistController<I> {
 
 pub fn rand_bist<I>(intf: I, id: u64) -> BistController<I> {
     let size = SRAM_SIZES[id as usize];
-    let d = size.depth() as u64;
+    let mut elts = Vec::with_capacity(8);
+    elts.push(Element::Op(OpElement {
+        ops: vec![Op {
+            typ: OperationType::Write,
+            rand_data: false,
+            rand_mask: false,
+            data_pattern_idx: 0,
+            mask_pattern_idx: 1,
+            flip_data: false,
+        }],
+        seq: OpElementSeq::Up,
+    }));
+    for _ in 0..7 {
+        elts.push(Element::Op(OpElement {
+            ops: vec![
+                Op {
+                    typ: OperationType::Rand,
+                    rand_data: true,
+                    rand_mask: true,
+                    data_pattern_idx: 0,
+                    mask_pattern_idx: 0,
+                    flip_data: false,
+                };
+                8
+            ],
+            seq: OpElementSeq::Rand(16384),
+        }));
+    }
     BistController {
         intf,
         sram_id: id,
@@ -429,52 +456,33 @@ pub fn rand_bist<I>(intf: I, id: u64) -> BistController<I> {
         rand_seed: 0x22,
         sig_seed: 0x12345678,
         patterns: vec![0, 0xffffffffffffffffffffffffffffffff],
-        elts: vec![
-            Element::Op(OpElement {
-                ops: vec![Op {
-                    typ: OperationType::Write,
-                    rand_data: false,
-                    rand_mask: false,
-                    data_pattern_idx: 0,
-                    mask_pattern_idx: 1,
-                    flip_data: false,
-                }],
-                seq: OpElementSeq::Up,
-            }),
-            Element::Op(OpElement {
-                ops: vec![Op {
-                    typ: OperationType::Rand,
-                    rand_data: true,
-                    rand_mask: true,
-                    data_pattern_idx: 0,
-                    mask_pattern_idx: 0,
-                    flip_data: false,
-                }],
-                seq: OpElementSeq::Rand(4 * d * d),
-            }),
-        ],
+        elts,
         cycle_limit: u64::MAX,
         stop_on_failure: true,
     }
 }
 
+#[derive(Debug, Clone)]
 pub enum OperationType {
     Read,
     Write,
     Rand,
 }
 
+#[derive(Debug, Clone)]
 pub enum OpElementSeq {
     Up,
     Down,
     Rand(u64),
 }
 
+#[derive(Debug, Clone)]
 pub enum InnerDim {
     Row,
     Col,
 }
 
+#[derive(Debug, Clone)]
 pub struct Op {
     pub typ: OperationType,
     pub rand_data: bool,
