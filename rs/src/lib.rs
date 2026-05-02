@@ -67,9 +67,9 @@ impl BringupState {
     }
 
     pub fn init_chip(&mut self) {
-        let mut handle = self.bebe_wait().unwrap();
         self.enable_clk();
         self.reset_chip();
-        handle.wait().unwrap();
+        self.tsi.read_word(SCRATCHPAD_BASE).expect("failed to read");
+        println!("Chip initialized!");
     }
 }
