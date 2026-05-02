@@ -1,5 +1,5 @@
-use crate::memory::*;
 use crate::MemoryIntf;
+use crate::memory::*;
 
 const ELEMENT_TABLE_LENGTH: usize = 8;
 const OPERATIONS_PER_ELEMENT: usize = 8;
@@ -11,6 +11,94 @@ const RAND_ADDR_WIDTH: usize = 14;
 const ELEMENT_WIDTH: usize = 122;
 
 const SRAM_SEL_BIST: u64 = 1;
+
+pub fn basic_bist<I>(intf: I) -> BistController<I> {
+    BistController {
+        intf,
+        sram_id: id,
+        rows: size.rows() as u64,
+        cols: size.cols() as u64,
+        inner_dim: InnerDim::Col,
+        rand_seed: 0x22,
+        sig_seed: 0x12345678,
+        patterns: vec![
+            0,
+            0xffffffffffffffffffffffffffffffff,
+            0x123456789abcdefdeadbeef123456789,
+            0xfa70ec3c686eff304ab421a404f650ee,
+            0xaf899304f192ffb2e75aa2036786a6e3,
+            0x5472e4c65ef7294ca10efb8dd3975e50,
+        ],
+        elts: vec![
+            Element::Op(OpElement {
+                ops: vec![Op {
+                    typ: OperationType::Write,
+                    rand_data: false,
+                    rand_mask: false,
+                    data_pattern_idx: 0,
+                    mask_pattern_idx: 1,
+                    flip_data: false,
+                }],
+                seq: OpElementSeq::Up,
+            }),
+            Element::Op(OpElement {
+                ops: vec![
+                    Op {
+                        typ: OperationType::Read,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: false,
+                    },
+                    Op {
+                        typ: OperationType::Write,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: true,
+                    },
+                ],
+                seq: OpElementSeq::Up,
+            }),
+            Element::Op(OpElement {
+                ops: vec![
+                    Op {
+                        typ: OperationType::Read,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: true,
+                    },
+                    Op {
+                        typ: OperationType::Write,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: false,
+                    },
+                ],
+                seq: OpElementSeq::Down,
+            }),
+            Element::Op(OpElement {
+                ops: vec![Op {
+                    typ: OperationType::Read,
+                    rand_data: false,
+                    rand_mask: false,
+                    data_pattern_idx: 0,
+                    mask_pattern_idx: 1,
+                    flip_data: false,
+                }],
+                seq: OpElementSeq::Up,
+            }),
+        ],
+        cycle_limit: u64::MAX,
+        stop_on_failure: true,
+    }
+}
 
 pub enum OperationType {
     Read,
@@ -101,6 +189,8 @@ impl<I> BistController<I> {
             }
         }
     }
+
+    pub fn pack_elts(&self) -> [u64; 16] {}
 }
 
 impl<I: MemoryIntf> BistController<I> {
@@ -237,4 +327,12 @@ impl OpElement {
         val |= self.seq.encode_full() << (OPERATIONS_PER_ELEMENT * 11 + 3);
         val
     }
+}
+
+#[cfg(test)]
+mod tests {
+    const BASIC_BIST_PACKED: [u64; 8] = {};
+
+    #[test]
+    fn basic_bist() {}
 }
