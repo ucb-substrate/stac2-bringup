@@ -59,7 +59,7 @@ impl BringupState {
             intf,
             sram_id: id,
             rows: size.rows() as u64,
-            cols: size.cols() as u64,
+            mux_ratio: size.mux_ratio() as u64,
             inner_dim: InnerDim::Col,
             rand_seed: 0x22,
             sig_seed: 0x12345678,

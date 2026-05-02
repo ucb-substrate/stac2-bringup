@@ -1,6 +1,6 @@
-use crate::MemoryIntf;
 use crate::memory::*;
 use crate::tests::SRAM_SIZES;
+use crate::MemoryIntf;
 
 const ELEMENT_TABLE_LENGTH: usize = 8;
 const OPERATIONS_PER_ELEMENT: usize = 8;
@@ -19,7 +19,7 @@ pub fn basic_bist<I>(intf: I, id: u64) -> BistController<I> {
         intf,
         sram_id: id,
         rows: size.rows() as u64,
-        cols: size.cols() as u64,
+        mux_ratio: size.mux_ratio() as u64,
         inner_dim: InnerDim::Col,
         rand_seed: 0x22,
         sig_seed: 0x12345678,
@@ -146,7 +146,7 @@ pub struct BistController<I> {
     pub intf: I,
     pub sram_id: u64,
     pub rows: u64,
-    pub cols: u64,
+    pub mux_ratio: u64,
     pub inner_dim: InnerDim,
     pub rand_seed: u64,
     pub sig_seed: u128,
@@ -168,9 +168,9 @@ pub struct BistResult {
 impl<I> BistController<I> {
     pub fn validate(&self) {
         assert!(self.rows > 0);
-        assert!(self.cols > 0);
+        assert!(self.mux_ratio > 0);
         assert!(self.rows <= 2u64.strict_pow(MAX_ROW_ADDR_WIDTH as u32));
-        assert!(self.cols <= 2u64.strict_pow(MAX_COL_ADDR_WIDTH as u32));
+        assert!(self.mux_ratio <= 2u64.strict_pow(MAX_COL_ADDR_WIDTH as u32));
         assert!(self.patterns.len() <= PATTERN_TABLE_LENGTH);
         assert!(self.elts.len() <= ELEMENT_TABLE_LENGTH);
         for elt in self.elts.iter() {
@@ -239,7 +239,7 @@ impl<I: MemoryIntf> BistController<I> {
         }
         self.intf.write128(BIST_SIG_SEED, self.sig_seed);
         self.intf.write(BIST_MAX_ROW_ADDR, self.rows - 1);
-        self.intf.write(BIST_MAX_COL_ADDR, self.cols - 1);
+        self.intf.write(BIST_MAX_COL_ADDR, self.mux_ratio - 1);
         self.intf.write(BIST_INNER_DIM, self.inner_dim.encode());
         let elts = self.encode_elts();
         for (i, &word) in elts.iter().enumerate() {
@@ -359,7 +359,7 @@ impl OpElement {
 #[cfg(test)]
 mod tests {
     use crate::bist::{
-        BistController, Element, InnerDim, Op, OpElement, OpElementSeq, OperationType, basic_bist,
+        basic_bist, BistController, Element, InnerDim, Op, OpElement, OpElementSeq, OperationType,
     };
 
     const BASIC_BIST_PACKED: [u64; 16] = [
@@ -477,7 +477,7 @@ mod tests {
             intf,
             sram_id: 0,
             rows: 1,
-            cols: 1,
+            mux_ratio: 1,
             inner_dim: InnerDim::Row,
             rand_seed: 1,
             sig_seed: 1,
