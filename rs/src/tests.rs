@@ -1,9 +1,9 @@
 use std::path::Path;
 
-use crate::BringupState;
 use crate::bist::{BistController, Element, InnerDim, Op, OpElement, OpElementSeq, OperationType};
 use crate::executor::execute;
 use crate::pattern::{FixedPattern, Pattern, SramSize};
+use crate::BringupState;
 
 /// The size of the scratchpad on the STAC-V2 test chip.
 pub const SCRATCHPAD_SIZE: SramSize = SramSize {
@@ -177,13 +177,14 @@ impl BringupState {
 #[cfg(test)]
 mod software {
     use crate::{
-        IdealExecutor, execute,
+        execute,
         pattern::{FixedPattern, Pattern, SramSize},
+        IdealExecutor,
     };
 
     #[test]
     fn mats_plus_ideal_executor() {
-        let size = SramSize::new(32, 256, 4, 4);
+        let size = SramSize::new(256, 32, 4, 4);
         let ex = IdealExecutor::new(size);
         let pat = FixedPattern::new(Pattern::mats_plus(), size, 1);
         execute(pat, ex).expect("MATS+ pattern should execute correctly with an ideal executor");
@@ -191,7 +192,7 @@ mod software {
 
     #[test]
     fn march_cm_ideal_executor() {
-        let size = SramSize::new(32, 256, 4, 4);
+        let size = SramSize::new(256, 32, 4, 4);
         let ex = IdealExecutor::new(size);
         let pat = FixedPattern::new(Pattern::march_cm(), size, 1);
         execute(pat, ex).expect("March C- pattern should execute correctly with an ideal executor");
@@ -199,7 +200,7 @@ mod software {
 
     #[test]
     fn rand4096_ideal_executor() {
-        let size = SramSize::new(32, 256, 4, 4);
+        let size = SramSize::new(256, 32, 4, 4);
         let ex = IdealExecutor::new(size);
         let pat = FixedPattern::new(Pattern::rand(4096), size, 1);
         execute(pat, ex)
