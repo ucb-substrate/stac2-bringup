@@ -194,7 +194,9 @@ impl<I> BistController<I> {
 
     fn encode_elts(&self) -> [u64; 16] {
         let mut packed = [0u64; 16];
-        for (i, elt) in self.elts.iter().enumerate() {
+        let zero_elt = Element::Wait(WaitElement { cycles: 0 });
+        for i in 0..ELEMENT_TABLE_LENGTH {
+            let elt = self.elts.get(i).unwrap_or(&zero_elt);
             let encoded = elt.encode();
             let bit_offset = ELEMENT_WIDTH * i;
             let word = bit_offset / 64;
@@ -203,10 +205,14 @@ impl<I> BistController<I> {
             let hi = (encoded >> 64) as u64;
             if bit == 0 {
                 packed[word] |= lo;
-                packed[word + 1] |= hi;
+                if word + 1 < packed.len() {
+                    packed[word + 1] |= hi;
+                }
             } else {
                 packed[word] |= lo << bit;
-                packed[word + 1] |= (lo >> (64 - bit)) | (hi << bit);
+                if word + 1 < packed.len() {
+                    packed[word + 1] |= (lo >> (64 - bit)) | (hi << bit);
+                }
                 if word + 2 < packed.len() {
                     packed[word + 2] |= hi >> (64 - bit);
                 }
@@ -274,11 +280,21 @@ impl InnerDim {
     }
 }
 
+const ZERO_OP_ENCODED: u128 = 0x001;
+
+fn zero_op_element_encoded() -> u128 {
+    let mut val: u128 = 0;
+    for i in 0..OPERATIONS_PER_ELEMENT {
+        val |= ZERO_OP_ENCODED << (19 + 11 * i);
+    }
+    val
+}
+
 impl Element {
     pub fn encode(&self) -> u128 {
         match self {
-            Self::Op(e) => e.encode(),
-            Self::Wait(e) => ((e.cycles as u128) << 107) | (1u128 << 121),
+            Self::Op(e) => 1u128 | (e.encode() << 15),
+            Self::Wait(e) => ((e.cycles as u128) << 1) | (zero_op_element_encoded() << 15),
         }
     }
 }
@@ -291,12 +307,11 @@ impl OpElementSeq {
             Self::Rand(_) => 2,
         }
     }
-    pub fn encode_full(&self) -> u128 {
-        let num_addrs: u128 = match self {
+    pub fn num_addrs(&self) -> u128 {
+        match self {
             Self::Up | Self::Down => 0,
             Self::Rand(n) => *n as u128,
-        };
-        self.encode() | (num_addrs << 2)
+        }
     }
 }
 
@@ -312,12 +327,13 @@ impl OperationType {
 
 impl Op {
     fn encode(&self) -> u128 {
-        let mut val = self.typ.encode();
-        val |= (self.rand_data as u128) << 2;
-        val |= (self.rand_mask as u128) << 3;
+        let mut val: u128 = 0;
+        val |= self.typ.encode() << 9;
+        val |= (self.rand_data as u128) << 8;
+        val |= (self.rand_mask as u128) << 7;
         val |= (self.data_pattern_idx as u128) << 4;
-        val |= (self.mask_pattern_idx as u128) << 7;
-        val |= (self.flip_data as u128) << 10;
+        val |= (self.mask_pattern_idx as u128) << 1;
+        val |= !self.flip_data as u128;
         val
     }
 }
@@ -325,11 +341,17 @@ impl Op {
 impl OpElement {
     pub fn encode(&self) -> u128 {
         let mut val: u128 = 0;
-        for (i, op) in self.ops.iter().enumerate() {
-            val |= op.encode() << (11 * i);
+        for i in 0..OPERATIONS_PER_ELEMENT {
+            let op_encoded = if i < self.ops.len() {
+                self.ops[i].encode()
+            } else {
+                ZERO_OP_ENCODED
+            };
+            val |= op_encoded << (19 + 11 * i);
         }
-        val |= ((self.ops.len() - 1) as u128) << (OPERATIONS_PER_ELEMENT * 11);
-        val |= self.seq.encode_full() << (OPERATIONS_PER_ELEMENT * 11 + 3);
+        val |= ((self.ops.len() - 1) as u128) << 16;
+        val |= self.seq.encode() << 14;
+        val |= self.seq.num_addrs();
         val
     }
 }
