@@ -201,17 +201,7 @@ impl<I: MemoryIntf> BistController<I> {
         self.read_result()
     }
 
-    fn init(&mut self) {
-        self.intf.write(SRAM_ID, self.sram_id);
-        self.intf.write(SRAM_SEL, SRAM_SEL_BIST);
-        self.intf.write(BIST_RAND_SEED, self.rand_seed);
-        for i in 1u64..5 {
-            self.intf.write(BIST_RAND_SEED + 8 * i, 0);
-        }
-        self.intf.write128(BIST_SIG_SEED, self.sig_seed);
-        self.intf.write(BIST_MAX_ROW_ADDR, self.rows - 1);
-        self.intf.write(BIST_MAX_COL_ADDR, self.cols - 1);
-        self.intf.write(BIST_INNER_DIM, self.inner_dim.encode());
+    fn encode_elts(&self) -> [u64; 16] {
         let mut packed = [0u64; 16];
         for (i, elt) in self.elts.iter().enumerate() {
             let encoded = elt.encode();
@@ -231,7 +221,22 @@ impl<I: MemoryIntf> BistController<I> {
                 }
             }
         }
-        for (i, &word) in packed.iter().enumerate() {
+        packed
+    }
+
+    fn init(&mut self) {
+        self.intf.write(SRAM_ID, self.sram_id);
+        self.intf.write(SRAM_SEL, SRAM_SEL_BIST);
+        self.intf.write(BIST_RAND_SEED, self.rand_seed);
+        for i in 1u64..5 {
+            self.intf.write(BIST_RAND_SEED + 8 * i, 0);
+        }
+        self.intf.write128(BIST_SIG_SEED, self.sig_seed);
+        self.intf.write(BIST_MAX_ROW_ADDR, self.rows - 1);
+        self.intf.write(BIST_MAX_COL_ADDR, self.cols - 1);
+        self.intf.write(BIST_INNER_DIM, self.inner_dim.encode());
+        let elts = self.encode_elts();
+        for (i, &word) in elts.iter().enumerate() {
             self.intf.write(BIST_ELEMENT_SEQUENCE + 8 * i as u64, word);
         }
         for (i, &pat) in self.patterns.iter().enumerate() {
