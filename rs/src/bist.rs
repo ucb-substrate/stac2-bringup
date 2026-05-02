@@ -1,6 +1,6 @@
+use crate::MemoryIntf;
 use crate::memory::*;
 use crate::tests::SRAM_SIZES;
-use crate::MemoryIntf;
 
 const ELEMENT_TABLE_LENGTH: usize = 8;
 const OPERATIONS_PER_ELEMENT: usize = 8;
@@ -237,6 +237,235 @@ pub fn march_cm_bist<I>(intf: I, id: u64) -> BistController<I> {
     }
 }
 
+pub fn march_b_bist<I>(intf: I, id: u64) -> BistController<I> {
+    let size = SRAM_SIZES[id as usize];
+    BistController {
+        intf,
+        sram_id: id,
+        rows: size.rows() as u64,
+        mux_ratio: size.mux_ratio() as u64,
+        inner_dim: InnerDim::Col,
+        rand_seed: 0x22,
+        sig_seed: 0x12345678,
+        patterns: vec![
+            0,
+            0xffffffffffffffffffffffffffffffff,
+            0x123456789abcdefdeadbeef123456789,
+            0xfa70ec3c686eff304ab421a404f650ee,
+            0xaf899304f192ffb2e75aa2036786a6e3,
+            0x5472e4c65ef7294ca10efb8dd3975e50,
+        ],
+        elts: vec![
+            Element::Op(OpElement {
+                ops: vec![Op {
+                    typ: OperationType::Write,
+                    rand_data: false,
+                    rand_mask: false,
+                    data_pattern_idx: 0,
+                    mask_pattern_idx: 1,
+                    flip_data: false,
+                }],
+                seq: OpElementSeq::Up,
+            }),
+            Element::Op(OpElement {
+                ops: vec![
+                    Op {
+                        typ: OperationType::Read,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: false,
+                    },
+                    Op {
+                        typ: OperationType::Write,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: true,
+                    },
+                    Op {
+                        typ: OperationType::Read,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: true,
+                    },
+                    Op {
+                        typ: OperationType::Write,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: false,
+                    },
+                    Op {
+                        typ: OperationType::Read,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: false,
+                    },
+                    Op {
+                        typ: OperationType::Write,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: true,
+                    },
+                ],
+                seq: OpElementSeq::Up,
+            }),
+            Element::Op(OpElement {
+                ops: vec![
+                    Op {
+                        typ: OperationType::Read,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: true,
+                    },
+                    Op {
+                        typ: OperationType::Write,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: false,
+                    },
+                    Op {
+                        typ: OperationType::Write,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: true,
+                    },
+                ],
+                seq: OpElementSeq::Up,
+            }),
+            Element::Op(OpElement {
+                ops: vec![
+                    Op {
+                        typ: OperationType::Read,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: true,
+                    },
+                    Op {
+                        typ: OperationType::Write,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: false,
+                    },
+                    Op {
+                        typ: OperationType::Write,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: true,
+                    },
+                    Op {
+                        typ: OperationType::Write,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: false,
+                    },
+                ],
+                seq: OpElementSeq::Down,
+            }),
+            Element::Op(OpElement {
+                ops: vec![
+                    Op {
+                        typ: OperationType::Read,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: false,
+                    },
+                    Op {
+                        typ: OperationType::Write,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: true,
+                    },
+                    Op {
+                        typ: OperationType::Write,
+                        rand_data: false,
+                        rand_mask: false,
+                        data_pattern_idx: 0,
+                        mask_pattern_idx: 1,
+                        flip_data: false,
+                    },
+                ],
+                seq: OpElementSeq::Down,
+            }),
+        ],
+        cycle_limit: u64::MAX,
+        stop_on_failure: true,
+        data_width: size.width(),
+        mask_granularity: size.width() / size.mask_width(),
+    }
+}
+
+pub fn rand_bist<I>(intf: I, id: u64) -> BistController<I> {
+    let size = SRAM_SIZES[id as usize];
+    let d = size.depth() as u64;
+    BistController {
+        intf,
+        sram_id: id,
+        rows: size.rows() as u64,
+        mux_ratio: size.mux_ratio() as u64,
+        inner_dim: InnerDim::Col,
+        rand_seed: 0x22,
+        sig_seed: 0x12345678,
+        patterns: vec![0, 0xffffffffffffffffffffffffffffffff],
+        elts: vec![
+            Element::Op(OpElement {
+                ops: vec![Op {
+                    typ: OperationType::Write,
+                    rand_data: false,
+                    rand_mask: false,
+                    data_pattern_idx: 0,
+                    mask_pattern_idx: 1,
+                    flip_data: false,
+                }],
+                seq: OpElementSeq::Up,
+            }),
+            Element::Op(OpElement {
+                ops: vec![Op {
+                    typ: OperationType::Rand,
+                    rand_data: true,
+                    rand_mask: true,
+                    data_pattern_idx: 0,
+                    mask_pattern_idx: 0,
+                    flip_data: false,
+                }],
+                seq: OpElementSeq::Rand(4 * d * d),
+            }),
+        ],
+        cycle_limit: u64::MAX,
+        stop_on_failure: true,
+        data_width: size.width(),
+        mask_granularity: size.width() / size.mask_width(),
+    }
+}
+
 pub enum OperationType {
     Read,
     Write,
@@ -390,7 +619,11 @@ impl<I> BistController<I> {
                             );
 
                             let raw = self.patterns[op.data_pattern_idx];
-                            let data = if op.flip_data { !raw & sram_mask } else { raw & sram_mask };
+                            let data = if op.flip_data {
+                                !raw & sram_mask
+                            } else {
+                                raw & sram_mask
+                            };
                             let mask = self.patterns[op.mask_pattern_idx];
 
                             match op.typ {
@@ -646,7 +879,13 @@ fn elt_start_addr(elt: &Element, max_row: u64, max_col: u64) -> (u64, u64) {
 
 /// Apply a masked write to an SRAM word, mirroring the hardware mask-expansion
 /// logic (each of the `mask_width` mask bits enables writing `mask_gran` data bits).
-fn bist_masked_write(old: u128, data: u128, mask_raw: u128, mask_width: u32, mask_gran: u32) -> u128 {
+fn bist_masked_write(
+    old: u128,
+    data: u128,
+    mask_raw: u128,
+    mask_width: u32,
+    mask_gran: u32,
+) -> u128 {
     let actual_mask = mask_raw & bitmask_u128(mask_width);
     let mut result = old;
     for i in 0..mask_width {
@@ -655,7 +894,11 @@ fn bist_masked_write(old: u128, data: u128, mask_raw: u128, mask_width: u32, mas
             let hi = lo + mask_gran;
             // Build a mask covering bits lo..hi-1.
             let lo_mask = if lo == 0 { 0u128 } else { (1u128 << lo) - 1 };
-            let hi_mask = if hi >= 128 { u128::MAX } else { (1u128 << hi) - 1 };
+            let hi_mask = if hi >= 128 {
+                u128::MAX
+            } else {
+                (1u128 << hi) - 1
+            };
             let group_mask = hi_mask ^ lo_mask;
             result = (result & !group_mask) | (data & group_mask);
         }
@@ -665,7 +908,11 @@ fn bist_masked_write(old: u128, data: u128, mask_raw: u128, mask_width: u32, mas
 
 /// Return a u128 with the lower `n` bits set (handles n == 128 without overflow).
 fn bitmask_u128(n: u32) -> u128 {
-    if n >= 128 { u128::MAX } else { (1u128 << n) - 1 }
+    if n >= 128 {
+        u128::MAX
+    } else {
+        (1u128 << n) - 1
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -673,8 +920,8 @@ fn bitmask_u128(n: u32) -> u128 {
 #[cfg(test)]
 mod tests {
     use crate::bist::{
-        basic_bist, misr_step_128, BistController, Element, InnerDim, Op, OpElement, OpElementSeq,
-        OperationType, WaitElement,
+        BistController, Element, InnerDim, Op, OpElement, OpElementSeq, OperationType, WaitElement,
+        basic_bist, misr_step_128,
     };
 
     const BASIC_BIST_PACKED: [u64; 16] = [
