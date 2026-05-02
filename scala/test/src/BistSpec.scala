@@ -56,6 +56,29 @@ class BistSpec extends AnyFunSpec with ChiselSim {
       _.elementType -> elementType
     )
 
+  private def elementWithOps(
+      ops: Seq[Operation],
+      dir: Direction.Type = Direction.up,
+      maxIdx: Option[Int] = None
+  ): BistElement = {
+    require(ops.nonEmpty)
+    require(ops.length <= ProgrammableBistParams.operationsPerElement)
+
+    val paddedOps = ops.padTo(
+      ProgrammableBistParams.operationsPerElement,
+      zeroOp
+    )
+
+    element(
+      opElement(
+        Vec.Lit(paddedOps: _*),
+        maxIdx = maxIdx.getOrElse(ops.length - 1),
+        dir = dir
+      ),
+      waitElement()
+    )
+  }
+
   private def zeroElement: BistElement =
     element(
       opElement(
@@ -70,6 +93,14 @@ class BistSpec extends AnyFunSpec with ChiselSim {
       ElementType.waitOp
     )
 
+  private def elementSequence(elements: Seq[BistElement]): Vec[BistElement] = {
+    require(elements.length <= ProgrammableBistParams.elementTableLength)
+    Vec.Lit(
+      elements
+        .padTo(ProgrammableBistParams.elementTableLength, zeroElement): _*
+    )
+  }
+
   private def printElementSequenceWords(
       elementSequence: Vec[BistElement]
   ): Unit = {
@@ -82,28 +113,6 @@ class BistSpec extends AnyFunSpec with ChiselSim {
   describe("Bist") {
     it("should print basic BIST element table hex") {
       class ElementTest extends Module {
-        def elementWithOps(
-            ops: Seq[Operation],
-            dir: Direction.Type
-        ): BistElement = {
-          require(ops.nonEmpty)
-          require(ops.length <= ProgrammableBistParams.operationsPerElement)
-
-          val paddedOps = ops.padTo(
-            ProgrammableBistParams.operationsPerElement,
-            zeroOp
-          )
-
-          element(
-            opElement(
-              Vec.Lit(paddedOps: _*),
-              maxIdx = ops.length - 1,
-              dir = dir
-            ),
-            waitElement()
-          )
-        }
-
         val elements = Seq(
           elementWithOps(
             Seq(op(OperationType.write, 0, 1, flipData = false)),
@@ -127,70 +136,37 @@ class BistSpec extends AnyFunSpec with ChiselSim {
             Seq(op(OperationType.read, 0, 1, flipData = false)),
             Direction.up
           )
-        ).padTo(
-          ProgrammableBistParams.elementTableLength,
-          zeroElement
         )
 
-        printElementSequenceWords(Vec.Lit(elements: _*))
+        printElementSequenceWords(elementSequence(elements))
       }
       simulate(new ElementTest) { _ => }
     }
 
     it("should print copied march BIST element sequence hex") {
       class ElementSequenceTest extends Module {
-        val readOp = op(
-          OperationType.read,
-          dataPatternIdx = 3,
-          maskPatternIdx = 0,
-          flipData = false
+        val readOp = op(OperationType.read, 3, 0, flipData = false)
+        val writeOp = op(OperationType.write, 3, 1, flipData = false)
+        val readFlippedOp = op(OperationType.read, 3, 0, flipData = true)
+        val writeFlippedOp = op(OperationType.write, 3, 1, flipData = true)
+        val march = elementWithOps(
+          Seq(
+            writeOp,
+            readOp,
+            writeFlippedOp,
+            readFlippedOp,
+            readOp,
+            readOp,
+            readOp,
+            readOp
+          )
         )
-        val writeOp = op(
-          OperationType.write,
-          dataPatternIdx = 3,
-          maskPatternIdx = 1,
-          flipData = false
-        )
-        val readFlippedOp = op(
-          OperationType.read,
-          dataPatternIdx = 3,
-          maskPatternIdx = 0,
-          flipData = true
-        )
-        val writeFlippedOp = op(
-          OperationType.write,
-          dataPatternIdx = 3,
-          maskPatternIdx = 1,
-          flipData = true
-        )
-        val opElementList = Vec(8, new Operation()).Lit(
-          0 -> writeOp,
-          1 -> readOp,
-          2 -> writeFlippedOp,
-          3 -> readFlippedOp,
-          4 -> readOp,
-          5 -> readOp,
-          6 -> readOp,
-          7 -> readOp
-        )
-        val march = element(
-          opElement(opElementList, maxIdx = 3),
-          waitElement()
-        )
-        val elementSequence =
-          Vec(ProgrammableBistParams.elementTableLength, new BistElement)
-            .Lit(
-              0 -> march,
-              1 -> march,
-              2 -> march,
-              3 -> march,
-              4 -> zeroElement,
-              5 -> zeroElement,
-              6 -> zeroElement,
-              7 -> zeroElement
-            )
 
-        printElementSequenceWords(elementSequence)
+        printElementSequenceWords(
+          elementSequence(
+            Seq(march, march, march, march)
+          )
+        )
       }
       simulate(new ElementSequenceTest) { _ => }
     }
