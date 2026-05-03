@@ -1,3 +1,6 @@
+use anyhow::Result;
+use anyhow::bail;
+
 use crate::MemoryIntf;
 use crate::memory::*;
 use crate::tests::SRAM_SIZES;
@@ -728,6 +731,21 @@ impl<I> BistController<I> {
         }
 
         misr
+    }
+
+    pub fn validate_res(&self, res: BistResult) -> Result<()> {
+        if res.fail {
+            bail!("BIST failed: {res:#?}");
+        }
+        let expected = self.expected_signature();
+        if res.signature != expected {
+            bail!(
+                "Invalid signature: actual = {}, expected = {}",
+                res.signature,
+                expected
+            );
+        }
+        Ok(())
     }
 
     fn encode_elts(&self) -> [u64; 16] {

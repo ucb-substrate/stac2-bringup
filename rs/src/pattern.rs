@@ -148,6 +148,90 @@ impl Pattern {
         }
     }
 
+    pub fn march_cm_duplicate() -> Self {
+        Self {
+            elements: vec![
+                Element {
+                    addr_seq: AddrSeq::Up,
+                    ops: vec![
+                        SramOp::Write {
+                            data: SramInput::Fixed(0),
+                            mask: SramInput::Fixed(u128::MAX),
+                        },
+                        SramOp::Write {
+                            data: SramInput::Fixed(0),
+                            mask: SramInput::Fixed(u128::MAX),
+                        },
+                    ],
+                },
+                Element {
+                    addr_seq: AddrSeq::Up,
+                    ops: vec![
+                        SramOp::Read,
+                        SramOp::Read,
+                        SramOp::Write {
+                            data: SramInput::Fixed(u128::MAX),
+                            mask: SramInput::Fixed(u128::MAX),
+                        },
+                        SramOp::Write {
+                            data: SramInput::Fixed(u128::MAX),
+                            mask: SramInput::Fixed(u128::MAX),
+                        },
+                    ],
+                },
+                Element {
+                    addr_seq: AddrSeq::Up,
+                    ops: vec![
+                        SramOp::Read,
+                        SramOp::Read,
+                        SramOp::Write {
+                            data: SramInput::Fixed(0),
+                            mask: SramInput::Fixed(u128::MAX),
+                        },
+                        SramOp::Write {
+                            data: SramInput::Fixed(0),
+                            mask: SramInput::Fixed(u128::MAX),
+                        },
+                    ],
+                },
+                Element {
+                    addr_seq: AddrSeq::Down,
+                    ops: vec![
+                        SramOp::Read,
+                        SramOp::Read,
+                        SramOp::Write {
+                            data: SramInput::Fixed(u128::MAX),
+                            mask: SramInput::Fixed(u128::MAX),
+                        },
+                        SramOp::Write {
+                            data: SramInput::Fixed(u128::MAX),
+                            mask: SramInput::Fixed(u128::MAX),
+                        },
+                    ],
+                },
+                Element {
+                    addr_seq: AddrSeq::Down,
+                    ops: vec![
+                        SramOp::Read,
+                        SramOp::Read,
+                        SramOp::Write {
+                            data: SramInput::Fixed(0),
+                            mask: SramInput::Fixed(u128::MAX),
+                        },
+                        SramOp::Write {
+                            data: SramInput::Fixed(0),
+                            mask: SramInput::Fixed(u128::MAX),
+                        },
+                    ],
+                },
+                Element {
+                    addr_seq: AddrSeq::Up,
+                    ops: vec![SramOp::Read, SramOp::Read],
+                },
+            ],
+        }
+    }
+
     pub fn rand(n: u64) -> Self {
         Self {
             elements: vec![

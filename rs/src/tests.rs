@@ -55,36 +55,51 @@ impl BringupState {
             .expect("failed to run March C- pattern");
     }
 
-    pub fn basic_bist_tsi_test_sram(&mut self, id: u64) {
+    pub fn march_cm_duplicate_tsi_test_sram(&mut self, id: u64) {
         let size = SRAM_SIZES[id as usize];
+        let pat = FixedPattern::new(Pattern::march_cm_duplicate(), size, 1);
+        execute(pat, self.tsi_intf().test_sram_executor(id))
+            .expect("failed to run March C- duplicate pattern");
+    }
+
+    pub fn basic_bist_tsi_test_sram(&mut self, id: u64) {
         let intf = self.tsi_intf();
         let mut bist = basic_bist(intf, id);
         let res = bist.execute();
-        println!("{res:#?}");
+        match bist.validate_res(res) {
+            Err(e) => println!("SRAM {id} failure: {e}"),
+            Ok(()) => println!("BIST for SRAM {id} passed!"),
+        };
     }
 
     pub fn march_cm_bist_tsi_test_sram(&mut self, id: u64) {
-        let size = SRAM_SIZES[id as usize];
         let intf = self.tsi_intf();
         let mut bist = march_cm_bist(intf, id);
         let res = bist.execute();
-        println!("{res:#?}");
+        match bist.validate_res(res) {
+            Err(e) => println!("SRAM {id} failure: {e}"),
+            Ok(()) => println!("BIST for SRAM {id} passed!"),
+        };
     }
 
     pub fn march_b_bist_tsi_test_sram(&mut self, id: u64) {
-        let size = SRAM_SIZES[id as usize];
         let intf = self.tsi_intf();
         let mut bist = march_b_bist(intf, id);
         let res = bist.execute();
-        println!("{res:#?}");
+        match bist.validate_res(res) {
+            Err(e) => println!("SRAM {id} failure: {e}"),
+            Ok(()) => println!("BIST for SRAM {id} passed!"),
+        };
     }
 
     pub fn rand_bist_tsi_test_sram(&mut self, id: u64) {
-        let size = SRAM_SIZES[id as usize];
         let intf = self.tsi_intf();
         let mut bist = rand_bist(intf, id);
         let res = bist.execute();
-        println!("{res:#?}");
+        match bist.validate_res(res) {
+            Err(e) => println!("SRAM {id} failure: {e}"),
+            Ok(()) => println!("BIST for SRAM {id} passed!"),
+        };
     }
 
     pub fn rand_tsi_test_sram(&mut self, id: u64) {
