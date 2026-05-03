@@ -622,7 +622,11 @@ impl<I> BistController<I> {
                                     lfsr.rand_data() & sram_mask
                                 } else {
                                     let raw = self.patterns[op.data_pattern_idx];
-                                    if op.flip_data { !raw & sram_mask } else { raw & sram_mask }
+                                    if op.flip_data {
+                                        !raw & sram_mask
+                                    } else {
+                                        raw & sram_mask
+                                    }
                                 };
                                 let raw_mask = if op.rand_mask {
                                     lfsr.rand_mask()
@@ -632,8 +636,11 @@ impl<I> BistController<I> {
 
                                 if is_write {
                                     sram[addr] = bist_masked_write(
-                                        sram[addr], raw_data, raw_mask,
-                                        mask_width, self.mask_granularity,
+                                        sram[addr],
+                                        raw_data,
+                                        raw_mask,
+                                        mask_width,
+                                        self.mask_granularity,
                                     );
                                 } else {
                                     misr = misr_step_128(misr, sram[addr] & sram_mask);
@@ -664,7 +671,11 @@ impl<I> BistController<I> {
                                     lfsr.rand_data() & sram_mask
                                 } else {
                                     let raw = self.patterns[op.data_pattern_idx];
-                                    if op.flip_data { !raw & sram_mask } else { raw & sram_mask }
+                                    if op.flip_data {
+                                        !raw & sram_mask
+                                    } else {
+                                        raw & sram_mask
+                                    }
                                 };
                                 let raw_mask = if op.rand_mask {
                                     lfsr.rand_mask()
@@ -674,8 +685,11 @@ impl<I> BistController<I> {
 
                                 if is_write {
                                     sram[addr] = bist_masked_write(
-                                        sram[addr], raw_data, raw_mask,
-                                        mask_width, self.mask_granularity,
+                                        sram[addr],
+                                        raw_data,
+                                        raw_mask,
+                                        mask_width,
+                                        self.mask_granularity,
                                     );
                                 } else {
                                     misr = misr_step_128(misr, sram[addr] & sram_mask);
@@ -954,7 +968,11 @@ fn bitmask_u64(n: u32) -> u64 {
 
 /// Ceiling log base 2. Returns 0 for n ≤ 1.
 fn log2_ceil(n: u64) -> u32 {
-    if n <= 1 { 0 } else { 64 - (n - 1).leading_zeros() }
+    if n <= 1 {
+        0
+    } else {
+        64 - (n - 1).leading_zeros()
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -1382,7 +1400,11 @@ mod tests {
     fn rand_bist_expected_signature_is_deterministic() {
         use crate::bist::rand_bist;
         let sig = rand_bist((), 0).expected_signature();
-        assert_eq!(sig, rand_bist((), 0).expected_signature(), "not deterministic");
+        assert_eq!(
+            sig,
+            rand_bist((), 0).expected_signature(),
+            "not deterministic"
+        );
         assert_ne!(sig, 0);
         assert_ne!(sig, 0x12345678u128, "signature should not equal sig_seed");
 
@@ -1403,20 +1425,20 @@ mod tests {
             181718990368149921933182788912415723492, // SRAM  3
             271625274696836046971172272235168328567, // SRAM  4
             173780344703431218152445207057245610815, // SRAM  5
-             33932211709387350024616149407249051816, // SRAM  6
+            33932211709387350024616149407249051816,  // SRAM  6
             236181482163255396159126307420785725794, // SRAM  7
             253796419754034000090550023669733434008, // SRAM  8
-             10045536061912160697293438420962870323, // SRAM  9
+            10045536061912160697293438420962870323,  // SRAM  9
             311794336798262176063187235549129554642, // SRAM 10
             279648850837578680480069666787687318554, // SRAM 11
             188180803326311202792691840632558602861, // SRAM 12
             220770591037702866231525693588572601924, // SRAM 13
-             84971561158651698205690231688503025491, // SRAM 14
+            84971561158651698205690231688503025491,  // SRAM 14
             233710015981246038562622600083746819379, // SRAM 15
             305026504763097746684158955825412086443, // SRAM 16
             219610186456536458702369254403997161043, // SRAM 17
-             14651963960470542285819444396208728108, // SRAM 18
-             70264154285946766405024608020502514943, // SRAM 19
+            14651963960470542285819444396208728108,  // SRAM 18
+            70264154285946766405024608020502514943,  // SRAM 19
             285076337513478781228445413731479395446, // SRAM 20
         ];
         for (id, &expected) in CHIP_SIGS.iter().enumerate() {
