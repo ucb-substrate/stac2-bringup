@@ -570,11 +570,10 @@ impl<I> BistController<I> {
 
     /// Simulate the BIST on a defect-free SRAM and return the expected MISR signature.
     ///
-    /// Models `BistTop.scala` exactly: runs the `ProgrammableBist` address/data sequence,
-    /// applies writes and reads to a software SRAM, and accumulates all read results through
-    /// the 128-bit Fibonacci MISR (taps {128,127,126,121}, initial state = `sig_seed`).
-    ///
-    /// Panics if any element or operation uses randomised addresses/data (not yet supported).
+    /// Models `BistTop.scala` exactly: runs the `ProgrammableBist` address/data/wen sequence
+    /// (including the 271-bit Fibonacci LFSR for random modes), applies writes and reads to a
+    /// software SRAM, and accumulates all read results through the 128-bit Fibonacci MISR
+    /// (taps {128,127,126,121}, initial state = `sig_seed`).
     pub fn expected_signature(&self) -> u128 {
         let sram_mask = bitmask_u128(self.data_width);
         let mask_width = self.data_width / self.mask_granularity;
@@ -582,104 +581,130 @@ impl<I> BistController<I> {
         let total_words = (self.rows * self.mux_ratio) as usize;
         let mut sram = vec![0u128; total_words];
         let mut misr = self.sig_seed;
+        let mut lfsr = Lfsr271::new(self.rand_seed);
+
+        let row_addr_bits = log2_ceil(self.rows);
+        let col_addr_bits = log2_ceil(self.mux_ratio);
+        let row_mask = bitmask_u64(row_addr_bits);
+        let col_mask = bitmask_u64(col_addr_bits);
 
         let max_row = self.rows - 1;
         let max_col = self.mux_ratio - 1;
-        let max_elt = self.elts.len() - 1;
 
-        let mut elt_idx = 0usize;
-        let (mut row, mut col) = elt_start_addr(&self.elts[0], max_row, max_col);
-
-        'done: loop {
+        for elt_idx in 0..self.elts.len() {
             match &self.elts[elt_idx] {
-                Element::Wait(_) => {
-                    // Wait elements produce no SRAM ops; skip straight to the next element.
-                    elt_idx += 1;
-                    if elt_idx > max_elt {
-                        break 'done;
+                Element::Wait(we) => {
+                    for _ in 0..we.cycles {
+                        lfsr.step();
                     }
-                    (row, col) = elt_start_addr(&self.elts[elt_idx], max_row, max_col);
                 }
 
                 Element::Op(op_elt) => {
-                    assert!(
-                        !matches!(op_elt.seq, OpElementSeq::Rand(_)),
-                        "random address order is not supported in expected_signature"
-                    );
+                    // Helper: execute one op at `addr`, advancing LFSR and MISR as needed.
+                    // (inline closure avoids borrow conflicts on `sram`/`misr`/`lfsr`)
+                    if let OpElementSeq::Rand(n) = op_elt.seq {
+                        // Random-address element: io.row/col are wired combinatorially from
+                        // the live LFSR (ProgrammableBist.scala: `io.row := Mux(randAddrOrder,
+                        // randRow, rowCounter)`), so the address changes on every op cycle.
+                        for _ in 0..n {
+                            for op in op_elt.ops.iter() {
+                                // Re-derive address from the current LFSR state each op.
+                                let row = lfsr.rand_row() & row_mask;
+                                let col = lfsr.rand_col() & col_mask;
+                                let addr = (row * self.mux_ratio + col) as usize;
 
-                    let up = matches!(op_elt.seq, OpElementSeq::Up);
-                    let row_end: u64 = if up { max_row } else { 0 };
-                    let col_end: u64 = if up { max_col } else { 0 };
-                    let row_start: u64 = if up { 0 } else { max_row };
-                    let col_start: u64 = if up { 0 } else { max_col };
+                                let is_write = match op.typ {
+                                    OperationType::Write => true,
+                                    OperationType::Read => false,
+                                    OperationType::Rand => lfsr.rand_wen(),
+                                };
+                                let raw_data = if op.rand_data {
+                                    lfsr.rand_data() & sram_mask
+                                } else {
+                                    let raw = self.patterns[op.data_pattern_idx];
+                                    if op.flip_data { !raw & sram_mask } else { raw & sram_mask }
+                                };
+                                let raw_mask = if op.rand_mask {
+                                    lfsr.rand_mask()
+                                } else {
+                                    self.patterns[op.mask_pattern_idx]
+                                };
 
-                    loop {
-                        let addr = (row * self.mux_ratio + col) as usize;
-
-                        for op in op_elt.ops.iter() {
-                            assert!(
-                                !op.rand_data && !op.rand_mask,
-                                "random data/mask is not supported in expected_signature"
-                            );
-                            assert!(
-                                !matches!(op.typ, OperationType::Rand),
-                                "random op type is not supported in expected_signature"
-                            );
-
-                            let raw = self.patterns[op.data_pattern_idx];
-                            let data = if op.flip_data {
-                                !raw & sram_mask
-                            } else {
-                                raw & sram_mask
-                            };
-                            let mask = self.patterns[op.mask_pattern_idx];
-
-                            match op.typ {
-                                OperationType::Write => {
+                                if is_write {
                                     sram[addr] = bist_masked_write(
-                                        sram[addr],
-                                        data,
-                                        mask,
-                                        mask_width,
-                                        self.mask_granularity,
+                                        sram[addr], raw_data, raw_mask,
+                                        mask_width, self.mask_granularity,
                                     );
-                                }
-                                OperationType::Read => {
+                                } else {
                                     misr = misr_step_128(misr, sram[addr] & sram_mask);
                                 }
-                                OperationType::Rand => unreachable!(),
+                                lfsr.step();
                             }
                         }
+                    } else {
+                        // Sequential (Up/Down) element.
+                        let up = matches!(op_elt.seq, OpElementSeq::Up);
+                        let row_end: u64 = if up { max_row } else { 0 };
+                        let col_end: u64 = if up { max_col } else { 0 };
+                        let row_start: u64 = if up { 0 } else { max_row };
+                        let col_start: u64 = if up { 0 } else { max_col };
+                        let (mut row, mut col) =
+                            elt_start_addr(&self.elts[elt_idx], max_row, max_col);
 
-                        // Advance address (mirrors the Chisel state-update logic).
-                        let rows_done = row == row_end;
-                        let cols_done = col == col_end;
+                        loop {
+                            let addr = (row * self.mux_ratio + col) as usize;
 
-                        if rows_done && cols_done {
-                            // Last address for this element – move to the next one.
-                            elt_idx += 1;
-                            if elt_idx > max_elt {
-                                break 'done;
-                            }
-                            (row, col) = elt_start_addr(&self.elts[elt_idx], max_row, max_col);
-                            break;
-                        }
-
-                        match self.inner_dim {
-                            InnerDim::Col => {
-                                if cols_done {
-                                    col = col_start;
-                                    row = if up { row + 1 } else { row - 1 };
+                            for op in op_elt.ops.iter() {
+                                let is_write = match op.typ {
+                                    OperationType::Write => true,
+                                    OperationType::Read => false,
+                                    OperationType::Rand => lfsr.rand_wen(),
+                                };
+                                let raw_data = if op.rand_data {
+                                    lfsr.rand_data() & sram_mask
                                 } else {
-                                    col = if up { col + 1 } else { col - 1 };
+                                    let raw = self.patterns[op.data_pattern_idx];
+                                    if op.flip_data { !raw & sram_mask } else { raw & sram_mask }
+                                };
+                                let raw_mask = if op.rand_mask {
+                                    lfsr.rand_mask()
+                                } else {
+                                    self.patterns[op.mask_pattern_idx]
+                                };
+
+                                if is_write {
+                                    sram[addr] = bist_masked_write(
+                                        sram[addr], raw_data, raw_mask,
+                                        mask_width, self.mask_granularity,
+                                    );
+                                } else {
+                                    misr = misr_step_128(misr, sram[addr] & sram_mask);
                                 }
+                                lfsr.step();
                             }
-                            InnerDim::Row => {
-                                if rows_done {
-                                    row = row_start;
-                                    col = if up { col + 1 } else { col - 1 };
-                                } else {
-                                    row = if up { row + 1 } else { row - 1 };
+
+                            let rows_done = row == row_end;
+                            let cols_done = col == col_end;
+                            if rows_done && cols_done {
+                                break;
+                            }
+
+                            match self.inner_dim {
+                                InnerDim::Col => {
+                                    if cols_done {
+                                        col = col_start;
+                                        row = if up { row + 1 } else { row - 1 };
+                                    } else {
+                                        col = if up { col + 1 } else { col - 1 };
+                                    }
+                                }
+                                InnerDim::Row => {
+                                    if rows_done {
+                                        row = row_start;
+                                        col = if up { col + 1 } else { col - 1 };
+                                    } else {
+                                        row = if up { row + 1 } else { row - 1 };
+                                    }
                                 }
                             }
                         }
@@ -920,6 +945,70 @@ fn bitmask_u128(n: u32) -> u128 {
         u128::MAX
     } else {
         (1u128 << n) - 1
+    }
+}
+
+fn bitmask_u64(n: u32) -> u64 {
+    if n >= 64 { u64::MAX } else { (1u64 << n) - 1 }
+}
+
+/// Ceiling log base 2. Returns 0 for n ≤ 1.
+fn log2_ceil(n: u64) -> u32 {
+    if n <= 1 { 0 } else { 64 - (n - 1).leading_zeros() }
+}
+
+// ---------------------------------------------------------------------------
+// 271-bit Fibonacci LFSR (models MaxPeriodFibonacciLFSR from ProgrammableBist.scala)
+// ---------------------------------------------------------------------------
+//
+// Taps: {271, 213} → feedback = s[270] ^ s[212], new[i] = s[i-1].
+// State layout across five u64 words (word k holds bits 64k..64k+63):
+//   word 0: bits   0..63   → randData[63:0]
+//   word 1: bits  64..127  → randData[127:64]
+//   word 2: bits 128..191  → randMask[63:0]
+//   word 3: bits 192..255  → randMask[127:64]
+//   word 4: bits 256..270  → randRow[10:0] | randCol[2:0] | randWen (15 bits)
+struct Lfsr271 {
+    state: [u64; 5],
+}
+
+impl Lfsr271 {
+    fn new(seed: u64) -> Self {
+        let mut state = [0u64; 5];
+        state[0] = seed;
+        Self { state }
+    }
+
+    fn step(&mut self) {
+        let s = &mut self.state;
+        // feedback = s[270] ^ s[212]
+        let feedback = ((s[4] >> 14) ^ (s[3] >> 20)) & 1;
+        // left-shift the whole 271-bit register (new[i] = old[i-1])
+        s[4] = ((s[4] << 1) | (s[3] >> 63)) & 0x7FFF;
+        s[3] = (s[3] << 1) | (s[2] >> 63);
+        s[2] = (s[2] << 1) | (s[1] >> 63);
+        s[1] = (s[1] << 1) | (s[0] >> 63);
+        s[0] = (s[0] << 1) | feedback;
+    }
+
+    fn rand_data(&self) -> u128 {
+        (self.state[0] as u128) | ((self.state[1] as u128) << 64)
+    }
+
+    fn rand_mask(&self) -> u128 {
+        (self.state[2] as u128) | ((self.state[3] as u128) << 64)
+    }
+
+    fn rand_row(&self) -> u64 {
+        self.state[4] & 0x7FF
+    }
+
+    fn rand_col(&self) -> u64 {
+        (self.state[4] >> 11) & 0x7
+    }
+
+    fn rand_wen(&self) -> bool {
+        (self.state[4] >> 14) & 1 == 1
     }
 }
 
@@ -1285,5 +1374,54 @@ mod tests {
         };
 
         assert_eq!(base.expected_signature(), with_wait.expected_signature());
+    }
+
+    /// Verify that `expected_signature` handles all random BIST modes without panicking,
+    /// produces a deterministic result, and changes when the random seed changes.
+    #[test]
+    fn rand_bist_expected_signature_is_deterministic() {
+        use crate::bist::rand_bist;
+        let sig = rand_bist((), 0).expected_signature();
+        assert_eq!(sig, rand_bist((), 0).expected_signature(), "not deterministic");
+        assert_ne!(sig, 0);
+        assert_ne!(sig, 0x12345678u128, "signature should not equal sig_seed");
+
+        // Changing rand_seed must change the signature.
+        let mut b = rand_bist((), 0);
+        b.rand_seed = 0xdeadbeef;
+        assert_ne!(sig, b.expected_signature());
+    }
+
+    /// Check the software model against signatures collected from the chip for all 21 SRAMs.
+    #[test]
+    fn rand_bist_matches_chip_signatures() {
+        use crate::bist::rand_bist;
+        const CHIP_SIGS: [u128; 21] = [
+            203876398793974784392049286733865567426, // SRAM  0
+            143816083980602734529858358810098685540, // SRAM  1
+            108471526183210361328190071862838307380, // SRAM  2
+            181718990368149921933182788912415723492, // SRAM  3
+            271625274696836046971172272235168328567, // SRAM  4
+            173780344703431218152445207057245610815, // SRAM  5
+             33932211709387350024616149407249051816, // SRAM  6
+            236181482163255396159126307420785725794, // SRAM  7
+            253796419754034000090550023669733434008, // SRAM  8
+             10045536061912160697293438420962870323, // SRAM  9
+            311794336798262176063187235549129554642, // SRAM 10
+            279648850837578680480069666787687318554, // SRAM 11
+            188180803326311202792691840632558602861, // SRAM 12
+            220770591037702866231525693588572601924, // SRAM 13
+             84971561158651698205690231688503025491, // SRAM 14
+            233710015981246038562622600083746819379, // SRAM 15
+            305026504763097746684158955825412086443, // SRAM 16
+            219610186456536458702369254403997161043, // SRAM 17
+             14651963960470542285819444396208728108, // SRAM 18
+             70264154285946766405024608020502514943, // SRAM 19
+            285076337513478781228445413731479395446, // SRAM 20
+        ];
+        for (id, &expected) in CHIP_SIGS.iter().enumerate() {
+            let got = rand_bist((), id as u64).expected_signature();
+            assert_eq!(got, expected, "SRAM {id}: model={got} chip={expected}");
+        }
     }
 }

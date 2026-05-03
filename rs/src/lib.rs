@@ -12,6 +12,7 @@ pub mod tsi;
 
 use ::tsi::Tsi;
 pub use bebe::*;
+pub use bist::*;
 pub use executor::*;
 pub use memory::*;
 pub use tsi::*;
