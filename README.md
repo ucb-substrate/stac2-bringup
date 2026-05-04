@@ -56,15 +56,10 @@ Try initializing the chip:
 l.init_chip();
 ```
 
-You should see the following output. If you don't, rerun `l.init_chip()`.
+You should see the following output. If you don't, something is probably wrong with the setup.
 
 ```bash
-[bebe host] Waiting for DUT...
-[bebe host] DUT found!
-[bebe host] Trying to nock...
-47 4F 42 45 41 52 53 21                           GOBEARS!
-
-[bebe host] Connected to DUT!
+Chip initialized!
 ()
 ```
 

@@ -1,39 +1,44 @@
 use std::path::Path;
 
 use crate::BringupState;
+use crate::bist::{
+    BistController, Element, InnerDim, Op, OpElement, OpElementSeq, OperationType, basic_bist,
+    march_b_bist, march_cm_bist, rand_bist,
+};
 use crate::executor::execute;
 use crate::pattern::{FixedPattern, Pattern, SramSize};
 
 /// The size of the scratchpad on the STAC-V2 test chip.
-const SCRATCHPAD_SIZE: SramSize = SramSize {
+pub const SCRATCHPAD_SIZE: SramSize = SramSize {
     depth: 512,
     width: 64,
     mask_width: 8,
+    mux_ratio: 4,
 };
 
-const SRAM_SIZES: [SramSize; 22] = [
-    SramSize::new(64, 24, 8),
-    SramSize::new(64, 32, 8),
-    SramSize::new(128, 16, 8),
-    SramSize::new(128, 24, 8),
-    SramSize::new(128, 32, 8),
-    SramSize::new(256, 8, 1),
-    SramSize::new(256, 16, 8),
-    SramSize::new(256, 32, 8),
-    SramSize::new(256, 64, 8),
-    SramSize::new(256, 128, 8),
-    SramSize::new(512, 8, 1),
-    SramSize::new(512, 32, 8),
-    SramSize::new(512, 64, 8),
-    SramSize::new(512, 128, 8),
-    SramSize::new(1024, 8, 1),
-    SramSize::new(1024, 32, 8),
-    SramSize::new(1024, 64, 8),
-    SramSize::new(2048, 8, 1),
-    SramSize::new(2048, 32, 8),
-    SramSize::new(4096, 8, 1),
-    SramSize::new(4096, 32, 8),
-    SramSize::new(8192, 32, 8),
+pub const SRAM_SIZES: [SramSize; 22] = [
+    SramSize::new(64, 24, 8, 4),
+    SramSize::new(64, 32, 8, 4),
+    SramSize::new(128, 16, 8, 4),
+    SramSize::new(128, 24, 8, 4),
+    SramSize::new(128, 32, 8, 4),
+    SramSize::new(256, 8, 1, 8),
+    SramSize::new(256, 16, 8, 8),
+    SramSize::new(256, 32, 8, 4),
+    SramSize::new(256, 64, 8, 4),
+    SramSize::new(256, 128, 8, 4),
+    SramSize::new(512, 8, 1, 8),
+    SramSize::new(512, 32, 8, 4),
+    SramSize::new(512, 64, 8, 4),
+    SramSize::new(512, 128, 8, 4),
+    SramSize::new(1024, 8, 1, 8),
+    SramSize::new(1024, 32, 8, 8),
+    SramSize::new(1024, 64, 8, 4),
+    SramSize::new(2048, 8, 1, 8),
+    SramSize::new(2048, 32, 8, 8),
+    SramSize::new(4096, 8, 1, 8),
+    SramSize::new(4096, 32, 8, 8),
+    SramSize::new(8192, 32, 8, 8),
 ];
 
 impl BringupState {
@@ -48,6 +53,53 @@ impl BringupState {
         let pat = FixedPattern::new(Pattern::march_cm(), size, 1);
         execute(pat, self.tsi_intf().test_sram_executor(id))
             .expect("failed to run March C- pattern");
+    }
+
+    pub fn march_cm_duplicate_tsi_test_sram(&mut self, id: u64) {
+        let size = SRAM_SIZES[id as usize];
+        let pat = FixedPattern::new(Pattern::march_cm_duplicate(), size, 1);
+        execute(pat, self.tsi_intf().test_sram_executor(id))
+            .expect("failed to run March C- duplicate pattern");
+    }
+
+    pub fn basic_bist_tsi_test_sram(&mut self, id: u64) {
+        let intf = self.tsi_intf();
+        let mut bist = basic_bist(intf, id);
+        let res = bist.execute();
+        match bist.validate_res(res) {
+            Err(e) => println!("SRAM {id} failure: {e}"),
+            Ok(()) => println!("BIST for SRAM {id} passed!"),
+        };
+    }
+
+    pub fn march_cm_bist_tsi_test_sram(&mut self, id: u64) {
+        let intf = self.tsi_intf();
+        let mut bist = march_cm_bist(intf, id);
+        let res = bist.execute();
+        match bist.validate_res(res) {
+            Err(e) => println!("SRAM {id} failure: {e}"),
+            Ok(()) => println!("BIST for SRAM {id} passed!"),
+        };
+    }
+
+    pub fn march_b_bist_tsi_test_sram(&mut self, id: u64) {
+        let intf = self.tsi_intf();
+        let mut bist = march_b_bist(intf, id);
+        let res = bist.execute();
+        match bist.validate_res(res) {
+            Err(e) => println!("SRAM {id} failure: {e}"),
+            Ok(()) => println!("BIST for SRAM {id} passed!"),
+        };
+    }
+
+    pub fn rand_bist_tsi_test_sram(&mut self, id: u64) {
+        let intf = self.tsi_intf();
+        let mut bist = rand_bist(intf, id);
+        let res = bist.execute();
+        match bist.validate_res(res) {
+            Err(e) => println!("SRAM {id} failure: {e}"),
+            Ok(()) => println!("BIST for SRAM {id} passed!"),
+        };
     }
 
     pub fn rand_tsi_test_sram(&mut self, id: u64) {
@@ -88,7 +140,7 @@ mod software {
 
     #[test]
     fn mats_plus_ideal_executor() {
-        let size = SramSize::new(32, 256, 4);
+        let size = SramSize::new(256, 32, 4, 4);
         let ex = IdealExecutor::new(size);
         let pat = FixedPattern::new(Pattern::mats_plus(), size, 1);
         execute(pat, ex).expect("MATS+ pattern should execute correctly with an ideal executor");
@@ -96,7 +148,7 @@ mod software {
 
     #[test]
     fn march_cm_ideal_executor() {
-        let size = SramSize::new(32, 256, 4);
+        let size = SramSize::new(256, 32, 4, 4);
         let ex = IdealExecutor::new(size);
         let pat = FixedPattern::new(Pattern::march_cm(), size, 1);
         execute(pat, ex).expect("March C- pattern should execute correctly with an ideal executor");
@@ -104,7 +156,7 @@ mod software {
 
     #[test]
     fn rand4096_ideal_executor() {
-        let size = SramSize::new(32, 256, 4);
+        let size = SramSize::new(256, 32, 4, 4);
         let ex = IdealExecutor::new(size);
         let pat = FixedPattern::new(Pattern::rand(4096), size, 1);
         execute(pat, ex)

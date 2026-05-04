@@ -1,6 +1,7 @@
 use const_format::concatcp;
 
 pub mod bebe;
+pub mod bist;
 pub mod config;
 pub mod executor;
 pub mod memory;
@@ -11,6 +12,7 @@ pub mod tsi;
 
 use ::tsi::Tsi;
 pub use bebe::*;
+pub use bist::*;
 pub use executor::*;
 pub use memory::*;
 pub use tsi::*;
