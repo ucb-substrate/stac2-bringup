@@ -14,6 +14,11 @@
         signature: 799956904,
     }
     ```
+- All SRAMS except SRAM 21 pass `l.basic_bist_tsi_test_sram`, `l.march_cm_bist_tsi_test_sram`, 
+    `l.march_b_bist_tsi_test_sram`, and `rand_bist_tsi_test_sram`.
+- The BIST seems to be unable to write all addresses, though these addresses can be written
+    using the MMIO write method. Also seems that writes write to the current address
+    and the next address, causing the manual BIST executor to fail.
 
 ## 04/30/26
 
