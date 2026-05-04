@@ -1,5 +1,9 @@
 # STAC2 Bringup
 
+Bringup code for the SRAM Timing Analysis Chip 2 (STAC2). These repos may also be useful for bringup:
+- [STAC RTL and VLSI flow](https://github.com/ucb-bar/stac-top)
+- [STAC PCB](https://github.com/rahulk29/stac-pcb)
+
 ## Setup
 
 Requirements:
@@ -98,7 +102,8 @@ The reset switches on the STAC2 evaluation board are not functional.
 
 - `rs/` - A Rust crate with code for exercising the chip.
 
-- `scala/` A Scala package with code for generating the FPGA bitstream.
+- `scala/` A Scala package with code for generating the FPGA bitstream. Also has some utilities
+    for probing STAC RTL relevant to bringup.
 
 - `Stac.toml` - Bringup configuration.
 
