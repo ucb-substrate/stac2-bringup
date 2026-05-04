@@ -24,7 +24,7 @@ pub fn basic_bist<I>(intf: I, id: u64) -> BistController<I> {
         rows: size.rows() as u64,
         mux_ratio: size.mux_ratio() as u64,
         inner_dim: InnerDim::Col,
-        rand_seed: 0x22,
+        rand_seed: [0x22, 0, 0, 0, 0],
         sig_seed: 0x12345678,
         patterns: vec![
             0,
@@ -115,7 +115,7 @@ pub fn march_cm_bist<I>(intf: I, id: u64) -> BistController<I> {
         rows: size.rows() as u64,
         mux_ratio: size.mux_ratio() as u64,
         inner_dim: InnerDim::Col,
-        rand_seed: 0x22,
+        rand_seed: [0x22, 0, 0, 0, 0],
         sig_seed: 0x12345678,
         patterns: vec![
             0,
@@ -248,7 +248,7 @@ pub fn march_b_bist<I>(intf: I, id: u64) -> BistController<I> {
         rows: size.rows() as u64,
         mux_ratio: size.mux_ratio() as u64,
         inner_dim: InnerDim::Col,
-        rand_seed: 0x22,
+        rand_seed: [0x22, 0, 0, 0, 0],
         sig_seed: 0x12345678,
         patterns: vec![
             0,
@@ -462,7 +462,7 @@ pub fn rand_bist<I>(intf: I, id: u64) -> BistController<I> {
         rows: size.rows() as u64,
         mux_ratio: size.mux_ratio() as u64,
         inner_dim: InnerDim::Col,
-        rand_seed: 0x22,
+        rand_seed: [0x22, 0, 0, 0, 0],
         sig_seed: 0x12345678,
         patterns: vec![0, 0xffffffffffffffffffffffffffffffff],
         elts,
@@ -523,7 +523,7 @@ pub struct BistController<I> {
     pub rows: u64,
     pub mux_ratio: u64,
     pub inner_dim: InnerDim,
-    pub rand_seed: u64,
+    pub rand_seed: [u64; 5],
     pub sig_seed: u128,
     pub patterns: Vec<u128>,
     pub elts: Vec<Element>,
@@ -789,9 +789,8 @@ impl<I: MemoryIntf> BistController<I> {
     fn init(&mut self) {
         self.intf.write(SRAM_ID, self.sram_id);
         self.intf.write(SRAM_SEL, SRAM_SEL_BIST);
-        self.intf.write(BIST_RAND_SEED, self.rand_seed);
-        for i in 1u64..5 {
-            self.intf.write(BIST_RAND_SEED + 8 * i, 0);
+        for (i, &word) in self.rand_seed.iter().enumerate() {
+            self.intf.write(BIST_RAND_SEED + 8 * i as u64, word);
         }
         self.intf.write128(BIST_SIG_SEED, self.sig_seed);
         self.intf.write(BIST_MAX_ROW_ADDR, self.rows - 1);
@@ -1009,9 +1008,9 @@ struct Lfsr271 {
 }
 
 impl Lfsr271 {
-    fn new(seed: u64) -> Self {
-        let mut state = [0u64; 5];
-        state[0] = seed;
+    fn new(seed: [u64; 5]) -> Self {
+        let mut state = seed;
+        state[4] &= 0x7FFF;
         Self { state }
     }
 
@@ -1174,7 +1173,7 @@ mod tests {
             rows: 1,
             mux_ratio: 1,
             inner_dim: InnerDim::Row,
-            rand_seed: 1,
+            rand_seed: [1, 0, 0, 0, 0],
             sig_seed: 1,
             patterns: vec![
                 0,
@@ -1229,7 +1228,7 @@ mod tests {
             rows: 1,
             mux_ratio: 1,
             inner_dim: InnerDim::Col,
-            rand_seed: 1,
+            rand_seed: [1, 0, 0, 0, 0],
             sig_seed: 1,
             patterns: vec![0, u128::MAX],
             elts: vec![
@@ -1277,7 +1276,7 @@ mod tests {
             rows: 1,
             mux_ratio: 1,
             inner_dim: InnerDim::Col,
-            rand_seed: 1,
+            rand_seed: [1, 0, 0, 0, 0],
             sig_seed: 1,
             patterns: vec![0, u128::MAX],
             elts: vec![
@@ -1335,7 +1334,7 @@ mod tests {
             rows: 1,
             mux_ratio: 1,
             inner_dim: InnerDim::Col,
-            rand_seed: 1,
+            rand_seed: [1, 0, 0, 0, 0],
             sig_seed: 1,
             patterns: vec![0, u128::MAX],
             elts: vec![
@@ -1400,7 +1399,7 @@ mod tests {
             rows: 1,
             mux_ratio: 1,
             inner_dim: InnerDim::Col,
-            rand_seed: 1,
+            rand_seed: [1, 0, 0, 0, 0],
             sig_seed: 1,
             patterns: vec![0, u128::MAX],
             cycle_limit: u64::MAX,
@@ -1428,7 +1427,7 @@ mod tests {
 
         // Changing rand_seed must change the signature.
         let mut b = rand_bist((), 0);
-        b.rand_seed = 0xdeadbeef;
+        b.rand_seed = [0xdeadbeef, 0, 0, 0, 0];
         assert_ne!(sig, b.expected_signature());
     }
 
