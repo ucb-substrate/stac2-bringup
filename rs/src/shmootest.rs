@@ -6,7 +6,7 @@ use std::time::Duration;
 
 use serde::{Deserialize, Serialize};
 use visa_rs::flags::AccessMode;
-use visa_rs::enums::attribute::{AttrTermchar, AttrTermcharEn, AttrTmoValue, HasAttribute};
+use visa_rs::enums::attribute::{AttrTmoValue, HasAttribute};
 use visa_rs::{AsResourceManager, DefaultRM, Instrument, TIMEOUT_IMMEDIATE};
 
 use crate::BringupState;
@@ -48,7 +48,8 @@ pub struct ShmooResult {
 }
 
 fn scpi(instr: &mut Instrument, cmd: &str) {
-    write!(instr, "{cmd}\r\n").expect("SCPI write failed");
+    let msg = format!("{cmd}\n");
+    instr.write_all(msg.as_bytes()).expect("SCPI write failed");
 }
 
 fn query(instr: &mut Instrument, cmd: &str) -> String {
@@ -65,9 +66,6 @@ fn open_instr(rm: &DefaultRM, addr: &str) -> Instrument {
         .unwrap_or_else(|e| panic!("failed to open {addr}: {e}"));
     // 10 second I/O timeout (TIMEOUT_IMMEDIATE = 0 causes reads to time out instantly)
     instr.set_attr(unsafe { AttrTmoValue::new_unchecked(10_000) }).expect("failed to set I/O timeout");
-    // Stop reads on LF, same defaults as pyvisa
-    instr.set_attr(unsafe { AttrTermchar::new_unchecked(b'\n' as _) }).expect("failed to set termchar");
-    instr.set_attr(unsafe { AttrTermcharEn::new_unchecked(1) }).expect("failed to enable termchar");
     instr
 }
 

@@ -1,0 +1,1841 @@
+{
+  "sram_id": 2,
+  "points": [
+    {
+      "vdd_set_v": 1.2,
+      "vdd_meas_psu_v": 1.199823,
+      "clock_freq_hz": 15000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.2,
+      "vdd_meas_psu_v": 1.199823,
+      "clock_freq_hz": 20000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.2,
+      "vdd_meas_psu_v": 1.199823,
+      "clock_freq_hz": 25000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.2,
+      "vdd_meas_psu_v": 1.199823,
+      "clock_freq_hz": 30000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.2,
+      "vdd_meas_psu_v": 1.199823,
+      "clock_freq_hz": 35000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.2,
+      "vdd_meas_psu_v": 1.199823,
+      "clock_freq_hz": 40000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.2,
+      "vdd_meas_psu_v": 1.199823,
+      "clock_freq_hz": 45000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.2,
+      "vdd_meas_psu_v": 1.199823,
+      "clock_freq_hz": 50000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.2,
+      "vdd_meas_psu_v": 1.199823,
+      "clock_freq_hz": 55000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.2,
+      "vdd_meas_psu_v": 1.199823,
+      "clock_freq_hz": 60000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.2,
+      "vdd_meas_psu_v": 1.199823,
+      "clock_freq_hz": 65000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.2,
+      "vdd_meas_psu_v": 1.199823,
+      "clock_freq_hz": 70000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.2,
+      "vdd_meas_psu_v": 1.199823,
+      "clock_freq_hz": 75000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.2,
+      "vdd_meas_psu_v": 1.199823,
+      "clock_freq_hz": 80000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.2,
+      "vdd_meas_psu_v": 1.199823,
+      "clock_freq_hz": 85000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.2,
+      "vdd_meas_psu_v": 1.199823,
+      "clock_freq_hz": 90000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.2,
+      "vdd_meas_psu_v": 1.199823,
+      "clock_freq_hz": 95000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.2,
+      "vdd_meas_psu_v": 1.199823,
+      "clock_freq_hz": 100000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.25,
+      "vdd_meas_psu_v": 1.24998,
+      "clock_freq_hz": 15000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.25,
+      "vdd_meas_psu_v": 1.24998,
+      "clock_freq_hz": 20000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.25,
+      "vdd_meas_psu_v": 1.24998,
+      "clock_freq_hz": 25000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.25,
+      "vdd_meas_psu_v": 1.24998,
+      "clock_freq_hz": 30000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.25,
+      "vdd_meas_psu_v": 1.24998,
+      "clock_freq_hz": 35000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.25,
+      "vdd_meas_psu_v": 1.24998,
+      "clock_freq_hz": 40000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.25,
+      "vdd_meas_psu_v": 1.24998,
+      "clock_freq_hz": 45000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.25,
+      "vdd_meas_psu_v": 1.24998,
+      "clock_freq_hz": 50000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.25,
+      "vdd_meas_psu_v": 1.24998,
+      "clock_freq_hz": 55000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.25,
+      "vdd_meas_psu_v": 1.24998,
+      "clock_freq_hz": 60000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.25,
+      "vdd_meas_psu_v": 1.24998,
+      "clock_freq_hz": 65000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.25,
+      "vdd_meas_psu_v": 1.24998,
+      "clock_freq_hz": 70000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.25,
+      "vdd_meas_psu_v": 1.24998,
+      "clock_freq_hz": 75000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.25,
+      "vdd_meas_psu_v": 1.24998,
+      "clock_freq_hz": 80000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.25,
+      "vdd_meas_psu_v": 1.24998,
+      "clock_freq_hz": 85000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.25,
+      "vdd_meas_psu_v": 1.24998,
+      "clock_freq_hz": 90000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.25,
+      "vdd_meas_psu_v": 1.24998,
+      "clock_freq_hz": 95000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.25,
+      "vdd_meas_psu_v": 1.24998,
+      "clock_freq_hz": 100000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.3,
+      "vdd_meas_psu_v": 1.299937,
+      "clock_freq_hz": 15000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.3,
+      "vdd_meas_psu_v": 1.299937,
+      "clock_freq_hz": 20000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.3,
+      "vdd_meas_psu_v": 1.299937,
+      "clock_freq_hz": 25000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.3,
+      "vdd_meas_psu_v": 1.299937,
+      "clock_freq_hz": 30000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.3,
+      "vdd_meas_psu_v": 1.299937,
+      "clock_freq_hz": 35000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.3,
+      "vdd_meas_psu_v": 1.299937,
+      "clock_freq_hz": 40000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.3,
+      "vdd_meas_psu_v": 1.299937,
+      "clock_freq_hz": 45000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.3,
+      "vdd_meas_psu_v": 1.299937,
+      "clock_freq_hz": 50000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.3,
+      "vdd_meas_psu_v": 1.299937,
+      "clock_freq_hz": 55000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.3,
+      "vdd_meas_psu_v": 1.299937,
+      "clock_freq_hz": 60000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.3,
+      "vdd_meas_psu_v": 1.299937,
+      "clock_freq_hz": 65000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.3,
+      "vdd_meas_psu_v": 1.299937,
+      "clock_freq_hz": 70000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.3,
+      "vdd_meas_psu_v": 1.299937,
+      "clock_freq_hz": 75000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.3,
+      "vdd_meas_psu_v": 1.299937,
+      "clock_freq_hz": 80000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.3,
+      "vdd_meas_psu_v": 1.299937,
+      "clock_freq_hz": 85000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.3,
+      "vdd_meas_psu_v": 1.299937,
+      "clock_freq_hz": 90000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.3,
+      "vdd_meas_psu_v": 1.299937,
+      "clock_freq_hz": 95000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.3,
+      "vdd_meas_psu_v": 1.299937,
+      "clock_freq_hz": 100000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.35,
+      "vdd_meas_psu_v": 1.350094,
+      "clock_freq_hz": 15000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.35,
+      "vdd_meas_psu_v": 1.350094,
+      "clock_freq_hz": 20000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.35,
+      "vdd_meas_psu_v": 1.350094,
+      "clock_freq_hz": 25000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.35,
+      "vdd_meas_psu_v": 1.350094,
+      "clock_freq_hz": 30000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.35,
+      "vdd_meas_psu_v": 1.350094,
+      "clock_freq_hz": 35000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.35,
+      "vdd_meas_psu_v": 1.350094,
+      "clock_freq_hz": 40000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.35,
+      "vdd_meas_psu_v": 1.350094,
+      "clock_freq_hz": 45000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.35,
+      "vdd_meas_psu_v": 1.350094,
+      "clock_freq_hz": 50000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.35,
+      "vdd_meas_psu_v": 1.350094,
+      "clock_freq_hz": 55000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.35,
+      "vdd_meas_psu_v": 1.350094,
+      "clock_freq_hz": 60000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.35,
+      "vdd_meas_psu_v": 1.350094,
+      "clock_freq_hz": 65000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.35,
+      "vdd_meas_psu_v": 1.350094,
+      "clock_freq_hz": 70000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.35,
+      "vdd_meas_psu_v": 1.350094,
+      "clock_freq_hz": 75000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.35,
+      "vdd_meas_psu_v": 1.350094,
+      "clock_freq_hz": 80000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.35,
+      "vdd_meas_psu_v": 1.350094,
+      "clock_freq_hz": 85000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.35,
+      "vdd_meas_psu_v": 1.350094,
+      "clock_freq_hz": 90000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.35,
+      "vdd_meas_psu_v": 1.350094,
+      "clock_freq_hz": 95000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.35,
+      "vdd_meas_psu_v": 1.350094,
+      "clock_freq_hz": 100000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.4,
+      "vdd_meas_psu_v": 1.399851,
+      "clock_freq_hz": 15000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.4,
+      "vdd_meas_psu_v": 1.399851,
+      "clock_freq_hz": 20000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.4,
+      "vdd_meas_psu_v": 1.399851,
+      "clock_freq_hz": 25000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.4,
+      "vdd_meas_psu_v": 1.399851,
+      "clock_freq_hz": 30000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.4,
+      "vdd_meas_psu_v": 1.399851,
+      "clock_freq_hz": 35000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.4,
+      "vdd_meas_psu_v": 1.399851,
+      "clock_freq_hz": 40000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.4,
+      "vdd_meas_psu_v": 1.399851,
+      "clock_freq_hz": 45000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.4,
+      "vdd_meas_psu_v": 1.399851,
+      "clock_freq_hz": 50000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.4,
+      "vdd_meas_psu_v": 1.399851,
+      "clock_freq_hz": 55000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.4,
+      "vdd_meas_psu_v": 1.399851,
+      "clock_freq_hz": 60000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.4,
+      "vdd_meas_psu_v": 1.399851,
+      "clock_freq_hz": 65000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.4,
+      "vdd_meas_psu_v": 1.399851,
+      "clock_freq_hz": 70000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.4,
+      "vdd_meas_psu_v": 1.399851,
+      "clock_freq_hz": 75000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.4,
+      "vdd_meas_psu_v": 1.399851,
+      "clock_freq_hz": 80000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.4,
+      "vdd_meas_psu_v": 1.399851,
+      "clock_freq_hz": 85000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.4,
+      "vdd_meas_psu_v": 1.399851,
+      "clock_freq_hz": 90000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.4,
+      "vdd_meas_psu_v": 1.399851,
+      "clock_freq_hz": 95000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.4,
+      "vdd_meas_psu_v": 1.399851,
+      "clock_freq_hz": 100000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.45,
+      "vdd_meas_psu_v": 1.449808,
+      "clock_freq_hz": 15000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.45,
+      "vdd_meas_psu_v": 1.449808,
+      "clock_freq_hz": 20000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.45,
+      "vdd_meas_psu_v": 1.449808,
+      "clock_freq_hz": 25000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.45,
+      "vdd_meas_psu_v": 1.449808,
+      "clock_freq_hz": 30000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.45,
+      "vdd_meas_psu_v": 1.449808,
+      "clock_freq_hz": 35000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.45,
+      "vdd_meas_psu_v": 1.449808,
+      "clock_freq_hz": 40000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.45,
+      "vdd_meas_psu_v": 1.449808,
+      "clock_freq_hz": 45000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.45,
+      "vdd_meas_psu_v": 1.449808,
+      "clock_freq_hz": 50000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.45,
+      "vdd_meas_psu_v": 1.449808,
+      "clock_freq_hz": 55000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.45,
+      "vdd_meas_psu_v": 1.449808,
+      "clock_freq_hz": 60000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.45,
+      "vdd_meas_psu_v": 1.449808,
+      "clock_freq_hz": 65000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.45,
+      "vdd_meas_psu_v": 1.449808,
+      "clock_freq_hz": 70000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.45,
+      "vdd_meas_psu_v": 1.449808,
+      "clock_freq_hz": 75000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.45,
+      "vdd_meas_psu_v": 1.449808,
+      "clock_freq_hz": 80000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.45,
+      "vdd_meas_psu_v": 1.449808,
+      "clock_freq_hz": 85000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.45,
+      "vdd_meas_psu_v": 1.449808,
+      "clock_freq_hz": 90000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.45,
+      "vdd_meas_psu_v": 1.449808,
+      "clock_freq_hz": 95000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.45,
+      "vdd_meas_psu_v": 1.449808,
+      "clock_freq_hz": 100000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.5,
+      "vdd_meas_psu_v": 1.499965,
+      "clock_freq_hz": 15000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.5,
+      "vdd_meas_psu_v": 1.499965,
+      "clock_freq_hz": 20000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.5,
+      "vdd_meas_psu_v": 1.499965,
+      "clock_freq_hz": 25000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.5,
+      "vdd_meas_psu_v": 1.499965,
+      "clock_freq_hz": 30000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.5,
+      "vdd_meas_psu_v": 1.499965,
+      "clock_freq_hz": 35000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.5,
+      "vdd_meas_psu_v": 1.499965,
+      "clock_freq_hz": 40000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.5,
+      "vdd_meas_psu_v": 1.499965,
+      "clock_freq_hz": 45000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.5,
+      "vdd_meas_psu_v": 1.499965,
+      "clock_freq_hz": 50000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.5,
+      "vdd_meas_psu_v": 1.499965,
+      "clock_freq_hz": 55000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.5,
+      "vdd_meas_psu_v": 1.499965,
+      "clock_freq_hz": 60000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.5,
+      "vdd_meas_psu_v": 1.499965,
+      "clock_freq_hz": 65000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.5,
+      "vdd_meas_psu_v": 1.499965,
+      "clock_freq_hz": 70000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.5,
+      "vdd_meas_psu_v": 1.499965,
+      "clock_freq_hz": 75000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.5,
+      "vdd_meas_psu_v": 1.499965,
+      "clock_freq_hz": 80000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.5,
+      "vdd_meas_psu_v": 1.499965,
+      "clock_freq_hz": 85000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.5,
+      "vdd_meas_psu_v": 1.499965,
+      "clock_freq_hz": 90000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.5,
+      "vdd_meas_psu_v": 1.499965,
+      "clock_freq_hz": 95000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.5,
+      "vdd_meas_psu_v": 1.499965,
+      "clock_freq_hz": 100000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.55,
+      "vdd_meas_psu_v": 1.549922,
+      "clock_freq_hz": 15000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.55,
+      "vdd_meas_psu_v": 1.549922,
+      "clock_freq_hz": 20000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.55,
+      "vdd_meas_psu_v": 1.549922,
+      "clock_freq_hz": 25000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.55,
+      "vdd_meas_psu_v": 1.549922,
+      "clock_freq_hz": 30000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.55,
+      "vdd_meas_psu_v": 1.549922,
+      "clock_freq_hz": 35000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.55,
+      "vdd_meas_psu_v": 1.549922,
+      "clock_freq_hz": 40000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.55,
+      "vdd_meas_psu_v": 1.549922,
+      "clock_freq_hz": 45000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.55,
+      "vdd_meas_psu_v": 1.549922,
+      "clock_freq_hz": 50000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.55,
+      "vdd_meas_psu_v": 1.549922,
+      "clock_freq_hz": 55000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.55,
+      "vdd_meas_psu_v": 1.549922,
+      "clock_freq_hz": 60000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.55,
+      "vdd_meas_psu_v": 1.549922,
+      "clock_freq_hz": 65000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.55,
+      "vdd_meas_psu_v": 1.549922,
+      "clock_freq_hz": 70000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.55,
+      "vdd_meas_psu_v": 1.549922,
+      "clock_freq_hz": 75000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.55,
+      "vdd_meas_psu_v": 1.549922,
+      "clock_freq_hz": 80000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.55,
+      "vdd_meas_psu_v": 1.549922,
+      "clock_freq_hz": 85000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.55,
+      "vdd_meas_psu_v": 1.549922,
+      "clock_freq_hz": 90000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.55,
+      "vdd_meas_psu_v": 1.549922,
+      "clock_freq_hz": 95000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.55,
+      "vdd_meas_psu_v": 1.549922,
+      "clock_freq_hz": 100000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.6,
+      "vdd_meas_psu_v": 1.599679,
+      "clock_freq_hz": 15000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.6,
+      "vdd_meas_psu_v": 1.599679,
+      "clock_freq_hz": 20000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.6,
+      "vdd_meas_psu_v": 1.599679,
+      "clock_freq_hz": 25000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.6,
+      "vdd_meas_psu_v": 1.599679,
+      "clock_freq_hz": 30000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.6,
+      "vdd_meas_psu_v": 1.599679,
+      "clock_freq_hz": 35000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.6,
+      "vdd_meas_psu_v": 1.599679,
+      "clock_freq_hz": 40000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.6,
+      "vdd_meas_psu_v": 1.599679,
+      "clock_freq_hz": 45000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.6,
+      "vdd_meas_psu_v": 1.599679,
+      "clock_freq_hz": 50000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.6,
+      "vdd_meas_psu_v": 1.599679,
+      "clock_freq_hz": 55000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.6,
+      "vdd_meas_psu_v": 1.599679,
+      "clock_freq_hz": 60000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.6,
+      "vdd_meas_psu_v": 1.599679,
+      "clock_freq_hz": 65000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.6,
+      "vdd_meas_psu_v": 1.599679,
+      "clock_freq_hz": 70000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.6,
+      "vdd_meas_psu_v": 1.599679,
+      "clock_freq_hz": 75000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.6,
+      "vdd_meas_psu_v": 1.599679,
+      "clock_freq_hz": 80000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.6,
+      "vdd_meas_psu_v": 1.599679,
+      "clock_freq_hz": 85000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.6,
+      "vdd_meas_psu_v": 1.599679,
+      "clock_freq_hz": 90000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.6,
+      "vdd_meas_psu_v": 1.599679,
+      "clock_freq_hz": 95000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.6,
+      "vdd_meas_psu_v": 1.599679,
+      "clock_freq_hz": 100000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.65,
+      "vdd_meas_psu_v": 1.649836,
+      "clock_freq_hz": 15000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.65,
+      "vdd_meas_psu_v": 1.649836,
+      "clock_freq_hz": 20000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.65,
+      "vdd_meas_psu_v": 1.649836,
+      "clock_freq_hz": 25000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.65,
+      "vdd_meas_psu_v": 1.649836,
+      "clock_freq_hz": 30000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.65,
+      "vdd_meas_psu_v": 1.649836,
+      "clock_freq_hz": 35000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.65,
+      "vdd_meas_psu_v": 1.649836,
+      "clock_freq_hz": 40000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.65,
+      "vdd_meas_psu_v": 1.649836,
+      "clock_freq_hz": 45000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.65,
+      "vdd_meas_psu_v": 1.649836,
+      "clock_freq_hz": 50000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.65,
+      "vdd_meas_psu_v": 1.649836,
+      "clock_freq_hz": 55000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.65,
+      "vdd_meas_psu_v": 1.649836,
+      "clock_freq_hz": 60000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.65,
+      "vdd_meas_psu_v": 1.649836,
+      "clock_freq_hz": 65000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.65,
+      "vdd_meas_psu_v": 1.649836,
+      "clock_freq_hz": 70000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.65,
+      "vdd_meas_psu_v": 1.649836,
+      "clock_freq_hz": 75000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.65,
+      "vdd_meas_psu_v": 1.649836,
+      "clock_freq_hz": 80000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.65,
+      "vdd_meas_psu_v": 1.649836,
+      "clock_freq_hz": 85000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.65,
+      "vdd_meas_psu_v": 1.649836,
+      "clock_freq_hz": 90000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.65,
+      "vdd_meas_psu_v": 1.649836,
+      "clock_freq_hz": 95000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.65,
+      "vdd_meas_psu_v": 1.649836,
+      "clock_freq_hz": 100000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.7,
+      "vdd_meas_psu_v": 1.699793,
+      "clock_freq_hz": 15000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.7,
+      "vdd_meas_psu_v": 1.699793,
+      "clock_freq_hz": 20000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.7,
+      "vdd_meas_psu_v": 1.699793,
+      "clock_freq_hz": 25000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.7,
+      "vdd_meas_psu_v": 1.699793,
+      "clock_freq_hz": 30000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.7,
+      "vdd_meas_psu_v": 1.699793,
+      "clock_freq_hz": 35000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.7,
+      "vdd_meas_psu_v": 1.699793,
+      "clock_freq_hz": 40000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.7,
+      "vdd_meas_psu_v": 1.699793,
+      "clock_freq_hz": 45000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.7,
+      "vdd_meas_psu_v": 1.699793,
+      "clock_freq_hz": 50000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.7,
+      "vdd_meas_psu_v": 1.699793,
+      "clock_freq_hz": 55000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.7,
+      "vdd_meas_psu_v": 1.699793,
+      "clock_freq_hz": 60000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.7,
+      "vdd_meas_psu_v": 1.699793,
+      "clock_freq_hz": 65000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.7,
+      "vdd_meas_psu_v": 1.699793,
+      "clock_freq_hz": 70000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.7,
+      "vdd_meas_psu_v": 1.699793,
+      "clock_freq_hz": 75000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.7,
+      "vdd_meas_psu_v": 1.699793,
+      "clock_freq_hz": 80000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.7,
+      "vdd_meas_psu_v": 1.699793,
+      "clock_freq_hz": 85000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.7,
+      "vdd_meas_psu_v": 1.699793,
+      "clock_freq_hz": 90000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.7,
+      "vdd_meas_psu_v": 1.699793,
+      "clock_freq_hz": 95000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.7,
+      "vdd_meas_psu_v": 1.699793,
+      "clock_freq_hz": 100000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.75,
+      "vdd_meas_psu_v": 1.74995,
+      "clock_freq_hz": 15000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.75,
+      "vdd_meas_psu_v": 1.74995,
+      "clock_freq_hz": 20000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.75,
+      "vdd_meas_psu_v": 1.74995,
+      "clock_freq_hz": 25000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.75,
+      "vdd_meas_psu_v": 1.74995,
+      "clock_freq_hz": 30000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.75,
+      "vdd_meas_psu_v": 1.74995,
+      "clock_freq_hz": 35000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.75,
+      "vdd_meas_psu_v": 1.74995,
+      "clock_freq_hz": 40000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.75,
+      "vdd_meas_psu_v": 1.74995,
+      "clock_freq_hz": 45000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.75,
+      "vdd_meas_psu_v": 1.74995,
+      "clock_freq_hz": 50000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.75,
+      "vdd_meas_psu_v": 1.74995,
+      "clock_freq_hz": 55000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.75,
+      "vdd_meas_psu_v": 1.74995,
+      "clock_freq_hz": 60000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.75,
+      "vdd_meas_psu_v": 1.74995,
+      "clock_freq_hz": 65000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.75,
+      "vdd_meas_psu_v": 1.74995,
+      "clock_freq_hz": 70000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.75,
+      "vdd_meas_psu_v": 1.74995,
+      "clock_freq_hz": 75000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.75,
+      "vdd_meas_psu_v": 1.74995,
+      "clock_freq_hz": 80000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.75,
+      "vdd_meas_psu_v": 1.74995,
+      "clock_freq_hz": 85000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.75,
+      "vdd_meas_psu_v": 1.74995,
+      "clock_freq_hz": 90000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.75,
+      "vdd_meas_psu_v": 1.74995,
+      "clock_freq_hz": 95000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.75,
+      "vdd_meas_psu_v": 1.74995,
+      "clock_freq_hz": 100000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.8,
+      "vdd_meas_psu_v": 1.800107,
+      "clock_freq_hz": 15000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.8,
+      "vdd_meas_psu_v": 1.800107,
+      "clock_freq_hz": 20000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.8,
+      "vdd_meas_psu_v": 1.800107,
+      "clock_freq_hz": 25000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.8,
+      "vdd_meas_psu_v": 1.800107,
+      "clock_freq_hz": 30000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.8,
+      "vdd_meas_psu_v": 1.800107,
+      "clock_freq_hz": 35000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.8,
+      "vdd_meas_psu_v": 1.800107,
+      "clock_freq_hz": 40000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.8,
+      "vdd_meas_psu_v": 1.800107,
+      "clock_freq_hz": 45000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.8,
+      "vdd_meas_psu_v": 1.800107,
+      "clock_freq_hz": 50000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.8,
+      "vdd_meas_psu_v": 1.800107,
+      "clock_freq_hz": 55000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.8,
+      "vdd_meas_psu_v": 1.800107,
+      "clock_freq_hz": 60000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.8,
+      "vdd_meas_psu_v": 1.800107,
+      "clock_freq_hz": 65000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.8,
+      "vdd_meas_psu_v": 1.800107,
+      "clock_freq_hz": 70000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.8,
+      "vdd_meas_psu_v": 1.800107,
+      "clock_freq_hz": 75000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.8,
+      "vdd_meas_psu_v": 1.800107,
+      "clock_freq_hz": 80000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.8,
+      "vdd_meas_psu_v": 1.800107,
+      "clock_freq_hz": 85000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.8,
+      "vdd_meas_psu_v": 1.800107,
+      "clock_freq_hz": 90000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.8,
+      "vdd_meas_psu_v": 1.800107,
+      "clock_freq_hz": 95000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.8,
+      "vdd_meas_psu_v": 1.800107,
+      "clock_freq_hz": 100000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.85,
+      "vdd_meas_psu_v": 1.849664,
+      "clock_freq_hz": 15000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.85,
+      "vdd_meas_psu_v": 1.849664,
+      "clock_freq_hz": 20000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.85,
+      "vdd_meas_psu_v": 1.849664,
+      "clock_freq_hz": 25000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.85,
+      "vdd_meas_psu_v": 1.849664,
+      "clock_freq_hz": 30000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.85,
+      "vdd_meas_psu_v": 1.849664,
+      "clock_freq_hz": 35000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.85,
+      "vdd_meas_psu_v": 1.849664,
+      "clock_freq_hz": 40000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.85,
+      "vdd_meas_psu_v": 1.849664,
+      "clock_freq_hz": 45000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.85,
+      "vdd_meas_psu_v": 1.849664,
+      "clock_freq_hz": 50000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.85,
+      "vdd_meas_psu_v": 1.849664,
+      "clock_freq_hz": 55000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.85,
+      "vdd_meas_psu_v": 1.849664,
+      "clock_freq_hz": 60000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.85,
+      "vdd_meas_psu_v": 1.849664,
+      "clock_freq_hz": 65000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.85,
+      "vdd_meas_psu_v": 1.849664,
+      "clock_freq_hz": 70000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.85,
+      "vdd_meas_psu_v": 1.849664,
+      "clock_freq_hz": 75000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.85,
+      "vdd_meas_psu_v": 1.849664,
+      "clock_freq_hz": 80000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.85,
+      "vdd_meas_psu_v": 1.849664,
+      "clock_freq_hz": 85000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.85,
+      "vdd_meas_psu_v": 1.849664,
+      "clock_freq_hz": 90000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.85,
+      "vdd_meas_psu_v": 1.849664,
+      "clock_freq_hz": 95000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.85,
+      "vdd_meas_psu_v": 1.849664,
+      "clock_freq_hz": 100000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.9,
+      "vdd_meas_psu_v": 1.899821,
+      "clock_freq_hz": 15000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.9,
+      "vdd_meas_psu_v": 1.899821,
+      "clock_freq_hz": 20000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.9,
+      "vdd_meas_psu_v": 1.899821,
+      "clock_freq_hz": 25000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.9,
+      "vdd_meas_psu_v": 1.899821,
+      "clock_freq_hz": 30000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.9,
+      "vdd_meas_psu_v": 1.899821,
+      "clock_freq_hz": 35000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.9,
+      "vdd_meas_psu_v": 1.899821,
+      "clock_freq_hz": 40000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.9,
+      "vdd_meas_psu_v": 1.899821,
+      "clock_freq_hz": 45000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.9,
+      "vdd_meas_psu_v": 1.899821,
+      "clock_freq_hz": 50000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.9,
+      "vdd_meas_psu_v": 1.899821,
+      "clock_freq_hz": 55000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.9,
+      "vdd_meas_psu_v": 1.899821,
+      "clock_freq_hz": 60000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.9,
+      "vdd_meas_psu_v": 1.899821,
+      "clock_freq_hz": 65000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.9,
+      "vdd_meas_psu_v": 1.899821,
+      "clock_freq_hz": 70000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.9,
+      "vdd_meas_psu_v": 1.899821,
+      "clock_freq_hz": 75000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.9,
+      "vdd_meas_psu_v": 1.899821,
+      "clock_freq_hz": 80000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.9,
+      "vdd_meas_psu_v": 1.899821,
+      "clock_freq_hz": 85000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.9,
+      "vdd_meas_psu_v": 1.899821,
+      "clock_freq_hz": 90000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.9,
+      "vdd_meas_psu_v": 1.899821,
+      "clock_freq_hz": 95000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.9,
+      "vdd_meas_psu_v": 1.899821,
+      "clock_freq_hz": 100000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.95,
+      "vdd_meas_psu_v": 1.949978,
+      "clock_freq_hz": 15000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.95,
+      "vdd_meas_psu_v": 1.949978,
+      "clock_freq_hz": 20000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.95,
+      "vdd_meas_psu_v": 1.949978,
+      "clock_freq_hz": 25000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.95,
+      "vdd_meas_psu_v": 1.949978,
+      "clock_freq_hz": 30000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.95,
+      "vdd_meas_psu_v": 1.949978,
+      "clock_freq_hz": 35000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.95,
+      "vdd_meas_psu_v": 1.949978,
+      "clock_freq_hz": 40000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.95,
+      "vdd_meas_psu_v": 1.949978,
+      "clock_freq_hz": 45000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.95,
+      "vdd_meas_psu_v": 1.949978,
+      "clock_freq_hz": 50000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.95,
+      "vdd_meas_psu_v": 1.949978,
+      "clock_freq_hz": 55000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.95,
+      "vdd_meas_psu_v": 1.949978,
+      "clock_freq_hz": 60000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.95,
+      "vdd_meas_psu_v": 1.949978,
+      "clock_freq_hz": 65000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.95,
+      "vdd_meas_psu_v": 1.949978,
+      "clock_freq_hz": 70000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.95,
+      "vdd_meas_psu_v": 1.949978,
+      "clock_freq_hz": 75000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.95,
+      "vdd_meas_psu_v": 1.949978,
+      "clock_freq_hz": 80000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.95,
+      "vdd_meas_psu_v": 1.949978,
+      "clock_freq_hz": 85000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.95,
+      "vdd_meas_psu_v": 1.949978,
+      "clock_freq_hz": 90000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.95,
+      "vdd_meas_psu_v": 1.949978,
+      "clock_freq_hz": 95000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 1.95,
+      "vdd_meas_psu_v": 1.949978,
+      "clock_freq_hz": 100000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 2.0,
+      "vdd_meas_psu_v": 2.000134,
+      "clock_freq_hz": 15000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 2.0,
+      "vdd_meas_psu_v": 2.000134,
+      "clock_freq_hz": 20000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 2.0,
+      "vdd_meas_psu_v": 2.000134,
+      "clock_freq_hz": 25000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 2.0,
+      "vdd_meas_psu_v": 2.000134,
+      "clock_freq_hz": 30000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 2.0,
+      "vdd_meas_psu_v": 2.000134,
+      "clock_freq_hz": 35000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 2.0,
+      "vdd_meas_psu_v": 2.000134,
+      "clock_freq_hz": 40000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 2.0,
+      "vdd_meas_psu_v": 2.000134,
+      "clock_freq_hz": 45000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 2.0,
+      "vdd_meas_psu_v": 2.000134,
+      "clock_freq_hz": 50000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 2.0,
+      "vdd_meas_psu_v": 2.000134,
+      "clock_freq_hz": 55000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 2.0,
+      "vdd_meas_psu_v": 2.000134,
+      "clock_freq_hz": 60000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 2.0,
+      "vdd_meas_psu_v": 2.000134,
+      "clock_freq_hz": 65000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 2.0,
+      "vdd_meas_psu_v": 2.000134,
+      "clock_freq_hz": 70000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 2.0,
+      "vdd_meas_psu_v": 2.000134,
+      "clock_freq_hz": 75000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 2.0,
+      "vdd_meas_psu_v": 2.000134,
+      "clock_freq_hz": 80000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 2.0,
+      "vdd_meas_psu_v": 2.000134,
+      "clock_freq_hz": 85000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 2.0,
+      "vdd_meas_psu_v": 2.000134,
+      "clock_freq_hz": 90000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 2.0,
+      "vdd_meas_psu_v": 2.000134,
+      "clock_freq_hz": 95000000.0,
+      "pass": false
+    },
+    {
+      "vdd_set_v": 2.0,
+      "vdd_meas_psu_v": 2.000134,
+      "clock_freq_hz": 100000000.0,
+      "pass": false
+    }
+  ]
+}
