@@ -15,8 +15,6 @@ use crate::tests::SRAM_SIZES;
 
 const PSU_VISA_ADDR: &str = "USB0::0x2A8D::0x8F01::CN63420426::INSTR";
 const PSU_CHANNEL: u32 = 1;
-const SCOPE_VISA_ADDR: &str = "USB0::0x2A8D::0x7B01::MY59280119::INSTR";
-const SCOPE_VDD_CHANNEL: u32 = 1;
 const CLOCK_GEN_VISA_ADDR: &str = "USB0::0x0957::0x4008::MY428EX302::INSTR";
 
 const VDD_VOLTS: &[f64] = &[
@@ -33,7 +31,6 @@ const CLOCK_FREQS_HZ: &[f64] = &[
 pub struct ShmooPoint {
     pub vdd_set_v: f64,
     pub vdd_meas_psu_v: f64,
-    pub vdd_meas_scope_v: f64,
     pub clock_freq_hz: f64,
     pub pass: bool,
 }
@@ -74,11 +71,9 @@ impl BringupState {
 
         let rm = DefaultRM::new().expect("failed to create VISA resource manager");
         let mut psu = open_instr(&rm, PSU_VISA_ADDR);
-        let mut scope = open_instr(&rm, SCOPE_VISA_ADDR);
         let mut clock_gen = open_instr(&rm, CLOCK_GEN_VISA_ADDR);
 
         println!("PSU:       {}", query(&mut psu, "*IDN?"));
-        println!("Scope:     {}", query(&mut scope, "*IDN?"));
         println!("Clock gen: {}", query(&mut clock_gen, "*IDN?"));
 
         scpi(&mut psu, &format!("OUTP ON,(@{PSU_CHANNEL})"));
@@ -93,29 +88,24 @@ impl BringupState {
 
             let vdd_meas_psu: f64 = query(&mut psu, &format!("MEAS:VOLT? (@{PSU_CHANNEL})"))
                 .parse().expect("unexpected PSU voltage response");
-            let vdd_meas_scope: f64 = query(&mut scope, &format!(":MEAS:VAVG? CHAN{SCOPE_VDD_CHANNEL}"))
-                .parse().expect("unexpected scope voltage response");
-            println!("VDD set={vdd:.3}V  psu={vdd_meas_psu:.3}V  scope={vdd_meas_scope:.3}V");
+            println!("VDD set={vdd:.3}V  psu={vdd_meas_psu:.3}V");
 
             for &freq in CLOCK_FREQS_HZ {
                 scpi(&mut clock_gen, &format!(":FREQ {freq:.6E}"));
+                println!("  {:.1} MHz  (SRAM tests skipped)", freq / 1e6);
 
-                let mut pass_count = 0usize;
-                for (id, &size) in SRAM_SIZES.iter().enumerate() {
-                    let pat = FixedPattern::new(Pattern::march_cm(), size, 1);
-                    let pass =
-                        execute(pat, self.tsi_intf().test_sram_executor(id as u64)).is_ok();
-                    if pass { pass_count += 1; }
+                for (id, _size) in SRAM_SIZES.iter().enumerate() {
+                    // let pat = FixedPattern::new(Pattern::march_cm(), _size, 1);
+                    // let pass =
+                    //     execute(pat, self.tsi_intf().test_sram_executor(id as u64)).is_ok();
+                    let pass = false;
                     per_sram[id].push(ShmooPoint {
                         vdd_set_v: vdd,
                         vdd_meas_psu_v: vdd_meas_psu,
-                        vdd_meas_scope_v: vdd_meas_scope,
                         clock_freq_hz: freq,
                         pass,
                     });
                 }
-
-                println!("  {:.1} MHz  {pass_count:2}/{} SRAMs pass", freq / 1e6, SRAM_SIZES.len());
             }
         }
 
