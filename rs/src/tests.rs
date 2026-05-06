@@ -11,7 +11,7 @@ const SCRATCHPAD_SIZE: SramSize = SramSize {
     mask_width: 8,
 };
 
-const SRAM_SIZES: [SramSize; 22] = [
+pub(crate) const SRAM_SIZES: [SramSize; 22] = [
     SramSize::new(64, 24, 8),
     SramSize::new(64, 32, 8),
     SramSize::new(128, 16, 8),

@@ -6,7 +6,8 @@ pub mod executor;
 pub mod memory;
 pub mod pattern;
 pub mod state;
-mod tests;
+pub(crate) mod tests;
+pub mod shmootest;
 pub mod tsi;
 
 use ::tsi::Tsi;

@@ -26,6 +26,14 @@ class mmcm extends BlackBox {
   })
 }
 
+class OBUFT extends BlackBox {
+  val io = IO(new Bundle {
+    val O = Output(Bool()) // to pad
+    val I = Input(Bool())  // data in
+    val T = Input(Bool())  // 1 = tri-state, 0 = drive
+  })
+}
+
 class PowerOnResetFPGAOnly extends BlackBox with HasBlackBoxInline {
   val io = IO(new Bundle {
     val clock = Input(Clock())
