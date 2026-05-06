@@ -77,6 +77,8 @@ impl BringupState {
         println!("Clock gen: {}", query(&mut clock_gen, "*IDN?"));
 
         scpi(&mut psu, &format!("OUTP ON,(@{PSU_CHANNEL})"));
+        scpi(&mut clock_gen, ":VOLT1:HIGH 1.8");
+        scpi(&mut clock_gen, ":VOLT1:LOW 0.0");
         scpi(&mut clock_gen, ":OUTP1 ON");
 
         let mut per_sram: Vec<Vec<ShmooPoint>> =
