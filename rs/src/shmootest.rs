@@ -89,22 +89,22 @@ impl BringupState {
         let mut per_sram: Vec<Vec<ShmooPoint>> =
             (0..SRAM_SIZES.len()).map(|_| Vec::new()).collect();
 
-        for &vdd in VDD_VOLTS {
-            scpi(&mut psu, &format!("VOLT {vdd:.4},(@{PSU_CHANNEL})"));
-            thread::sleep(Duration::from_millis(500));
+        for &freq in CLOCK_FREQS_HZ {
+            scpi(&mut clock_gen, &format!(":FREQ {freq:.6E}"));
+            println!("{:.1} MHz", freq / 1e6);
 
-            let vdd_meas_psu: f64 = query(&mut psu, &format!("MEAS:VOLT? (@{PSU_CHANNEL})"))
-                .parse().expect("unexpected PSU voltage response");
-            println!("VDD set={vdd:.3}V  psu={vdd_meas_psu:.3}V");
+            for &vdd in VDD_VOLTS {
+                scpi(&mut psu, &format!("VOLT {vdd:.4},(@{PSU_CHANNEL})"));
+                thread::sleep(Duration::from_millis(500));
 
-            for &freq in CLOCK_FREQS_HZ {
-                scpi(&mut clock_gen, &format!(":FREQ {freq:.6E}"));
-                println!("  {:.1} MHz  (SRAM tests skipped)", freq / 1e6);
+                let vdd_meas_psu: f64 = query(&mut psu, &format!("MEAS:VOLT? (@{PSU_CHANNEL})"))
+                    .parse().expect("unexpected PSU voltage response");
+                println!("  VDD set={vdd:.3}V  psu={vdd_meas_psu:.3}V  (SRAM tests skipped)");
 
                 for (id, _size) in SRAM_SIZES.iter().enumerate() {
-                    // let pat = FixedPattern::new(Pattern::march_cm(), _size, 1);
-                    // let pass =
-                    //     execute(pat, self.tsi_intf().test_sram_executor(id as u64)).is_ok();
+                    let pat = FixedPattern::new(Pattern::march_cm(), _size, 1);
+                    let pass =
+                        execute(pat, self.tsi_intf().test_sram_executor(id as u64)).is_ok();
                     let pass = false;
                     per_sram[id].push(ShmooPoint {
                         vdd_set_v: vdd,

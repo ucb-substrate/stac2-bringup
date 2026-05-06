@@ -31,7 +31,7 @@ class StacControllerIO extends Bundle {
   val sramBistDone = Input(Bool())
   val pllScanOut = Input(Bool())
   val reset = Output(Bool())
-  val clk = Output(Bool())
+  val clk = Input(Bool())
 }
 
 class StacController(
