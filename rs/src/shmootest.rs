@@ -1,11 +1,12 @@
 use std::ffi::CString;
-use std::io::{BufRead, BufReader, Write};
+use std::io::{Read, Write};
 use std::path::Path;
 use std::thread;
 use std::time::Duration;
 
 use serde::{Deserialize, Serialize};
 use visa_rs::flags::AccessMode;
+use visa_rs::enums::attribute::{AttrTermchar, AttrTermcharEn, AttrTmoValue, HasAttribute};
 use visa_rs::{AsResourceManager, DefaultRM, Instrument, TIMEOUT_IMMEDIATE};
 
 use crate::BringupState;
@@ -13,7 +14,7 @@ use crate::executor::execute;
 use crate::pattern::{FixedPattern, Pattern};
 use crate::tests::SRAM_SIZES;
 
-const PSU_VISA_ADDR: &str = "USB0::0x2A8D::0x8F01::CN63420426::INSTR";
+const PSU_VISA_ADDR: &str = "USB0::0x2A8D::0x8F01::CN63270183::INSTR";
 const PSU_CHANNEL: u32 = 1;
 const CLOCK_GEN_VISA_ADDR: &str = "USB0::0x0957::0x4008::MY428EX302::INSTR";
 
@@ -47,21 +48,27 @@ pub struct ShmooResult {
 }
 
 fn scpi(instr: &mut Instrument, cmd: &str) {
-    write!(instr, "{cmd}\n").expect("SCPI write failed");
+    write!(instr, "{cmd}\r\n").expect("SCPI write failed");
 }
 
 fn query(instr: &mut Instrument, cmd: &str) -> String {
     scpi(instr, cmd);
-    let mut buf = String::new();
-    BufReader::new(instr).read_line(&mut buf).expect("SCPI read failed");
-    buf.trim_end_matches(['\r', '\n']).to_string()
+    let mut buf = vec![0u8; 4096];
+    let n = instr.read(&mut buf).expect("SCPI read failed");
+    String::from_utf8_lossy(&buf[..n]).trim_end_matches(['\r', '\n']).to_string()
 }
 
 fn open_instr(rm: &DefaultRM, addr: &str) -> Instrument {
     let expr: visa_rs::ResID = CString::new(addr).unwrap().into();
     let rsc = rm.find_res(&expr).unwrap_or_else(|e| panic!("instrument not found at {addr}: {e}"));
-    rm.open(&rsc, AccessMode::NO_LOCK, TIMEOUT_IMMEDIATE)
-        .unwrap_or_else(|e| panic!("failed to open {addr}: {e}"))
+    let instr = rm.open(&rsc, AccessMode::NO_LOCK, TIMEOUT_IMMEDIATE)
+        .unwrap_or_else(|e| panic!("failed to open {addr}: {e}"));
+    // 10 second I/O timeout (TIMEOUT_IMMEDIATE = 0 causes reads to time out instantly)
+    instr.set_attr(unsafe { AttrTmoValue::new_unchecked(10_000) }).expect("failed to set I/O timeout");
+    // Stop reads on LF, same defaults as pyvisa
+    instr.set_attr(unsafe { AttrTermchar::new_unchecked(b'\n' as _) }).expect("failed to set termchar");
+    instr.set_attr(unsafe { AttrTermcharEn::new_unchecked(1) }).expect("failed to enable termchar");
+    instr
 }
 
 impl BringupState {
@@ -130,3 +137,14 @@ impl BringupState {
         ShmooResult { srams }
     }
 }
+
+#[cfg(test)]
+mod shmoo {
+    #[test]
+    fn test_commands() {
+        use crate::*;
+        let mut l = BringupState::new();
+        l.shmoo_test_all_srams("out/shmoo");
+    }
+}
+
