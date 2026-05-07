@@ -1,5 +1,5 @@
 # ------------------------- Base Clocks --------------------
-create_clock -name io_clock -period 20.0 [get_ports {io_clock}]
+create_clock -name io_clock -period 10.0 [get_ports {io_clock}]
 set_input_jitter io_clock 0.5
 create_clock -name serial_tl_clock -period 10.0 [get_ports {serial_tl_clock_in}]
 set_input_jitter  serial_tl_clock 0.5

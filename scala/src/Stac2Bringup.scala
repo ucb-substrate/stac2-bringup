@@ -45,7 +45,7 @@ import freechips.rocketchip.prci.ClockGroupAggregateNode
 import testchipip.serdes.DecoupledInternalSyncPhitIO
 
 object Stac2Bringup {
-  val freqMHz: Int = 50
+  val freqMHz: Int = 100
 }
 
 
@@ -123,7 +123,7 @@ class Stac2BringupConfig extends Config(
       ))
     )),
     client = Some(testchipip.serdes.old.SerialTLClientParams()),                                        // Allow chip to access this device's memory (DRAM)
-    phyParams = testchipip.serdes.old.ExternalSyncSerialParams(width = 1) // chip provides the clock
+    phyParams = testchipip.serdes.old.ExternalSyncSerialParams(width = 1, asyncQueueSz = 64) // chip provides the clock
   ))) ++
 
   //============================
