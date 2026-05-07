@@ -266,15 +266,13 @@ class Stac2BringupTop(driveClk: Boolean = true)(implicit p: Parameters) extends 
 
     io.ctl <> system.ctl
 
-    if (!driveClk) {
-      // Tri-state the clock output so an external generator can drive the chip
-      // clock without fighting the FPGA. Set driveClk=true to restore normal
-      // FPGA-driven clock behaviour.
-      val clkBufT = Module(new OBUFT)
-      clkBufT.io.I := system.ctl.clk
-      clkBufT.io.T := true.B
-      io.ctl.clk := clkBufT.io.O
-    }
+    // Tristate buffer removed — clk is now an Input driven externally
+    // if (!driveClk) {
+    //   val clkBufT = Module(new OBUFT)
+    //   clkBufT.io.I := system.ctl.clk
+    //   clkBufT.io.T := true.B
+    //   io.ctl.clk := clkBufT.io.O
+    // }
 
     val rstBuf = Module(new IBUF)
     rstBuf.io.I := io.reset.asBool

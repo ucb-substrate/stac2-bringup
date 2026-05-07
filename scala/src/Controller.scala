@@ -103,11 +103,12 @@ class StacController(
       io.pllScanIn := true.B
       io.reset := reset.asBool || resetReg
 
-      when(clkEn) {
-        io.clk := divClk
-      }.otherwise {
-        io.clk := false.B
-      }
+      // io.clk is now an Input — clock is driven externally
+      // when(clkEn) {
+      //   io.clk := divClk
+      // }.otherwise {
+      //   io.clk := false.B
+      // }
 
       when(halfClkDivRatio === 0.U || cycles >= halfClkDivRatio - 1.U) {
         cycles := 0.U
