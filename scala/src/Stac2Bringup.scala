@@ -242,7 +242,7 @@ class LedPattern(counterMax: Int = 25_000_000) extends Module {
   io.led_7 := leds(7)
 }
 
-class Stac2BringupTop(driveClk: Boolean = true)(implicit p: Parameters) extends LazyModule with BindingScope {
+class Stac2BringupTop(implicit p: Parameters) extends LazyModule with BindingScope {
   val system = LazyModule(new Stac2BringupSystem)
   val pllSourceNode = ClockGroupSourceNode(
     Seq(ClockGroupSourceParameters())
