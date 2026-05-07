@@ -132,7 +132,7 @@ set property_include_dirs [get_property include_dirs $$obj]
 set ip_include_dirs [concat $$property_include_dirs [findincludedir $$ipdir "*.vh"]]
 
 # Synthesis
-synth_design -top $topModule -flatten_hierarchy rebuilt${incDirs
+synth_design -top $topModule -flatten_hierarchy full -global_retiming on -retiming${incDirs
           .map(incDir => s" -include_dirs ${incDir.toString}")
           .mkString}
 write_checkpoint -force [file join $$wrkdir post_synth]
@@ -144,14 +144,16 @@ opt_design -directive Explore
 write_checkpoint -force [file join $$wrkdir post_opt]
 
 # Placement
-place_design -directive Explore
-phys_opt_design -directive Explore
-power_opt_design
+place_design -directive AggressiveExplore
+phys_opt_design -retime
+phys_opt_design -retime
+phys_opt_design -directive AggressiveExplore
 write_checkpoint -force [file join $$wrkdir post_place]
 
 # Routing
 route_design -directive Explore
-phys_opt_design -directive Explore
+phys_opt_design -retime
+phys_opt_design -directive AggressiveExplore
 write_checkpoint -force [file join $$wrkdir post_route]
 report_timing -file route_timing.rpt 
 report_utilization -file route_utilization.rpt
