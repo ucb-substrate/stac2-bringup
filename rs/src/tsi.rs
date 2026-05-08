@@ -45,13 +45,22 @@ impl<'a> TsiIntf<'a> {
 
 impl<'a> MemoryIntf for TsiIntf<'a> {
     fn read(&mut self, addr: u64) -> anyhow::Result<u64> {
-        self.0.tsi().read_word(addr).map_err(anyhow::Error::from)
+        let res = self.0.tsi().read_word(addr).map_err(anyhow::Error::from);
+        if res.is_err() {
+            self.0.tsi = None;
+        }
+        res
     }
 
     fn write(&mut self, addr: u64, data: u64) -> anyhow::Result<()> {
-        self.0
+        let res = self
+            .0
             .tsi()
             .write_word(addr, data)
-            .map_err(anyhow::Error::from)
+            .map_err(anyhow::Error::from);
+        if res.is_err() {
+            self.0.tsi = None;
+        }
+        res
     }
 }

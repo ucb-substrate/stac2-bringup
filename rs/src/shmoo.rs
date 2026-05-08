@@ -4,9 +4,6 @@ use std::time::Duration;
 
 use serde::{Deserialize, Serialize};
 
-use crate::executor::execute;
-use crate::pattern::{FixedPattern, Pattern};
-use crate::tests::SRAM_SIZES;
 use crate::{BringupState, march_cm_bist};
 
 pub const VDD_VOLTS: &[f64] = &[
@@ -41,7 +38,11 @@ pub struct SramShmoo {
 }
 
 impl BringupState {
-    pub fn shmoo_test_all_srams(&mut self, outdir: impl AsRef<Path>) -> Vec<SramShmoo> {
+    pub fn shmoo(
+        &mut self,
+        srams: impl IntoIterator<Item = usize>,
+        outdir: impl AsRef<Path>,
+    ) -> Vec<SramShmoo> {
         let outdir = outdir.as_ref();
         std::fs::create_dir_all(outdir).expect("failed to create output dir");
 
@@ -49,16 +50,20 @@ impl BringupState {
         println!("Clock gen: {}", self.lab().clkgen_idn());
 
         self.lab().psu_on();
-        self.lab().clkgen().cmd(":VOLT1:HIGH 2.0");
-        self.lab().clkgen().cmd(":VOLT1:LOW 0.0");
+        self.lab().clkgen_vdd(2.0);
 
-        let mut per_sram: Vec<Vec<ShmooPoint>> =
-            (0..SRAM_SIZES.len()).map(|_| Vec::new()).collect();
+        let mut sram_shmoos: Vec<SramShmoo> = srams
+            .into_iter()
+            .map(|sram_id| SramShmoo {
+                sram_id,
+                points: Vec::new(),
+            })
+            .collect();
 
         for &freq in CLOCK_FREQS_HZ {
-            self.lab().clkgen().cmd(&format!(":FREQ {freq:.6E}"));
+            self.lab().clkgen_freq(freq);
             thread::sleep(Duration::from_millis(3000));
-            self.lab().clkgen().cmd(":OUTP1:POS ON");
+            self.lab().clkgen_on();
             println!("{:.1} MHz", freq / 1e6);
 
             for &vdd in VDD_VOLTS {
@@ -70,13 +75,11 @@ impl BringupState {
 
                 let init_success = self.init_chip().is_ok();
 
-                println!("finish init chip");
-
-                for (id, size) in SRAM_SIZES.iter().take(1).enumerate() {
+                for shmoo in sram_shmoos.iter_mut() {
+                    let id = shmoo.sram_id;
                     let result = if init_success {
                         let intf = self.tsi_intf();
                         let mut bist = march_cm_bist(intf, id as u64);
-                        println!("executing bist");
                         match bist.execute() {
                             Ok(res) => match bist.validate_res(res) {
                                 Ok(_) => ShmooResult::Pass,
@@ -96,33 +99,19 @@ impl BringupState {
                         clock_freq_hz: freq,
                         result,
                     };
-                    println!("finish executing bist");
-                    println!("SRAM {id}: {pt:?}");
-                    per_sram[id].push(pt);
+                    shmoo.points.push(pt);
+                    let json = serde_json::to_string_pretty(&shmoo).expect("serialization failed");
+                    std::fs::write(outdir.join(format!("sram{id}_shmoo.json")), json)
+                        .expect("failed to write shmoo json");
                 }
             }
         }
 
-        self.lab().clkgen().cmd(":OUTP1 OFF");
+        self.lab().clkgen_off();
         self.lab().psu_off();
 
-        let srams: Vec<SramShmoo> = per_sram
-            .into_iter()
-            .enumerate()
-            .map(|(id, points)| {
-                let shmoo = SramShmoo {
-                    sram_id: id,
-                    points,
-                };
-                let json = serde_json::to_string_pretty(&shmoo).expect("serialization failed");
-                std::fs::write(outdir.join(format!("sram{id}_shmoo.json")), json)
-                    .expect("failed to write shmoo json");
-                shmoo
-            })
-            .collect();
-
         println!("Results written to {}", outdir.display());
-        srams
+        sram_shmoos
     }
 }
 
@@ -132,6 +121,6 @@ mod shmoo {
     fn test_commands() {
         use crate::*;
         let mut l = BringupState::new();
-        l.shmoo_test_all_srams("out/shmoo");
+        l.shmoo(0..22, "out/shmoo");
     }
 }

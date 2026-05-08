@@ -118,4 +118,12 @@ impl Lab {
     pub fn clkgen_off(&mut self) {
         self.clkgen().cmd(":OUTP1:POS OFF");
     }
+
+    pub fn clkgen_freq(&mut self, freq: f64) {
+        self.clkgen().cmd(&format!(":FREQ {freq:.6E}"));
+    }
+    pub fn clkgen_vdd(&mut self, vdd: f64) {
+        self.clkgen().cmd(&format!(":VOLT1:HIGH {vdd:.4}"));
+        self.clkgen().cmd(":VOLT1:LOW 0.0");
+    }
 }

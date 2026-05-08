@@ -12,7 +12,6 @@ const OPERATIONS_PER_ELEMENT: usize = 8;
 const PATTERN_TABLE_LENGTH: usize = 8;
 const MAX_ROW_ADDR_WIDTH: usize = 11;
 const MAX_COL_ADDR_WIDTH: usize = 3;
-const DATA_WIDTH: usize = 128;
 const RAND_ADDR_WIDTH: usize = 14;
 const ELEMENT_WIDTH: usize = 122;
 
@@ -106,7 +105,7 @@ pub fn basic_bist<I>(intf: I, id: u64) -> BistController<I> {
         stop_on_failure: true,
         data_width: size.width(),
         mask_granularity: size.width() / size.mask_width(),
-        timeout: Some(Duration::from_millis(3000)),
+        timeout: Some(Duration::from_millis(500)),
     }
 }
 
@@ -240,7 +239,7 @@ pub fn march_cm_bist<I>(intf: I, id: u64) -> BistController<I> {
         stop_on_failure: true,
         data_width: size.width(),
         mask_granularity: size.width() / size.mask_width(),
-        timeout: Some(Duration::from_millis(3000)),
+        timeout: Some(Duration::from_millis(500)),
     }
 }
 
@@ -427,7 +426,7 @@ pub fn march_b_bist<I>(intf: I, id: u64) -> BistController<I> {
         stop_on_failure: true,
         data_width: size.width(),
         mask_granularity: size.width() / size.mask_width(),
-        timeout: Some(Duration::from_millis(3000)),
+        timeout: Some(Duration::from_millis(500)),
     }
 }
 
@@ -481,7 +480,7 @@ pub fn rand_bist<I>(intf: I, id: u64) -> BistController<I> {
         stop_on_failure: true,
         data_width: size.width(),
         mask_granularity: size.width() / size.mask_width(),
-        timeout: Some(Duration::from_millis(3000)),
+        timeout: Some(Duration::from_millis(500)),
     }
 }
 
@@ -812,14 +811,18 @@ impl<I: MemoryIntf> BistController<I> {
         self.intf.write(BIST_INNER_DIM, self.inner_dim.encode())?;
         let elts = self.encode_elts();
         for (i, &word) in elts.iter().enumerate() {
-            self.intf.write(BIST_ELEMENT_SEQUENCE + 8 * i as u64, word)?;
+            self.intf
+                .write(BIST_ELEMENT_SEQUENCE + 8 * i as u64, word)?;
         }
         for (i, &pat) in self.patterns.iter().enumerate() {
-            self.intf.write128(BIST_PATTERN_TABLE + 16 * i as u64, pat)?;
+            self.intf
+                .write128(BIST_PATTERN_TABLE + 16 * i as u64, pat)?;
         }
-        self.intf.write(BIST_MAX_ELEMENT_IDX, (self.elts.len() - 1) as u64)?;
+        self.intf
+            .write(BIST_MAX_ELEMENT_IDX, (self.elts.len() - 1) as u64)?;
         self.intf.write(BIST_CYCLE_LIMIT, self.cycle_limit)?;
-        self.intf.write(BIST_STOP_ON_FAILURE, self.stop_on_failure as u64)?;
+        self.intf
+            .write(BIST_STOP_ON_FAILURE, self.stop_on_failure as u64)?;
         Ok(())
     }
 

@@ -1,3 +1,5 @@
+use std::time::Duration;
+
 use const_format::concatcp;
 
 pub mod bebe;
@@ -7,9 +9,9 @@ pub mod executor;
 pub mod lab;
 pub mod memory;
 pub mod pattern;
-pub mod shmootest;
+pub mod shmoo;
 pub mod state;
-pub(crate) mod tests;
+pub mod tests;
 pub mod tsi;
 
 use ::tsi::Tsi;
@@ -18,7 +20,8 @@ pub use bist::*;
 pub use executor::*;
 pub use lab::*;
 pub use memory::*;
-pub use shmootest::*;
+pub use shmoo::*;
+pub use tests::*;
 pub use tsi::*;
 
 use crate::config::{Config, load_config};
@@ -52,52 +55,48 @@ impl BringupState {
         self.tsi = None;
     }
 
-    pub fn tsi(&mut self) -> &mut Tsi {
-        self.tsi
-            .get_or_insert_with(|| Tsi::new(&self.config.fpga_com_port, FPGA_BAUD_RATE))
+    pub(crate) fn tsi(&mut self) -> &mut Tsi {
+        self.tsi.get_or_insert_with(|| {
+            Tsi::new(
+                serialport::new(&self.config.fpga_com_port, FPGA_BAUD_RATE)
+                    .timeout(Duration::from_millis(500))
+                    .open()
+                    .expect("failed to open TTY"),
+            )
+        })
     }
 
     pub fn lab(&mut self) -> &mut Lab {
-        self.lab.get_or_insert_with(|| Lab::new())
+        self.lab.get_or_insert_with(Lab::new)
     }
 
     pub fn set_div_ratio(&mut self, half_clk_div_ratio: u32) {
-        self.tsi()
-            .write_word(HALF_CLK_DIV_RATIO, half_clk_div_ratio as u64)
+        self.tsi_intf()
+            .write(HALF_CLK_DIV_RATIO, half_clk_div_ratio as u64)
             .expect("failed to write");
     }
 
     pub fn enable_clk(&mut self) {
-        self.tsi().write_word(CLK_EN, 1).expect("failed to write");
+        self.tsi_intf().write(CLK_EN, 1).expect("failed to write");
     }
 
     pub fn disable_clk(&mut self) {
-        self.tsi().write_word(CLK_EN, 0).expect("failed to write");
+        self.tsi_intf().write(CLK_EN, 0).expect("failed to write");
     }
 
     pub fn reset_chip(&mut self) {
-        self.tsi()
-            .write_word(RESET_REG, 1)
+        self.tsi_intf()
+            .write(RESET_REG, 1)
             .expect("failed to write");
-        self.tsi()
-            .write_word(RESET_REG, 0)
+        self.tsi_intf()
+            .write(RESET_REG, 0)
             .expect("failed to write");
     }
 
-    /// Re-opens the FPGA COM port on failure.
-    pub fn read_word(&mut self, addr: u64) -> std::io::Result<u64> {
-        match self.tsi().read_word(addr) {
-            Ok(data) => Ok(data),
-            Err(e) => {
-                self.tsi = None;
-                Err(e)
-            }
-        }
-    }
-    pub fn init_chip(&mut self) -> std::io::Result<()> {
+    pub fn init_chip(&mut self) -> anyhow::Result<()> {
         self.enable_clk();
         self.reset_chip();
-        match self.read_word(SCRATCHPAD_BASE) {
+        match self.tsi_intf().read(SCRATCHPAD_BASE) {
             Ok(_) => {
                 println!("Chip initialized!");
                 Ok(())
