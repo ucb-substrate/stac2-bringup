@@ -11,6 +11,7 @@ Requirements:
 - [Rust](https://rust-lang.org/tools/install/)
 - [uv](https://docs.astral.sh/uv/getting-started/installation/#installation-methods)
 - [evcxr](https://github.com/evcxr/evcxr/blob/main/evcxr_repl/README.md)
+- [NI-VISA](https://www.ni.com/en/support/downloads/drivers/download.ni-visa.html)
 - STAC 2 evaluation board
 - Arty A7-100T FPGA development board
 
