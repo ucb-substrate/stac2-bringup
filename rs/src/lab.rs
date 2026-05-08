@@ -84,6 +84,28 @@ impl Lab {
         self.clkgen.as_mut().unwrap()
     }
 
+    pub fn status(&mut self) {
+        println!("===============");
+        println!("PSU (ch{PSU_CHANNEL})\n");
+        let state = self.psu().query(&format!("OUTP? (@{PSU_CHANNEL})"));
+        let volt = self.psu_vdd_meas();
+        let curr = self.psu_idd_meas();
+        println!("  State:   {state}");
+        println!("  Voltage: {volt:.4} V");
+        println!("  Current: {curr:.4} A");
+        println!("===============");
+
+        println!("===============");
+        println!("Clock Generator\n");
+        let freq = self.clkgen_freq_meas();
+        let div = self.clkgen().query(":OUTP1:DIV?");
+        let pos = self.clkgen().query(":OUTP1:POS?");
+        println!("  Freq:    {:.6E} Hz", freq);
+        println!("  Divider: {div}");
+        println!("  POS:     {pos}");
+        println!("===============");
+    }
+
     pub fn psu_idn(&mut self) -> String {
         self.psu().query("*IDN?")
     }
@@ -107,6 +129,13 @@ impl Lab {
             .expect("unexpected PSU voltage response")
     }
 
+    pub fn psu_idd_meas(&mut self) -> f64 {
+        self.psu()
+            .query(&format!("MEAS:CURR? (@{PSU_CHANNEL})"))
+            .parse()
+            .expect("unexpected PSU voltage response")
+    }
+
     pub fn clkgen_idn(&mut self) -> String {
         self.clkgen().query("*IDN?")
     }
@@ -125,7 +154,7 @@ impl Lab {
 
     pub fn clkgen_freq_meas(&mut self) -> f64 {
         self.clkgen()
-            .query(&format!(":FREQ?"))
+            .query(":FREQ?")
             .parse()
             .expect("unexpected clkgen freq")
     }

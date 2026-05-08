@@ -155,7 +155,7 @@ fn execute_inner<E: Executor>(
                 if dout == data {
                     println!("OK (received {dout:#x})");
                 } else {
-                    println!("ERROR: got {dout:#x}, expected {data:#x}");
+                    eprintln!("ERROR: got {dout:#x}, expected {data:#x}");
                     errors.push(BistError {
                         op: i,
                         expected: data,

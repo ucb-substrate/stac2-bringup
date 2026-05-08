@@ -11,8 +11,13 @@ import numpy as np
 from matplotlib.colors import ListedColormap
 
 PASS_COLOR = "#2ca02c"
-FAIL_COLOR = "#d62728"
-ERR_COLOR = "#aaaaaa"
+SRAM_FAIL_COLOR = "#d62728"
+BIST_FAIL_COLOR = "#ff7f0e"
+INTF_FAIL_COLOR = "#aaaaaa"
+
+# Maps result string → integer code used in the grid
+RESULT_CODE = {"IntfFail": 0, "BistFail": 1, "SramFail": 2, "Pass": 3}
+CMAP = ListedColormap([INTF_FAIL_COLOR, BIST_FAIL_COLOR, SRAM_FAIL_COLOR, PASS_COLOR])
 
 
 def load_shmoo(path: Path) -> dict:
@@ -21,28 +26,23 @@ def load_shmoo(path: Path) -> dict:
 
 
 def build_grid(data: dict):
-    """Return (grid, freqs, vdds) or (None, None, None) if no Ok points exist.
+    """Return (grid, freqs, vdds) or (None, None, None) if no points exist.
 
-    grid[vdd_row, freq_col]: -1=init error, 0=fail, 1=pass
+    grid[vdd_row, freq_col]: 0=IntfFail, 1=BistFail, 2=SramFail, 3=Pass
     Axes are ordered low→high for both VDD and frequency.
     """
     points = data["points"]
-    ok_pts = [p["Ok"] for p in points if "Ok" in p]
-    if not ok_pts:
+    if not points:
         return None, None, None
 
-    freqs = sorted({p["clock_freq_hz"] for p in ok_pts})
-    vdds = sorted({p["vdd_set_v"] for p in ok_pts})
+    freqs = sorted({p["clock_freq_hz"] for p in points})
+    vdds = sorted({p["vdd_set_v"] for p in points})
     freq_idx = {f: i for i, f in enumerate(freqs)}
     vdd_idx = {v: i for i, v in enumerate(vdds)}
 
-    grid = np.full((len(vdds), len(freqs)), -1, dtype=int)
+    grid = np.full((len(vdds), len(freqs)), RESULT_CODE["IntfFail"], dtype=int)
     for p in points:
-        if "Ok" in p:
-            pt = p["Ok"]
-            grid[vdd_idx[pt["vdd_set_v"]], freq_idx[pt["clock_freq_hz"]]] = (
-                1 if pt["pass"] else 0
-            )
+        grid[vdd_idx[p["vdd_set_v"]], freq_idx[p["clock_freq_hz"]]] = RESULT_CODE[p["result"]]
 
     return grid, freqs, vdds
 
@@ -57,13 +57,12 @@ def plot_shmoo(data: dict, ax: plt.Axes) -> None:
         ax.text(0.5, 0.5, "No data", ha="center", va="center", transform=ax.transAxes)
         return
 
-    cmap = ListedColormap([ERR_COLOR, FAIL_COLOR, PASS_COLOR])
     ax.imshow(
-        grid + 1,
+        grid,
         origin="lower",
-        cmap=cmap,
+        cmap=CMAP,
         vmin=0,
-        vmax=2,
+        vmax=3,
         aspect="auto",
         interpolation="nearest",
     )
@@ -109,8 +108,9 @@ def main() -> None:
 
     legend_handles = [
         mpatches.Patch(color=PASS_COLOR, label="Pass"),
-        mpatches.Patch(color=FAIL_COLOR, label="Fail"),
-        mpatches.Patch(color=ERR_COLOR, label="Init error"),
+        mpatches.Patch(color=SRAM_FAIL_COLOR, label="SRAM fail"),
+        mpatches.Patch(color=BIST_FAIL_COLOR, label="BIST fail"),
+        mpatches.Patch(color=INTF_FAIL_COLOR, label="Intf fail"),
     ]
     fig.legend(handles=legend_handles, loc="lower right", fontsize=9)
     fig.suptitle("SRAM Shmoo Plots", fontsize=13, fontweight="bold")

@@ -6,15 +6,18 @@ use serde::{Deserialize, Serialize};
 
 use crate::{BringupState, config::ClkSel, march_cm_bist};
 
-pub const VDD_VOLTS: &[f64] = &[
-    // 1.20, 1.25, 1.30, 1.35, 1.40, 1.45, 1.50, 1.55,
-    1.60, 1.65, 1.70, 1.75, 1.80, 1.85, 1.90,
-];
+fn stepped_range(start: f64, end: f64, step: f64) -> impl Iterator<Item = f64> {
+    let n = ((end - start) / step).round() as usize + 1;
+    (0..n).map(move |i| start + i as f64 * step)
+}
 
-pub const CLOCK_FREQS_HZ: &[f64] = &[
-    // 15e6, 20e6, 25e6, 30e6, 35e6,
-    40e6, 45e6, 50e6, 55e6, 60e6, 65e6, 70e6, 75e6, 80e6, 85e6, 90e6, 95e6, 100e6,
-];
+pub fn vdd_volts() -> impl Iterator<Item = f64> {
+    stepped_range(1.50, 1.90, 0.05)
+}
+
+pub fn clock_freqs_hz() -> impl Iterator<Item = f64> {
+    stepped_range(60e6, 70e6, 5e6)
+}
 
 #[derive(Debug, Copy, Clone, Serialize, Deserialize)]
 pub enum ShmooResult {
@@ -28,6 +31,7 @@ pub enum ShmooResult {
 pub struct ShmooPoint {
     pub vdd_set_v: f64,
     pub vdd_meas_psu_v: f64,
+    pub idd_meas_psu_a: f64,
     pub clock_freq_hz: f64,
     pub result: ShmooResult,
 }
@@ -64,35 +68,52 @@ impl BringupState {
             })
             .collect();
 
-        for &freq in CLOCK_FREQS_HZ {
+        for freq in clock_freqs_hz() {
             self.lab().clkgen_freq(freq);
             thread::sleep(Duration::from_millis(3000));
             self.lab().clkgen_on();
             println!("{:.1} MHz", freq / 1e6);
 
-            for &vdd in VDD_VOLTS {
+            for vdd in vdd_volts() {
                 self.lab().psu_vdd(vdd);
                 thread::sleep(Duration::from_millis(1000));
 
                 let vdd_meas_psu: f64 = self.lab().psu_vdd_meas();
+                let idd_meas_psu: f64 = self.lab().psu_idd_meas();
                 println!("  VDD set={vdd:.3}V  psu={vdd_meas_psu:.3}V");
+                println!("  IDD psu={idd_meas_psu:.3}V");
 
                 let init_success = self.bebe_init().is_ok();
+                let mut bist_initialized = false;
 
                 for shmoo in sram_shmoos.iter_mut() {
                     let id = shmoo.sram_id;
                     let result = if init_success {
                         let intf = self.bebe_intf();
                         let mut bist = march_cm_bist(intf, id as u64);
-                        match bist.execute() {
-                            Ok(res) => match bist.validate_res(res) {
-                                Ok(_) => ShmooResult::Pass,
-                                Err(_) => ShmooResult::SramFail,
-                            },
-                            Err(e) if e.downcast_ref::<std::io::Error>().is_some() => {
-                                ShmooResult::IntfFail
+                        // If pattern/element registers are already set correctly,
+                        // don't waste time setting them again. Just set SRAM-specific
+                        // registers.
+                        let bist_init_success = if bist_initialized {
+                            bist.skip_init = true;
+                            bist.init_sram().is_ok()
+                        } else {
+                            bist_initialized = true;
+                            true
+                        };
+                        if bist_init_success {
+                            match bist.execute() {
+                                Ok(res) => match bist.validate_res(res) {
+                                    Ok(_) => ShmooResult::Pass,
+                                    Err(_) => ShmooResult::SramFail,
+                                },
+                                Err(e) if e.downcast_ref::<std::io::Error>().is_some() => {
+                                    ShmooResult::IntfFail
+                                }
+                                Err(_) => ShmooResult::BistFail,
                             }
-                            Err(_) => ShmooResult::BistFail,
+                        } else {
+                            ShmooResult::IntfFail
                         }
                     } else {
                         ShmooResult::IntfFail
@@ -100,6 +121,7 @@ impl BringupState {
                     let pt = ShmooPoint {
                         vdd_set_v: vdd,
                         vdd_meas_psu_v: vdd_meas_psu,
+                        idd_meas_psu_a: idd_meas_psu,
                         clock_freq_hz: freq,
                         result,
                     };

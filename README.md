@@ -26,7 +26,17 @@ Checklist:
 - A female-to-male jumper cable should be used to connect IO0 on the FPGA to pin 3 of J12 (bottom row, second to left).
 
 Connect the STAC board and FPGA via PMODs and connect the USBs of the two boards to a host computer.
-Note their respective serial ports. Update the config in `Stac.toml` with these serial ports. If you would like
+Note their respective serial ports.
+
+Create a `Stac.toml` file at the root of the repository. An example is shown below:
+
+```toml
+fpga_com_port = "/dev/tty.usbserial-210319B7CBD91"
+stac_com_port = "/dev/tty.usbserial-101"
+clk_sel = "fpga"
+```
+
+Update the config in `Stac.toml` with the correct serial ports. If you would like
 to use the FPGA clock source, ensure that `clk_sel = "fpga"`.
 
 To use external supplies, flip the appropriate switch (S1 for 1.8V and S2 for 3.3V). External clock

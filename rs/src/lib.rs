@@ -1,4 +1,4 @@
-use std::{path::PathBuf, time::Duration};
+use std::path::PathBuf;
 
 pub mod bebe;
 pub mod bist;
@@ -15,7 +15,6 @@ pub mod tsi;
 use ::tsi::Tsi;
 pub use bebe::*;
 pub use bist::*;
-use const_format::concatcp;
 pub use executor::*;
 pub use lab::*;
 pub use memory::*;
@@ -25,14 +24,12 @@ pub use tsi::*;
 
 use crate::config::{CONFIG_PATH, ClkSel, Config, load_config};
 
-const RS_DIR: &str = env!("CARGO_MANIFEST_DIR");
-const PY_DIR: &str = concatcp!(RS_DIR, "/../py");
-
 pub struct BringupState {
     config_path: Option<PathBuf>,
     config: Config,
     pub(crate) tsi: Option<Tsi>,
     pub(crate) lab: Option<Lab>,
+    pub(crate) bebe: Option<bebe::BebeHost>,
 }
 
 impl Default for BringupState {
@@ -42,6 +39,7 @@ impl Default for BringupState {
             config: load_config(CONFIG_PATH),
             tsi: None,
             lab: None,
+            bebe: None,
         }
     }
 }
@@ -51,22 +49,50 @@ impl BringupState {
         Self::default()
     }
 
-    pub fn reload_config(&mut self) {
-        if let Some(path) = &self.config_path {
-            self.config = load_config(path);
-            self.tsi = None;
+    pub fn from_config(config: Config) -> Self {
+        BringupState {
+            config_path: None,
+            config,
+            tsi: None,
+            lab: None,
+            bebe: None,
         }
     }
 
-    pub(crate) fn tsi(&mut self) -> &mut Tsi {
-        self.tsi.get_or_insert_with(|| {
-            Tsi::new(
-                serialport::new(&self.config.fpga_com_port, FPGA_BAUD_RATE)
-                    .timeout(Duration::from_millis(500))
-                    .open()
-                    .expect("failed to open TTY"),
-            )
-        })
+    pub fn from_config_path(path: impl Into<PathBuf>) -> Self {
+        let path = path.into();
+        let config = load_config(&path);
+        BringupState {
+            config_path: Some(path),
+            config,
+            tsi: None,
+            lab: None,
+            bebe: None,
+        }
+    }
+
+    pub fn set_config_path(&mut self, path: impl Into<PathBuf>) {
+        self.config_path = Some(path.into());
+        self.config = load_config(self.config_path.as_ref().unwrap());
+        self.reset_state();
+    }
+
+    pub fn reload_config(&mut self) {
+        if let Some(path) = &self.config_path {
+            self.config = load_config(path);
+            self.reset_state();
+        }
+    }
+
+    pub fn set_config(&mut self, config: Config) {
+        self.config_path = None;
+        self.config = config;
+        self.reset_state();
+    }
+
+    pub fn reset_state(&mut self) {
+        self.bebe = None;
+        self.tsi = None;
     }
 
     pub fn lab(&mut self) -> &mut Lab {
@@ -112,7 +138,7 @@ impl BringupState {
                 Ok(())
             }
             Err(e) => {
-                println!("{e}");
+                eprintln!("{e}");
                 Err(e)
             }
         }

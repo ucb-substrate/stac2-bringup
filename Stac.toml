@@ -1,3 +1,0 @@
-fpga_com_port = "/dev/tty.usbserial-210319B7CBD91"
-stac_com_port = "/dev/tty.usbserial-101"
-clk_sel = "external"

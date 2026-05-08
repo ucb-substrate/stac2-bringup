@@ -63,7 +63,7 @@ impl BringupState {
         let intf = self.tsi_intf();
         let mut bist = basic_bist(intf, id);
         match bist.execute().and_then(|res| bist.validate_res(res)) {
-            Err(e) => println!("SRAM {id} failure: {e}"),
+            Err(e) => eprintln!("SRAM {id} failure: {e}"),
             Ok(()) => println!("BIST for SRAM {id} passed!"),
         };
     }
@@ -72,7 +72,7 @@ impl BringupState {
         let intf = self.tsi_intf();
         let mut bist = march_cm_bist(intf, id);
         match bist.execute().and_then(|res| bist.validate_res(res)) {
-            Err(e) => println!("SRAM {id} failure: {e}"),
+            Err(e) => eprintln!("SRAM {id} failure: {e}"),
             Ok(()) => println!("BIST for SRAM {id} passed!"),
         };
     }
@@ -81,7 +81,7 @@ impl BringupState {
         let intf = self.tsi_intf();
         let mut bist = march_b_bist(intf, id);
         match bist.execute().and_then(|res| bist.validate_res(res)) {
-            Err(e) => println!("SRAM {id} failure: {e}"),
+            Err(e) => eprintln!("SRAM {id} failure: {e}"),
             Ok(()) => println!("BIST for SRAM {id} passed!"),
         };
     }
@@ -90,7 +90,7 @@ impl BringupState {
         let intf = self.tsi_intf();
         let mut bist = rand_bist(intf, id);
         match bist.execute().and_then(|res| bist.validate_res(res)) {
-            Err(e) => println!("SRAM {id} failure: {e}"),
+            Err(e) => eprintln!("SRAM {id} failure: {e}"),
             Ok(()) => println!("BIST for SRAM {id} passed!"),
         };
     }
