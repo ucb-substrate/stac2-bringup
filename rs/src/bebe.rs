@@ -1,4 +1,5 @@
 use std::io::{self};
+use std::thread::sleep;
 use std::time::{Duration, Instant};
 
 use serialport::SerialPort;
@@ -38,10 +39,7 @@ fn read_some<'a>(
     port: &mut dyn serialport::SerialPort,
     buf: &'a mut [u8; 256],
 ) -> io::Result<&'a [u8]> {
-    let n = (port.bytes_to_read().unwrap_or(0) as usize)
-        .max(1)
-        .min(buf.len());
-    match port.read(&mut buf[..n]) {
+    match port.read(buf) {
         Ok(0) => Err(io::Error::new(io::ErrorKind::UnexpectedEof, "port closed")),
         Ok(n) => Ok(&buf[..n]),
         Err(e) => Err(e),
@@ -225,6 +223,7 @@ impl BringupState {
                     .expect("failed to open TTY"),
                 false,
             ));
+            sleep(Duration::from_millis(500));
         }
         self.bebe.as_mut().unwrap()
     }

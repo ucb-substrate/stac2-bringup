@@ -1,4 +1,4 @@
-use std::time::Duration;
+use std::{thread::sleep, time::Duration};
 
 use tsi::Tsi;
 
@@ -28,12 +28,14 @@ pub const SRAM_BIST_DONE: u64 = 0x58 + CONTROLLER_BASE;
 impl BringupState {
     pub(crate) fn tsi(&mut self) -> &mut Tsi {
         self.tsi.get_or_insert_with(|| {
-            Tsi::new(
+            let tsi = Tsi::new(
                 serialport::new(&self.config.fpga_com_port, FPGA_BAUD_RATE)
                     .timeout(Duration::from_millis(500))
                     .open()
                     .expect("failed to open TTY"),
-            )
+            );
+            sleep(Duration::from_millis(500));
+            tsi
         })
     }
 

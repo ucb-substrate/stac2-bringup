@@ -12,11 +12,11 @@ fn stepped_range(start: f64, end: f64, step: f64) -> impl Iterator<Item = f64> {
 }
 
 pub fn vdd_volts() -> impl Iterator<Item = f64> {
-    stepped_range(1.50, 1.90, 0.05)
+    stepped_range(1.0, 2.0, 0.05)
 }
 
 pub fn clock_freqs_hz() -> impl Iterator<Item = f64> {
-    stepped_range(60e6, 70e6, 5e6)
+    stepped_range(15e6, 100e6, 5e6)
 }
 
 #[derive(Debug, Copy, Clone, Serialize, Deserialize)]
@@ -83,7 +83,13 @@ impl BringupState {
                 println!("  VDD set={vdd:.3}V  psu={vdd_meas_psu:.3}V");
                 println!("  IDD psu={idd_meas_psu:.3}V");
 
-                let init_success = self.bebe_init().is_ok();
+                let init_success = match self.bebe_init() {
+                    Ok(_) => true,
+                    Err(e) => {
+                        eprintln!("failed to initialize: {e}");
+                        false
+                    }
+                };
                 let mut bist_initialized = false;
 
                 for shmoo in sram_shmoos.iter_mut() {
