@@ -174,7 +174,6 @@ fn main() {
     tx(port.as_mut(), NOCK_MAGIC, quiet);
     // Residual wakeup signals from DUT can linger in FIFOs after the nock magic is sent.
     'nock: loop {
-        println!("{buf:?}");
         for &b in read_some(port.as_mut(), &mut buf).expect("error during nock") {
             if b == b'A' {
                 continue;

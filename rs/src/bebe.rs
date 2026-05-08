@@ -23,11 +23,7 @@ impl BringupState {
             }
             ClkSel::External => self.lab().clkgen_freq_meas() / 1e6,
         };
-        println!("freq_mhz = {freq_mhz}");
-        let baudrate =
-            (CHIP_INTENDED_BAUDRATE as f64 / CHIP_INTENDED_FREQ_MHZ as f64 * freq_mhz) as u64;
-        println!("baudrate = {baudrate}");
-        baudrate
+        (CHIP_INTENDED_BAUDRATE as f64 / CHIP_INTENDED_FREQ_MHZ as f64 * freq_mhz) as u64
     }
 
     pub fn bebe_intf(&mut self) -> BebeIntf<'_> {
@@ -102,7 +98,11 @@ impl BringupState {
                 &len,
             ])
             .output()?;
-        anyhow::ensure!(output.status.success(), "bebe_read exited with {}", output.status);
+        anyhow::ensure!(
+            output.status.success(),
+            "bebe_read exited with {}",
+            output.status
+        );
         let s = String::from_utf8(output.stdout)?;
         Ok(s.trim().parse()?)
     }
