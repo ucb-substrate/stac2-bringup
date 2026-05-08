@@ -1,10 +1,7 @@
 use std::path::Path;
 
 use crate::BringupState;
-use crate::bist::{
-    BistController, Element, InnerDim, Op, OpElement, OpElementSeq, OperationType, basic_bist,
-    march_b_bist, march_cm_bist, rand_bist,
-};
+use crate::bist::{basic_bist, march_b_bist, march_cm_bist, rand_bist};
 use crate::executor::execute;
 use crate::pattern::{FixedPattern, Pattern, SramSize};
 

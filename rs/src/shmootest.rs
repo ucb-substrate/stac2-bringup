@@ -1,16 +1,10 @@
-use std::ffi::CString;
-use std::io::{Read, Write};
 use std::path::Path;
 use std::thread;
 use std::time::Duration;
 
 use serde::{Deserialize, Serialize};
-use visa_rs::enums::attribute::{AttrTmoValue, HasAttribute};
-use visa_rs::flags::AccessMode;
-use visa_rs::{AsResourceManager, DefaultRM, Instrument, TIMEOUT_IMMEDIATE};
 
 use crate::executor::execute;
-use crate::lab::{query, scpi};
 use crate::pattern::{FixedPattern, Pattern};
 use crate::tests::SRAM_SIZES;
 use crate::{BringupState, march_cm_bist};
@@ -53,29 +47,33 @@ impl BringupState {
         let outdir = outdir.as_ref();
         std::fs::create_dir_all(outdir).expect("failed to create output dir");
 
-        println!("PSU:       {}", query(self.lab().psu(), "*IDN?"));
-        println!("Clock gen: {}", query(self.lab().clkgen(), "*IDN?"));
+        println!("PSU:       {}", self.lab().psu().query("*IDN?"));
+        println!("Clock gen: {}", self.lab().clkgen().query("*IDN?"));
 
-        scpi(self.lab().psu(), &format!("OUTP ON,(@{PSU_CHANNEL})"));
-        scpi(self.lab().clkgen(), ":VOLT1:HIGH 1.8");
-        scpi(self.lab().clkgen(), ":VOLT1:LOW 0.0");
-        scpi(self.lab().clkgen(), ":OUTP1 ON");
+        self.lab().psu().cmd(&format!("OUTP ON,(@{PSU_CHANNEL})"));
+        self.lab().clkgen().cmd(":VOLT1:HIGH 1.8");
+        self.lab().clkgen().cmd(":VOLT1:LOW 0.0");
+        self.lab().clkgen().cmd(":OUTP1 ON");
 
         let mut per_sram: Vec<Vec<Result<ShmooPoint, ()>>> =
             (0..SRAM_SIZES.len()).map(|_| Vec::new()).collect();
 
         for &freq in CLOCK_FREQS_HZ {
-            scpi(self.lab().clkgen(), &format!(":FREQ {freq:.6E}"));
+            self.lab().clkgen().cmd(&format!(":FREQ {freq:.6E}"));
             println!("{:.1} MHz", freq / 1e6);
 
             for &vdd in VDD_VOLTS {
-                scpi(self.lab().psu(), &format!("VOLT {vdd:.4},(@{PSU_CHANNEL})"));
+                self.lab()
+                    .psu()
+                    .cmd(&format!("VOLT {vdd:.4},(@{PSU_CHANNEL})"));
                 thread::sleep(Duration::from_millis(500));
 
-                let vdd_meas_psu: f64 =
-                    query(self.lab().psu(), &format!("MEAS:VOLT? (@{PSU_CHANNEL})"))
-                        .parse()
-                        .expect("unexpected PSU voltage response");
+                let vdd_meas_psu: f64 = self
+                    .lab()
+                    .psu()
+                    .query(&format!("MEAS:VOLT? (@{PSU_CHANNEL})"))
+                    .parse()
+                    .expect("unexpected PSU voltage response");
                 println!("  VDD set={vdd:.3}V  psu={vdd_meas_psu:.3}V  (SRAM tests skipped)");
 
                 let init_success = self.init_chip().is_ok();
@@ -99,8 +97,8 @@ impl BringupState {
             }
         }
 
-        scpi(self.lab().clkgen(), ":OUTP1 OFF");
-        scpi(self.lab().psu(), &format!("OUTP OFF,(@{PSU_CHANNEL})"));
+        self.lab().clkgen().cmd(":OUTP1 OFF");
+        self.lab().psu().cmd(&format!("OUTP OFF,(@{PSU_CHANNEL})"));
 
         let srams: Vec<SramShmoo> = per_sram
             .into_iter()
