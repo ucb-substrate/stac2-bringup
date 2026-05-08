@@ -1,3 +1,5 @@
+use std::time::Duration;
+
 use anyhow::Result;
 use anyhow::bail;
 
@@ -104,6 +106,7 @@ pub fn basic_bist<I>(intf: I, id: u64) -> BistController<I> {
         stop_on_failure: true,
         data_width: size.width(),
         mask_granularity: size.width() / size.mask_width(),
+        timeout: Some(Duration::from_millis(3000)),
     }
 }
 
@@ -237,6 +240,7 @@ pub fn march_cm_bist<I>(intf: I, id: u64) -> BistController<I> {
         stop_on_failure: true,
         data_width: size.width(),
         mask_granularity: size.width() / size.mask_width(),
+        timeout: Some(Duration::from_millis(3000)),
     }
 }
 
@@ -423,6 +427,7 @@ pub fn march_b_bist<I>(intf: I, id: u64) -> BistController<I> {
         stop_on_failure: true,
         data_width: size.width(),
         mask_granularity: size.width() / size.mask_width(),
+        timeout: Some(Duration::from_millis(3000)),
     }
 }
 
@@ -476,6 +481,7 @@ pub fn rand_bist<I>(intf: I, id: u64) -> BistController<I> {
         stop_on_failure: true,
         data_width: size.width(),
         mask_granularity: size.width() / size.mask_width(),
+        timeout: Some(Duration::from_millis(3000)),
     }
 }
 
@@ -539,6 +545,8 @@ pub struct BistController<I> {
     pub data_width: u32,
     /// Number of data bits controlled by each write-mask bit (wmask granularity).
     pub mask_granularity: u32,
+    /// Wall-clock timeout for `execute_inner`. `None` means no timeout.
+    pub timeout: Option<std::time::Duration>,
 }
 
 #[derive(Debug, Clone)]
@@ -785,50 +793,57 @@ impl<I> BistController<I> {
 }
 
 impl<I: MemoryIntf> BistController<I> {
-    pub fn execute(&mut self) -> BistResult {
+    pub fn execute(&mut self) -> Result<BistResult> {
         self.validate();
-        self.init();
-        self.execute_inner();
+        self.init()?;
+        self.execute_inner()?;
         self.read_result()
     }
 
-    fn init(&mut self) {
-        self.intf.write(SRAM_ID, self.sram_id);
-        self.intf.write(SRAM_SEL, SRAM_SEL_BIST);
+    fn init(&mut self) -> Result<()> {
+        self.intf.write(SRAM_ID, self.sram_id)?;
+        self.intf.write(SRAM_SEL, SRAM_SEL_BIST)?;
         for (i, &word) in self.rand_seed.iter().enumerate() {
-            self.intf.write(BIST_RAND_SEED + 8 * i as u64, word);
+            self.intf.write(BIST_RAND_SEED + 8 * i as u64, word)?;
         }
-        self.intf.write128(BIST_SIG_SEED, self.sig_seed);
-        self.intf.write(BIST_MAX_ROW_ADDR, self.rows - 1);
-        self.intf.write(BIST_MAX_COL_ADDR, self.mux_ratio - 1);
-        self.intf.write(BIST_INNER_DIM, self.inner_dim.encode());
+        self.intf.write128(BIST_SIG_SEED, self.sig_seed)?;
+        self.intf.write(BIST_MAX_ROW_ADDR, self.rows - 1)?;
+        self.intf.write(BIST_MAX_COL_ADDR, self.mux_ratio - 1)?;
+        self.intf.write(BIST_INNER_DIM, self.inner_dim.encode())?;
         let elts = self.encode_elts();
         for (i, &word) in elts.iter().enumerate() {
-            self.intf.write(BIST_ELEMENT_SEQUENCE + 8 * i as u64, word);
+            self.intf.write(BIST_ELEMENT_SEQUENCE + 8 * i as u64, word)?;
         }
         for (i, &pat) in self.patterns.iter().enumerate() {
-            self.intf.write128(BIST_PATTERN_TABLE + 16 * i as u64, pat);
+            self.intf.write128(BIST_PATTERN_TABLE + 16 * i as u64, pat)?;
         }
-        self.intf
-            .write(BIST_MAX_ELEMENT_IDX, (self.elts.len() - 1) as u64);
-        self.intf.write(BIST_CYCLE_LIMIT, self.cycle_limit);
-        self.intf
-            .write(BIST_STOP_ON_FAILURE, self.stop_on_failure as u64);
+        self.intf.write(BIST_MAX_ELEMENT_IDX, (self.elts.len() - 1) as u64)?;
+        self.intf.write(BIST_CYCLE_LIMIT, self.cycle_limit)?;
+        self.intf.write(BIST_STOP_ON_FAILURE, self.stop_on_failure as u64)?;
+        Ok(())
     }
 
-    fn execute_inner(&mut self) {
-        self.intf.write(EX, 1);
-        while self.intf.read(DONE) & 0x1 == 0 {}
+    fn execute_inner(&mut self) -> Result<()> {
+        self.intf.write(EX, 1)?;
+        let deadline = self.timeout.map(|t| std::time::Instant::now() + t);
+        loop {
+            if self.intf.read(DONE)? & 0x1 != 0 {
+                return Ok(());
+            }
+            if deadline.is_some_and(|d| std::time::Instant::now() >= d) {
+                bail!("BIST timed out waiting for DONE");
+            }
+        }
     }
 
-    fn read_result(&mut self) -> BistResult {
-        BistResult {
-            fail: self.intf.read(BIST_FAIL) & 0x1 != 0,
-            fail_cycle: self.intf.read(BIST_FAIL_CYCLE),
-            expected: self.intf.read128(BIST_EXPECTED),
-            received: self.intf.read128(BIST_RECEIVED),
-            signature: self.intf.read128(BIST_SIGNATURE),
-        }
+    fn read_result(&mut self) -> Result<BistResult> {
+        Ok(BistResult {
+            fail: self.intf.read(BIST_FAIL)? & 0x1 != 0,
+            fail_cycle: self.intf.read(BIST_FAIL_CYCLE)?,
+            expected: self.intf.read128(BIST_EXPECTED)?,
+            received: self.intf.read128(BIST_RECEIVED)?,
+            signature: self.intf.read128(BIST_SIGNATURE)?,
+        })
     }
 }
 

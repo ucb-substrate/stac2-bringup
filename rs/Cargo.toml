@@ -13,3 +13,4 @@ serde_json = "1"
 toml = "1"
 anyhow = "1"
 tsi = { path = "../tsi" }
+visa-rs = "0.7.0-alpha.1"

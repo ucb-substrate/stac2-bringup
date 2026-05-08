@@ -29,15 +29,16 @@ pub const BIST_SIGNATURE: u64 = 0x1F0 + BASE;
 pub const EX: u64 = 0x200 + BASE;
 
 pub trait MemoryIntf {
-    fn read(&mut self, addr: u64) -> u64;
-    fn write(&mut self, addr: u64, data: u64);
-    fn read128(&mut self, addr: u64) -> u128 {
-        let r0 = self.read(addr);
-        let r1 = self.read(addr + 8);
-        ((r1 as u128) << 64) | r0 as u128
+    fn read(&mut self, addr: u64) -> anyhow::Result<u64>;
+    fn write(&mut self, addr: u64, data: u64) -> anyhow::Result<()>;
+    fn read128(&mut self, addr: u64) -> anyhow::Result<u128> {
+        let r0 = self.read(addr)?;
+        let r1 = self.read(addr + 8)?;
+        Ok(((r1 as u128) << 64) | r0 as u128)
     }
-    fn write128(&mut self, addr: u64, data: u128) {
-        self.write(addr, (data & 0xffffffffffffffff) as u64);
-        self.write(addr + 8, (data >> 64) as u64);
+    fn write128(&mut self, addr: u64, data: u128) -> anyhow::Result<()> {
+        self.write(addr, data as u64)?;
+        self.write(addr + 8, (data >> 64) as u64)?;
+        Ok(())
     }
 }

@@ -44,11 +44,14 @@ impl<'a> TsiIntf<'a> {
 }
 
 impl<'a> MemoryIntf for TsiIntf<'a> {
-    fn read(&mut self, addr: u64) -> u64 {
-        self.0.tsi.read_word(addr).expect("failed to read")
+    fn read(&mut self, addr: u64) -> anyhow::Result<u64> {
+        self.0.tsi().read_word(addr).map_err(anyhow::Error::from)
     }
 
-    fn write(&mut self, addr: u64, data: u64) {
-        self.0.tsi.write_word(addr, data).expect("failed to write");
+    fn write(&mut self, addr: u64, data: u64) -> anyhow::Result<()> {
+        self.0
+            .tsi()
+            .write_word(addr, data)
+            .map_err(anyhow::Error::from)
     }
 }
