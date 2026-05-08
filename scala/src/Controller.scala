@@ -103,10 +103,12 @@ class StacController(
       io.pllScanIn := true.B
       io.reset := reset.asBool || resetReg
 
-      when(clkEn) {
-        io.clk := divClk
-      }.otherwise {
-        io.clk := false.B
+      val clkBufT = Module(new OBUFT)
+      clkBufT.io.I := divClk
+      clkBufT.io.T := false.B
+      io.clk := clkBufT.io.O
+      when(!clkEn) {
+        clkBufT.io.T := true.B
       }
 
       when(halfClkDivRatio === 0.U || cycles >= halfClkDivRatio - 1.U) {

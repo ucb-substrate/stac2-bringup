@@ -55,23 +55,23 @@ impl<I> TestSramExecutor<I> {
 impl<I: MemoryIntf> Executor for TestSramExecutor<I> {
     fn init(&mut self) {}
     fn read(&mut self, addr: SramAddr) -> SramWord {
-        self.intf.write(ADDR, addr as u64);
+        self.intf.write(ADDR, addr as u64).expect("TSI write failed");
         // no need to set the din/mask
-        self.intf.write(WE, 0);
-        self.intf.write(SRAM_ID, self.sram_id);
-        self.intf.write(SRAM_SEL, 0);
-        self.intf.write(EX, u64::MAX);
-        self.intf.read128(DOUT)
+        self.intf.write(WE, 0).expect("TSI write failed");
+        self.intf.write(SRAM_ID, self.sram_id).expect("TSI write failed");
+        self.intf.write(SRAM_SEL, 0).expect("TSI write failed");
+        self.intf.write(EX, u64::MAX).expect("TSI write failed");
+        self.intf.read128(DOUT).expect("TSI read failed")
     }
 
     fn write(&mut self, addr: SramAddr, data: SramWord, mask: SramWord) {
-        self.intf.write(ADDR, addr as u64);
-        self.intf.write128(DIN, data);
-        self.intf.write128(MASK, mask);
-        self.intf.write(WE, 1);
-        self.intf.write(SRAM_ID, self.sram_id);
-        self.intf.write(SRAM_SEL, 0);
-        self.intf.write(EX, u64::MAX);
+        self.intf.write(ADDR, addr as u64).expect("TSI write failed");
+        self.intf.write128(DIN, data).expect("TSI write failed");
+        self.intf.write128(MASK, mask).expect("TSI write failed");
+        self.intf.write(WE, 1).expect("TSI write failed");
+        self.intf.write(SRAM_ID, self.sram_id).expect("TSI write failed");
+        self.intf.write(SRAM_SEL, 0).expect("TSI write failed");
+        self.intf.write(EX, u64::MAX).expect("TSI write failed");
     }
 
     fn finish(&mut self) {}
@@ -86,13 +86,17 @@ impl<I> ScratchpadExecutor<I> {
 impl<I: MemoryIntf> Executor for ScratchpadExecutor<I> {
     fn init(&mut self) {}
     fn read(&mut self, addr: SramAddr) -> SramWord {
-        self.0.read(SCRATCHPAD_BASE + addr as u64 * 8) as SramWord
+        self.0
+            .read(SCRATCHPAD_BASE + addr as u64 * 8)
+            .expect("TSI read failed") as SramWord
     }
 
     fn write(&mut self, addr: SramAddr, data: SramWord, mask: SramWord) {
         assert_eq!(mask, 0xFF, "scratchpad only supports mask of all 1s");
         assert_eq!(data >> 64, 0, "scratchpad only supports 64 bit writes");
-        self.0.write(SCRATCHPAD_BASE + addr as u64 * 8, data as u64);
+        self.0
+            .write(SCRATCHPAD_BASE + addr as u64 * 8, data as u64)
+            .expect("TSI write failed");
     }
 
     fn finish(&mut self) {}
@@ -151,7 +155,7 @@ fn execute_inner<E: Executor>(
                 if dout == data {
                     println!("OK (received {dout:#x})");
                 } else {
-                    println!("ERROR: got {dout:#x}, expected {data:#x}");
+                    eprintln!("ERROR: got {dout:#x}, expected {data:#x}");
                     errors.push(BistError {
                         op: i,
                         expected: data,

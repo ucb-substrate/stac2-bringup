@@ -1,2 +1,0 @@
-fpga_com_port = "/dev/tty.usbserial-210319B9B4A21"
-stac_com_port = "/dev/tty.usbserial-1101"

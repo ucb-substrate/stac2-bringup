@@ -1,4 +1,5 @@
 stac2.log
+Stac.toml
 data/
 
 # Created by https://www.toptal.com/developers/gitignore/api/vim,rust,linux,macos,windows

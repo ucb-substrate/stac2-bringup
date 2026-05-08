@@ -1,3 +1,7 @@
+use std::{thread::sleep, time::Duration};
+
+use tsi::Tsi;
+
 use crate::{
     BringupState, MemoryIntf,
     executor::{ScratchpadExecutor, TestSramExecutor},
@@ -22,6 +26,19 @@ pub const RESET_REG: u64 = 0x50 + CONTROLLER_BASE;
 pub const SRAM_BIST_DONE: u64 = 0x58 + CONTROLLER_BASE;
 
 impl BringupState {
+    pub(crate) fn tsi(&mut self) -> &mut Tsi {
+        self.tsi.get_or_insert_with(|| {
+            let tsi = Tsi::new(
+                serialport::new(&self.config.fpga_com_port, FPGA_BAUD_RATE)
+                    .timeout(Duration::from_millis(500))
+                    .open()
+                    .expect("failed to open TTY"),
+            );
+            sleep(Duration::from_millis(500));
+            tsi
+        })
+    }
+
     pub fn tsi_intf(&mut self) -> TsiIntf<'_> {
         TsiIntf::new(self)
     }
@@ -44,11 +61,23 @@ impl<'a> TsiIntf<'a> {
 }
 
 impl<'a> MemoryIntf for TsiIntf<'a> {
-    fn read(&mut self, addr: u64) -> u64 {
-        self.0.tsi.read_word(addr).expect("failed to read")
+    fn read(&mut self, addr: u64) -> anyhow::Result<u64> {
+        let res = self.0.tsi().read_word(addr).map_err(anyhow::Error::from);
+        if res.is_err() {
+            self.0.tsi = None;
+        }
+        res
     }
 
-    fn write(&mut self, addr: u64, data: u64) {
-        self.0.tsi.write_word(addr, data).expect("failed to write");
+    fn write(&mut self, addr: u64, data: u64) -> anyhow::Result<()> {
+        let res = self
+            .0
+            .tsi()
+            .write_word(addr, data)
+            .map_err(anyhow::Error::from);
+        if res.is_err() {
+            self.0.tsi = None;
+        }
+        res
     }
 }

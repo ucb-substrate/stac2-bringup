@@ -1,3 +1,5 @@
+use std::time::Duration;
+
 use anyhow::Result;
 use anyhow::bail;
 
@@ -10,7 +12,6 @@ const OPERATIONS_PER_ELEMENT: usize = 8;
 const PATTERN_TABLE_LENGTH: usize = 8;
 const MAX_ROW_ADDR_WIDTH: usize = 11;
 const MAX_COL_ADDR_WIDTH: usize = 3;
-const DATA_WIDTH: usize = 128;
 const RAND_ADDR_WIDTH: usize = 14;
 const ELEMENT_WIDTH: usize = 122;
 
@@ -104,6 +105,8 @@ pub fn basic_bist<I>(intf: I, id: u64) -> BistController<I> {
         stop_on_failure: true,
         data_width: size.width(),
         mask_granularity: size.width() / size.mask_width(),
+        timeout: Some(Duration::from_millis(500)),
+        skip_init: false,
     }
 }
 
@@ -237,6 +240,8 @@ pub fn march_cm_bist<I>(intf: I, id: u64) -> BistController<I> {
         stop_on_failure: true,
         data_width: size.width(),
         mask_granularity: size.width() / size.mask_width(),
+        timeout: Some(Duration::from_millis(500)),
+        skip_init: false,
     }
 }
 
@@ -423,6 +428,8 @@ pub fn march_b_bist<I>(intf: I, id: u64) -> BistController<I> {
         stop_on_failure: true,
         data_width: size.width(),
         mask_granularity: size.width() / size.mask_width(),
+        timeout: Some(Duration::from_millis(500)),
+        skip_init: false,
     }
 }
 
@@ -476,6 +483,8 @@ pub fn rand_bist<I>(intf: I, id: u64) -> BistController<I> {
         stop_on_failure: true,
         data_width: size.width(),
         mask_granularity: size.width() / size.mask_width(),
+        timeout: Some(Duration::from_millis(500)),
+        skip_init: false,
     }
 }
 
@@ -539,6 +548,10 @@ pub struct BistController<I> {
     pub data_width: u32,
     /// Number of data bits controlled by each write-mask bit (wmask granularity).
     pub mask_granularity: u32,
+    /// Wall-clock timeout for `execute_inner`. `None` means no timeout.
+    pub timeout: Option<std::time::Duration>,
+    /// Skips initialization.
+    pub skip_init: bool,
 }
 
 #[derive(Debug, Clone)]
@@ -785,50 +798,68 @@ impl<I> BistController<I> {
 }
 
 impl<I: MemoryIntf> BistController<I> {
-    pub fn execute(&mut self) -> BistResult {
+    pub fn execute(&mut self) -> Result<BistResult> {
         self.validate();
-        self.init();
-        self.execute_inner();
+        if !self.skip_init {
+            self.init()?;
+        }
+        self.execute_inner()?;
         self.read_result()
     }
 
-    fn init(&mut self) {
-        self.intf.write(SRAM_ID, self.sram_id);
-        self.intf.write(SRAM_SEL, SRAM_SEL_BIST);
+    pub fn init_sram(&mut self) -> Result<()> {
+        self.intf.write(SRAM_ID, self.sram_id)?;
+        self.intf.write(BIST_MAX_ROW_ADDR, self.rows - 1)?;
+        self.intf.write(BIST_MAX_COL_ADDR, self.mux_ratio - 1)?;
+        Ok(())
+    }
+
+    pub fn init(&mut self) -> Result<()> {
+        self.init_sram()?;
+        self.intf.write(SRAM_SEL, SRAM_SEL_BIST)?;
         for (i, &word) in self.rand_seed.iter().enumerate() {
-            self.intf.write(BIST_RAND_SEED + 8 * i as u64, word);
+            self.intf.write(BIST_RAND_SEED + 8 * i as u64, word)?;
         }
-        self.intf.write128(BIST_SIG_SEED, self.sig_seed);
-        self.intf.write(BIST_MAX_ROW_ADDR, self.rows - 1);
-        self.intf.write(BIST_MAX_COL_ADDR, self.mux_ratio - 1);
-        self.intf.write(BIST_INNER_DIM, self.inner_dim.encode());
+        self.intf.write128(BIST_SIG_SEED, self.sig_seed)?;
+        self.intf.write(BIST_INNER_DIM, self.inner_dim.encode())?;
         let elts = self.encode_elts();
         for (i, &word) in elts.iter().enumerate() {
-            self.intf.write(BIST_ELEMENT_SEQUENCE + 8 * i as u64, word);
+            self.intf
+                .write(BIST_ELEMENT_SEQUENCE + 8 * i as u64, word)?;
         }
         for (i, &pat) in self.patterns.iter().enumerate() {
-            self.intf.write128(BIST_PATTERN_TABLE + 16 * i as u64, pat);
+            self.intf
+                .write128(BIST_PATTERN_TABLE + 16 * i as u64, pat)?;
         }
         self.intf
-            .write(BIST_MAX_ELEMENT_IDX, (self.elts.len() - 1) as u64);
-        self.intf.write(BIST_CYCLE_LIMIT, self.cycle_limit);
+            .write(BIST_MAX_ELEMENT_IDX, (self.elts.len() - 1) as u64)?;
+        self.intf.write(BIST_CYCLE_LIMIT, self.cycle_limit)?;
         self.intf
-            .write(BIST_STOP_ON_FAILURE, self.stop_on_failure as u64);
+            .write(BIST_STOP_ON_FAILURE, self.stop_on_failure as u64)?;
+        Ok(())
     }
 
-    fn execute_inner(&mut self) {
-        self.intf.write(EX, 1);
-        while self.intf.read(DONE) & 0x1 == 0 {}
-    }
-
-    fn read_result(&mut self) -> BistResult {
-        BistResult {
-            fail: self.intf.read(BIST_FAIL) & 0x1 != 0,
-            fail_cycle: self.intf.read(BIST_FAIL_CYCLE),
-            expected: self.intf.read128(BIST_EXPECTED),
-            received: self.intf.read128(BIST_RECEIVED),
-            signature: self.intf.read128(BIST_SIGNATURE),
+    pub fn execute_inner(&mut self) -> Result<()> {
+        self.intf.write(EX, 1)?;
+        let deadline = self.timeout.map(|t| std::time::Instant::now() + t);
+        loop {
+            if self.intf.read(DONE)? & 0x1 != 0 {
+                return Ok(());
+            }
+            if deadline.is_some_and(|d| std::time::Instant::now() >= d) {
+                bail!("BIST timed out waiting for DONE");
+            }
         }
+    }
+
+    pub fn read_result(&mut self) -> Result<BistResult> {
+        Ok(BistResult {
+            fail: self.intf.read(BIST_FAIL)? & 0x1 != 0,
+            fail_cycle: self.intf.read(BIST_FAIL_CYCLE)?,
+            expected: self.intf.read128(BIST_EXPECTED)?,
+            received: self.intf.read128(BIST_RECEIVED)?,
+            signature: self.intf.read128(BIST_SIGNATURE)?,
+        })
     }
 }
 
@@ -1197,6 +1228,7 @@ mod tests {
             stop_on_failure: true,
             data_width: 128,
             mask_granularity: 8,
+            skip_init: false,
         }
     }
 
@@ -1265,6 +1297,7 @@ mod tests {
             stop_on_failure: false,
             data_width: 128,
             mask_granularity: 8,
+            skip_init: false,
         };
 
         let expected = misr_step_128(1, 0); // one read of 0 into seed=1
@@ -1323,6 +1356,7 @@ mod tests {
             stop_on_failure: false,
             data_width: 128,
             mask_granularity: 8,
+            skip_init: false,
         };
 
         // Two reads of u128::MAX starting from seed=1.
@@ -1371,6 +1405,7 @@ mod tests {
             stop_on_failure: false,
             data_width: 128,
             mask_granularity: 8,
+            skip_init: false,
         };
 
         // Insert a wait element between write and read – signature must be identical.
@@ -1412,6 +1447,7 @@ mod tests {
             stop_on_failure: false,
             data_width: 128,
             mask_granularity: 8,
+            skip_init: false,
         };
 
         assert_eq!(base.expected_signature(), with_wait.expected_signature());

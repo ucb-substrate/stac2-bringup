@@ -3,11 +3,11 @@ name = "stac2"
 version = "0.1.0"
 requires-python = ">=3.13"
 dependencies = [
-    "pyuartsi>=2026.1.20",
+    "matplotlib>=3.9",
+    "numpy>=2.0",
 ]
 
 [dependency-groups]
 dev = [
-    "ipython>=9.12.0",
     "ty>=0.0.29",
 ]
