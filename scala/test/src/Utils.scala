@@ -31,17 +31,18 @@ object Utils {
     os.write.over(
       path,
       s"""set name {arty-a7-100}
-set part_fpga {xc7a100ticsg324-1L}
+set part_fpga {xc7a100tcsg324-1}
 set part_board {digilentinc.com:arty-a7-100:part0:1.1}
 set bootrom_inst {rom}
 
 set wrkdir ${objDir.toString}
 set ipdir [file join $$wrkdir ip]
 
+set_param board.repoPaths [list "/tools/C/rahulkumar/fpga/vivado-boards-digilent/new/board_files"]
+set_param messaging.defaultLimit 1000000
+
 # Create an in-memory project
 create_project -part $$part_fpga -force $topModule
-
-set_param messaging.defaultLimit 1000000
 
 # Set the board part, target language, default library, and IP directory
 # paths for the current project
@@ -144,7 +145,7 @@ opt_design -directive Explore
 write_checkpoint -force [file join $$wrkdir post_opt]
 
 # Placement
-place_design -directive AggressiveExplore
+place_design -directive Explore
 phys_opt_design -retime
 phys_opt_design -retime
 phys_opt_design -directive AggressiveExplore
