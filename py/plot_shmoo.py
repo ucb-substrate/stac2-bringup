@@ -41,6 +41,7 @@ def build_grid(data: dict):
 
     grid[vdd_row, freq_col]: 0=IntfFail, 1=BistFail, 2=SramFail, 3=Pass
     Axes are ordered low→high for both VDD and frequency.
+    All-IntfFail rows/cols are trimmed from each edge, keeping at most one.
     """
     points = data["points"]
     if not points:
@@ -51,9 +52,22 @@ def build_grid(data: dict):
     freq_idx = {f: i for i, f in enumerate(freqs)}
     vdd_idx = {v: i for i, v in enumerate(vdds)}
 
-    grid = np.full((len(vdds), len(freqs)), RESULT_CODE["IntfFail"], dtype=int)
+    intf = RESULT_CODE["IntfFail"]
+    grid = np.full((len(vdds), len(freqs)), intf, dtype=int)
     for p in points:
         grid[vdd_idx[p["vdd_set_v"]], freq_idx[p["clock_freq_hz"]]] = RESULT_CODE[p["result"]]
+
+    # Trim all-IntfFail rows/cols from each edge, leaving at most one.
+    active_rows = [i for i in range(grid.shape[0]) if np.any(grid[i] != intf)]
+    active_cols = [j for j in range(grid.shape[1]) if np.any(grid[:, j] != intf)]
+    if active_rows and active_cols:
+        r0 = max(0, min(active_rows) - 1)
+        r1 = min(grid.shape[0], max(active_rows) + 2)
+        c0 = max(0, min(active_cols) - 1)
+        c1 = min(grid.shape[1], max(active_cols) + 2)
+        grid = grid[r0:r1, c0:c1]
+        vdds = vdds[r0:r1]
+        freqs = freqs[c0:c1]
 
     return grid, freqs, vdds
 
