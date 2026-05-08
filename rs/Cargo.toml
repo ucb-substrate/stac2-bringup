@@ -11,5 +11,6 @@ rand = { version = "0.10", features = ["serde", "chacha"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 toml = "1"
+anyhow = "1"
 tsi = { path = "../tsi" }
 visa-rs = "0.7.0-alpha.1"

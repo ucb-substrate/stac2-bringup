@@ -52,6 +52,7 @@ pub struct SramSize {
     pub(crate) depth: u32,
     pub(crate) width: u32,
     pub(crate) mask_width: u32,
+    pub(crate) mux_ratio: u32,
 }
 
 impl Pattern {
@@ -147,6 +148,90 @@ impl Pattern {
         }
     }
 
+    pub fn march_cm_duplicate() -> Self {
+        Self {
+            elements: vec![
+                Element {
+                    addr_seq: AddrSeq::Up,
+                    ops: vec![
+                        SramOp::Write {
+                            data: SramInput::Fixed(0),
+                            mask: SramInput::Fixed(u128::MAX),
+                        },
+                        SramOp::Write {
+                            data: SramInput::Fixed(0),
+                            mask: SramInput::Fixed(u128::MAX),
+                        },
+                    ],
+                },
+                Element {
+                    addr_seq: AddrSeq::Up,
+                    ops: vec![
+                        SramOp::Read,
+                        SramOp::Read,
+                        SramOp::Write {
+                            data: SramInput::Fixed(u128::MAX),
+                            mask: SramInput::Fixed(u128::MAX),
+                        },
+                        SramOp::Write {
+                            data: SramInput::Fixed(u128::MAX),
+                            mask: SramInput::Fixed(u128::MAX),
+                        },
+                    ],
+                },
+                Element {
+                    addr_seq: AddrSeq::Up,
+                    ops: vec![
+                        SramOp::Read,
+                        SramOp::Read,
+                        SramOp::Write {
+                            data: SramInput::Fixed(0),
+                            mask: SramInput::Fixed(u128::MAX),
+                        },
+                        SramOp::Write {
+                            data: SramInput::Fixed(0),
+                            mask: SramInput::Fixed(u128::MAX),
+                        },
+                    ],
+                },
+                Element {
+                    addr_seq: AddrSeq::Down,
+                    ops: vec![
+                        SramOp::Read,
+                        SramOp::Read,
+                        SramOp::Write {
+                            data: SramInput::Fixed(u128::MAX),
+                            mask: SramInput::Fixed(u128::MAX),
+                        },
+                        SramOp::Write {
+                            data: SramInput::Fixed(u128::MAX),
+                            mask: SramInput::Fixed(u128::MAX),
+                        },
+                    ],
+                },
+                Element {
+                    addr_seq: AddrSeq::Down,
+                    ops: vec![
+                        SramOp::Read,
+                        SramOp::Read,
+                        SramOp::Write {
+                            data: SramInput::Fixed(0),
+                            mask: SramInput::Fixed(u128::MAX),
+                        },
+                        SramOp::Write {
+                            data: SramInput::Fixed(0),
+                            mask: SramInput::Fixed(u128::MAX),
+                        },
+                    ],
+                },
+                Element {
+                    addr_seq: AddrSeq::Up,
+                    ops: vec![SramOp::Read, SramOp::Read],
+                },
+            ],
+        }
+    }
+
     pub fn rand(n: u64) -> Self {
         Self {
             elements: vec![
@@ -172,7 +257,7 @@ impl Pattern {
 }
 
 impl SramSize {
-    pub const fn new(depth: u32, width: u32, wmask_granularity: u32) -> Self {
+    pub const fn new(depth: u32, width: u32, wmask_granularity: u32, mux_ratio: u32) -> Self {
         let mask_width = width / wmask_granularity;
         assert!(width > 0, "width must be greater than 0");
         assert!(depth > 0, "depth must be greater than 0");
@@ -181,10 +266,12 @@ impl SramSize {
             width.is_multiple_of(mask_width),
             "SRAM width must be an even multiple of mask width"
         );
+        assert!(mux_ratio == 4 || mux_ratio == 8, "mux ratio must be 4 or 8");
         Self {
             width,
             depth,
             mask_width,
+            mux_ratio,
         }
     }
 
@@ -196,6 +283,15 @@ impl SramSize {
     }
     pub fn mask_width(&self) -> u32 {
         self.mask_width
+    }
+    pub fn mux_ratio(&self) -> u32 {
+        self.mux_ratio
+    }
+    pub fn rows(&self) -> u32 {
+        self.depth() / self.mux_ratio()
+    }
+    pub fn cols(&self) -> u32 {
+        self.width() * self.mux_ratio()
     }
 }
 

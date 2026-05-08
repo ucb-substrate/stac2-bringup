@@ -5,8 +5,8 @@ use std::thread;
 use std::time::Duration;
 
 use serde::{Deserialize, Serialize};
-use visa_rs::flags::AccessMode;
 use visa_rs::enums::attribute::{AttrTmoValue, HasAttribute};
+use visa_rs::flags::AccessMode;
 use visa_rs::{AsResourceManager, DefaultRM, Instrument, TIMEOUT_IMMEDIATE};
 
 use crate::BringupState;
@@ -14,18 +14,18 @@ use crate::executor::execute;
 use crate::pattern::{FixedPattern, Pattern};
 use crate::tests::SRAM_SIZES;
 
-const PSU_VISA_ADDR: &str = "USB0::0x2A8D::0x8F01::CN63270183::INSTR";
-const PSU_CHANNEL: u32 = 1;
-const CLOCK_GEN_VISA_ADDR: &str = "USB0::0x0957::0x4008::MY428EX302::INSTR";
+pub const PSU_VISA_ADDR: &str = "USB0::0x2A8D::0x8F01::CN63270183::INSTR";
+pub const PSU_CHANNEL: u32 = 1;
+pub const CLOCK_GEN_VISA_ADDR: &str = "USB0::0x0957::0x4008::MY428EX302::INSTR";
 
-const VDD_VOLTS: &[f64] = &[
-    1.20, 1.25, 1.30, 1.35, 1.40, 1.45, 1.50, 1.55, 1.60,
-    1.65, 1.70, 1.75, 1.80, 1.85, 1.90, 1.95, 2.00,
+pub const VDD_VOLTS: &[f64] = &[
+    1.20, 1.25, 1.30, 1.35, 1.40, 1.45, 1.50, 1.55, 1.60, 1.65, 1.70, 1.75, 1.80, 1.85, 1.90, 1.95,
+    2.00,
 ];
 
-const CLOCK_FREQS_HZ: &[f64] = &[
-    15e6, 20e6, 25e6, 30e6, 35e6, 40e6, 45e6, 50e6,
-    55e6, 60e6, 65e6, 70e6, 75e6, 80e6, 85e6, 90e6, 95e6, 100e6,
+pub const CLOCK_FREQS_HZ: &[f64] = &[
+    15e6, 20e6, 25e6, 30e6, 35e6, 40e6, 45e6, 50e6, 55e6, 60e6, 65e6, 70e6, 75e6, 80e6, 85e6, 90e6,
+    95e6, 100e6,
 ];
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -47,25 +47,32 @@ pub struct ShmooResult {
     pub srams: Vec<SramShmoo>,
 }
 
-fn scpi(instr: &mut Instrument, cmd: &str) {
+pub fn scpi(instr: &mut Instrument, cmd: &str) {
     let msg = format!("{cmd}\n");
     instr.write_all(msg.as_bytes()).expect("SCPI write failed");
 }
 
-fn query(instr: &mut Instrument, cmd: &str) -> String {
+pub fn query(instr: &mut Instrument, cmd: &str) -> String {
     scpi(instr, cmd);
     let mut buf = vec![0u8; 4096];
     let n = instr.read(&mut buf).expect("SCPI read failed");
-    String::from_utf8_lossy(&buf[..n]).trim_end_matches(['\r', '\n']).to_string()
+    String::from_utf8_lossy(&buf[..n])
+        .trim_end_matches(['\r', '\n'])
+        .to_string()
 }
 
-fn open_instr(rm: &DefaultRM, addr: &str) -> Instrument {
+pub fn open_instr(rm: &DefaultRM, addr: &str) -> Instrument {
     let expr: visa_rs::ResID = CString::new(addr).unwrap().into();
-    let rsc = rm.find_res(&expr).unwrap_or_else(|e| panic!("instrument not found at {addr}: {e}"));
-    let instr = rm.open(&rsc, AccessMode::NO_LOCK, TIMEOUT_IMMEDIATE)
+    let rsc = rm
+        .find_res(&expr)
+        .unwrap_or_else(|e| panic!("instrument not found at {addr}: {e}"));
+    let instr = rm
+        .open(&rsc, AccessMode::NO_LOCK, TIMEOUT_IMMEDIATE)
         .unwrap_or_else(|e| panic!("failed to open {addr}: {e}"));
     // 10 second I/O timeout (TIMEOUT_IMMEDIATE = 0 causes reads to time out instantly)
-    instr.set_attr(unsafe { AttrTmoValue::new_unchecked(10_000) }).expect("failed to set I/O timeout");
+    instr
+        .set_attr(unsafe { AttrTmoValue::new_unchecked(10_000) })
+        .expect("failed to set I/O timeout");
     instr
 }
 
@@ -98,13 +105,13 @@ impl BringupState {
                 thread::sleep(Duration::from_millis(500));
 
                 let vdd_meas_psu: f64 = query(&mut psu, &format!("MEAS:VOLT? (@{PSU_CHANNEL})"))
-                    .parse().expect("unexpected PSU voltage response");
+                    .parse()
+                    .expect("unexpected PSU voltage response");
                 println!("  VDD set={vdd:.3}V  psu={vdd_meas_psu:.3}V  (SRAM tests skipped)");
 
-                for (id, _size) in SRAM_SIZES.iter().enumerate() {
-                    let pat = FixedPattern::new(Pattern::march_cm(), _size, 1);
-                    let pass =
-                        execute(pat, self.tsi_intf().test_sram_executor(id as u64)).is_ok();
+                for (id, size) in SRAM_SIZES.iter().enumerate() {
+                    let pat = FixedPattern::new(Pattern::march_cm(), *size, 1);
+                    let pass = execute(pat, self.tsi_intf().test_sram_executor(id as u64)).is_ok();
                     let pass = false;
                     per_sram[id].push(ShmooPoint {
                         vdd_set_v: vdd,
@@ -123,7 +130,10 @@ impl BringupState {
             .into_iter()
             .enumerate()
             .map(|(id, points)| {
-                let shmoo = SramShmoo { sram_id: id, points };
+                let shmoo = SramShmoo {
+                    sram_id: id,
+                    points,
+                };
                 let json = serde_json::to_string_pretty(&shmoo).expect("serialization failed");
                 std::fs::write(outdir.join(format!("sram{id}_shmoo.json")), json)
                     .expect("failed to write shmoo json");
@@ -145,4 +155,3 @@ mod shmoo {
         l.shmoo_test_all_srams("out/shmoo");
     }
 }
-

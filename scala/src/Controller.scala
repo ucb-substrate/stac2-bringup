@@ -31,7 +31,7 @@ class StacControllerIO extends Bundle {
   val sramBistDone = Input(Bool())
   val pllScanOut = Input(Bool())
   val reset = Output(Bool())
-  val clk = Input(Bool())
+  val clk = Output(Bool())
 }
 
 class StacController(
@@ -103,12 +103,13 @@ class StacController(
       io.pllScanIn := true.B
       io.reset := reset.asBool || resetReg
 
-      // io.clk is now an Input — clock is driven externally
-      // when(clkEn) {
-      //   io.clk := divClk
-      // }.otherwise {
-      //   io.clk := false.B
-      // }
+      val clkBufT = Module(new OBUFT)
+      clkBufT.io.I := divClk
+      clkBufT.io.T := false.B
+      io.clk := clkBufT.io.O
+      when(!clkEn) {
+        clkBufT.io.T := true.B
+      }
 
       when(halfClkDivRatio === 0.U || cycles >= halfClkDivRatio - 1.U) {
         cycles := 0.U

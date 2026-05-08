@@ -45,7 +45,7 @@ import freechips.rocketchip.prci.ClockGroupAggregateNode
 import testchipip.serdes.DecoupledInternalSyncPhitIO
 
 object Stac2Bringup {
-  val freqMHz: Int = 100
+  val freqMHz: Int = 50
 }
 
 
@@ -123,7 +123,7 @@ class Stac2BringupConfig extends Config(
       ))
     )),
     client = Some(testchipip.serdes.old.SerialTLClientParams()),                                        // Allow chip to access this device's memory (DRAM)
-    phyParams = testchipip.serdes.old.ExternalSyncSerialParams(width = 1, asyncQueueSz = 64) // chip provides the clock
+    phyParams = testchipip.serdes.old.ExternalSyncSerialParams(width = 1) // chip provides the clock
   ))) ++
 
   //============================
@@ -265,14 +265,6 @@ class Stac2BringupTop(implicit p: Parameters) extends LazyModule with BindingSco
     })
 
     io.ctl <> system.ctl
-
-    // Tristate buffer removed — clk is now an Input driven externally
-    // if (!driveClk) {
-    //   val clkBufT = Module(new OBUFT)
-    //   clkBufT.io.I := system.ctl.clk
-    //   clkBufT.io.T := true.B
-    //   io.ctl.clk := clkBufT.io.O
-    // }
 
     val rstBuf = Module(new IBUF)
     rstBuf.io.I := io.reset.asBool
