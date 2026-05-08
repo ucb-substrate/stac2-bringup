@@ -1,10 +1,10 @@
 use std::{
     ffi::CString,
-    io::{Read, Write},
+    io::{BufRead, BufReader, Read, Write},
 };
 
 use visa_rs::{
-    AsResourceManager, DefaultRM, Instrument, TIMEOUT_IMMEDIATE,
+    AsResourceManager, DefaultRM, TIMEOUT_IMMEDIATE,
     enums::attribute::{AttrTmoValue, HasAttribute},
     flags::AccessMode,
 };
@@ -17,18 +17,31 @@ pub struct Lab {
     clkgen: Option<Instrument>,
 }
 
+struct Instrument {
+    inner: visa_rs::Instrument,
+}
+
+impl Instrument {
+    pub fn write(&mut self, buf: &[u8]) {
+        self.inner.write_all(buf).unwrap();
+    }
+
+    pub fn read(&mut self) -> String {
+        let mut reader = BufReader::new(&self.inner);
+        let mut buf = String::new();
+        reader.read_line(&mut buf).unwrap();
+        buf.trim_end().to_string()
+    }
+}
+
 pub fn scpi(instr: &mut Instrument, cmd: &str) {
     let msg = format!("{cmd}\n");
-    instr.write_all(msg.as_bytes()).expect("SCPI write failed");
+    instr.write(msg.as_bytes());
 }
 
 pub fn query(instr: &mut Instrument, cmd: &str) -> String {
     scpi(instr, cmd);
-    let mut buf = vec![0u8; 4096];
-    let n = instr.read(&mut buf).expect("SCPI read failed");
-    String::from_utf8_lossy(&buf[..n])
-        .trim_end_matches(['\r', '\n'])
-        .to_string()
+    instr.read()
 }
 
 impl Lab {
@@ -50,11 +63,7 @@ impl Lab {
             .rm
             .open(&rsc, AccessMode::NO_LOCK, TIMEOUT_IMMEDIATE)
             .unwrap_or_else(|e| panic!("failed to open {addr}: {e}"));
-        // 10 second I/O timeout (TIMEOUT_IMMEDIATE = 0 causes reads to time out instantly)
-        instr
-            .set_attr(unsafe { AttrTmoValue::new_unchecked(10_000) })
-            .expect("failed to set I/O timeout");
-        instr
+        Instrument { inner: instr }
     }
 
     pub fn psu(&mut self) -> &mut Instrument {
