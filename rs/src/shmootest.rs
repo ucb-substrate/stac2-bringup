@@ -9,11 +9,11 @@ use visa_rs::enums::attribute::{AttrTmoValue, HasAttribute};
 use visa_rs::flags::AccessMode;
 use visa_rs::{AsResourceManager, DefaultRM, Instrument, TIMEOUT_IMMEDIATE};
 
-use crate::BringupState;
 use crate::executor::execute;
 use crate::lab::{query, scpi};
 use crate::pattern::{FixedPattern, Pattern};
 use crate::tests::SRAM_SIZES;
+use crate::{BringupState, march_cm_bist};
 
 pub const PSU_VISA_ADDR: &str = "USB0::0x2A8D::0x8F01::CN63270183::INSTR";
 pub const PSU_CHANNEL: u32 = 1;
@@ -82,9 +82,10 @@ impl BringupState {
 
                 for (id, size) in SRAM_SIZES.iter().enumerate() {
                     if init_success {
-                        let pat = FixedPattern::new(Pattern::march_cm(), *size, 1);
-                        let pass =
-                            execute(pat, self.tsi_intf().test_sram_executor(id as u64)).is_ok();
+                        let intf = self.tsi_intf();
+                        let mut bist = march_cm_bist(intf, id as u64);
+                        let res = bist.execute();
+                        let pass = bist.validate_res(res).is_ok();
                         per_sram[id].push(Ok(ShmooPoint {
                             vdd_set_v: vdd,
                             vdd_meas_psu_v: vdd_meas_psu,
