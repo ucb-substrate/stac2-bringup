@@ -3,9 +3,11 @@ use std::{
     io::{BufRead, BufReader, Write},
 };
 
-use visa_rs::{flags::AccessMode, AsResourceManager, DefaultRM, TIMEOUT_IMMEDIATE};
+use visa_rs::{AsResourceManager, DefaultRM, TIMEOUT_IMMEDIATE, flags::AccessMode};
 
-use crate::{CLKGEN_VISA_ADDR, PSU_VISA_ADDR};
+pub const PSU_VISA_ADDR: &str = "USB0::0x2A8D::0x8F01::CN63270183::INSTR";
+pub const PSU_CHANNEL: u32 = 1;
+pub const CLKGEN_VISA_ADDR: &str = "USB0::0x0957::0x4008::MY428EX302::INSTR";
 
 pub struct Lab {
     rm: DefaultRM,
@@ -74,5 +76,40 @@ impl Lab {
             self.clkgen = Some(self.open_instr(CLKGEN_VISA_ADDR));
         }
         self.clkgen.as_mut().unwrap()
+    }
+
+    pub fn psu_idn(&mut self) -> String {
+        self.psu().query("*IDN?")
+    }
+
+    pub fn psu_on(&mut self) {
+        self.psu().cmd(&format!("OUTP ON,(@{PSU_CHANNEL})"));
+    }
+
+    pub fn psu_off(&mut self) {
+        self.psu().cmd(&format!("OUTP OFF,(@{PSU_CHANNEL})"));
+    }
+
+    pub fn psu_vdd(&mut self, vdd: f64) {
+        self.psu().cmd(&format!("VOLT {vdd:.4},(@{PSU_CHANNEL})"));
+    }
+
+    pub fn psu_vdd_meas(&mut self) -> f64 {
+        self.psu()
+            .query(&format!("MEAS:VOLT? (@{PSU_CHANNEL})"))
+            .parse()
+            .expect("unexpected PSU voltage response")
+    }
+
+    pub fn clkgen_idn(&mut self) -> String {
+        self.clkgen().query("*IDN?")
+    }
+
+    pub fn clkgen_on(&mut self) {
+        self.clkgen().cmd(":OUTP1:POS ON");
+    }
+
+    pub fn clkgen_off(&mut self) {
+        self.clkgen().cmd(":OUTP1:POS OFF");
     }
 }

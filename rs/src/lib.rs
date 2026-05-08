@@ -16,14 +16,12 @@ use ::tsi::Tsi;
 pub use bebe::*;
 pub use bist::*;
 pub use executor::*;
+pub use lab::*;
 pub use memory::*;
 pub use shmootest::*;
 pub use tsi::*;
 
-use crate::{
-    config::{Config, load_config},
-    lab::Lab,
-};
+use crate::config::{Config, load_config};
 
 const PY_DIR: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/../py");
 const BEBE_HOST: &str = concatcp!(PY_DIR, "/bebe_host.py");

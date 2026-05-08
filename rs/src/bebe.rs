@@ -7,7 +7,10 @@ pub const CHIP_INTENDED_FREQ_MHZ: u64 = 100;
 
 impl BringupState {
     pub fn bebe_baudrate(&mut self) -> u64 {
-        let half_clk_div_ratio = self.tsi_intf().read(HALF_CLK_DIV_RATIO);
+        let half_clk_div_ratio = self
+            .tsi_intf()
+            .read(HALF_CLK_DIV_RATIO)
+            .expect("failed to read half_clk_div_ratio");
         CHIP_INTENDED_BAUDRATE * FPGA_FREQ_MHZ / CHIP_INTENDED_FREQ_MHZ / half_clk_div_ratio / 2
     }
 
@@ -106,11 +109,12 @@ impl<'a> BebeIntf<'a> {
 }
 
 impl<'a> MemoryIntf for BebeIntf<'a> {
-    fn read(&mut self, addr: u64) -> u64 {
-        self.0.bebe_read(addr, 8)
+    fn read(&mut self, addr: u64) -> anyhow::Result<u64> {
+        Ok(self.0.bebe_read(addr, 8))
     }
 
-    fn write(&mut self, addr: u64, data: u64) {
+    fn write(&mut self, addr: u64, data: u64) -> anyhow::Result<()> {
         self.0.bebe_write(addr, data, 8);
+        Ok(())
     }
 }
