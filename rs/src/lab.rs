@@ -1,13 +1,9 @@
 use std::{
     ffi::CString,
-    io::{BufRead, BufReader, Read, Write},
+    io::{BufRead, BufReader, Write},
 };
 
-use visa_rs::{
-    AsResourceManager, DefaultRM, TIMEOUT_IMMEDIATE,
-    enums::attribute::{AttrTmoValue, HasAttribute},
-    flags::AccessMode,
-};
+use visa_rs::{flags::AccessMode, AsResourceManager, DefaultRM, TIMEOUT_IMMEDIATE};
 
 use crate::{CLKGEN_VISA_ADDR, PSU_VISA_ADDR};
 
@@ -17,31 +13,31 @@ pub struct Lab {
     clkgen: Option<Instrument>,
 }
 
-struct Instrument {
+pub struct Instrument {
     inner: visa_rs::Instrument,
 }
 
 impl Instrument {
-    pub fn write(&mut self, buf: &[u8]) {
+    fn write(&mut self, buf: &[u8]) {
         self.inner.write_all(buf).unwrap();
     }
 
-    pub fn read(&mut self) -> String {
+    fn read(&mut self) -> String {
         let mut reader = BufReader::new(&self.inner);
         let mut buf = String::new();
         reader.read_line(&mut buf).unwrap();
         buf.trim_end().to_string()
     }
-}
 
-pub fn scpi(instr: &mut Instrument, cmd: &str) {
-    let msg = format!("{cmd}\n");
-    instr.write(msg.as_bytes());
-}
+    pub fn cmd(&mut self, cmd: &str) {
+        let msg = format!("{cmd}\n");
+        self.write(msg.as_bytes());
+    }
 
-pub fn query(instr: &mut Instrument, cmd: &str) -> String {
-    scpi(instr, cmd);
-    instr.read()
+    pub fn query(&mut self, cmd: &str) -> String {
+        self.write(cmd.as_bytes());
+        self.read()
+    }
 }
 
 impl Lab {
@@ -74,9 +70,9 @@ impl Lab {
     }
 
     pub fn clkgen(&mut self) -> &mut Instrument {
-        if self.psu.is_none() {
-            self.psu = Some(self.open_instr(CLKGEN_VISA_ADDR));
+        if self.clkgen.is_none() {
+            self.clkgen = Some(self.open_instr(CLKGEN_VISA_ADDR));
         }
-        self.psu.as_mut().unwrap()
+        self.clkgen.as_mut().unwrap()
     }
 }
