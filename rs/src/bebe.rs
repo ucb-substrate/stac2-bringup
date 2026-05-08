@@ -1,23 +1,22 @@
 use crate::executor::{ScratchpadExecutor, TestSramExecutor};
-use crate::{BEBE_HOST, BringupState, FPGA_FREQ_MHZ, MemoryIntf, PY_DIR};
+use crate::{BEBE_HOST, BringupState, FPGA_FREQ_MHZ, HALF_CLK_DIV_RATIO, MemoryIntf, PY_DIR};
 use std::process::{Child, Command};
 
 pub const CHIP_INTENDED_BAUDRATE: u64 = 115200;
 pub const CHIP_INTENDED_FREQ_MHZ: u64 = 100;
 
 impl BringupState {
-    pub fn bebe_baudrate(&self) -> u64 {
-        CHIP_INTENDED_BAUDRATE * FPGA_FREQ_MHZ
-            / CHIP_INTENDED_FREQ_MHZ
-            / self.half_clk_div_ratio as u64
-            / 2
+    pub fn bebe_baudrate(&mut self) -> u64 {
+        let half_clk_div_ratio = self.tsi_intf().read(HALF_CLK_DIV_RATIO);
+        CHIP_INTENDED_BAUDRATE * FPGA_FREQ_MHZ / CHIP_INTENDED_FREQ_MHZ / half_clk_div_ratio / 2
     }
 
-    pub fn bebe_intf(&self) -> BebeIntf<'_> {
+    pub fn bebe_intf(&mut self) -> BebeIntf<'_> {
         BebeIntf::new(self)
     }
 
-    pub fn bebe_wait(&self) -> std::io::Result<Child> {
+    pub fn bebe_wait(&mut self) -> std::io::Result<Child> {
+        let baudrate = self.bebe_baudrate();
         Command::new("uv")
             .args([
                 "run",
@@ -25,17 +24,18 @@ impl BringupState {
                 "--port",
                 &self.config.stac_com_port,
                 "--baudrate",
-                &self.bebe_baudrate().to_string(),
+                &baudrate.to_string(),
                 "--wait",
             ])
             .current_dir(PY_DIR)
             .spawn()
     }
 
-    pub fn bebe_write(&self, addr: u64, data: u64, len: u64) {
+    pub fn bebe_write(&mut self, addr: u64, data: u64, len: u64) {
         let addr = format!("{addr:X}");
         let data = format!("{data:X}");
         let len = format!("{len}");
+        let baudrate = self.bebe_baudrate();
         let status = Command::new("uv")
             .args([
                 "run",
@@ -43,7 +43,7 @@ impl BringupState {
                 "--port",
                 &self.config.stac_com_port,
                 "--baudrate",
-                &self.bebe_baudrate().to_string(),
+                &baudrate.to_string(),
                 "--quiet",
                 "--addr",
                 &addr,
@@ -60,9 +60,10 @@ impl BringupState {
         }
     }
 
-    pub fn bebe_read(&self, addr: u64, len: u64) -> u64 {
+    pub fn bebe_read(&mut self, addr: u64, len: u64) -> u64 {
         let addr = format!("{addr:X}");
         let len = format!("{len}");
+        let baudrate = self.bebe_baudrate();
         let output = Command::new("uv")
             .args([
                 "run",
@@ -70,7 +71,7 @@ impl BringupState {
                 "--port",
                 &self.config.stac_com_port,
                 "--baudrate",
-                &self.bebe_baudrate().to_string(),
+                &baudrate.to_string(),
                 "--quiet",
                 "--addr",
                 &addr,
@@ -88,10 +89,10 @@ impl BringupState {
     }
 }
 
-pub struct BebeIntf<'a>(&'a BringupState);
+pub struct BebeIntf<'a>(&'a mut BringupState);
 
 impl<'a> BebeIntf<'a> {
-    pub fn new(state: &'a BringupState) -> Self {
+    pub fn new(state: &'a mut BringupState) -> Self {
         Self(state)
     }
 

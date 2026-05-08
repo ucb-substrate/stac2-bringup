@@ -20,7 +20,10 @@ pub use memory::*;
 pub use shmootest::*;
 pub use tsi::*;
 
-use crate::config::{Config, load_config};
+use crate::{
+    config::{Config, load_config},
+    lab::Lab,
+};
 
 const PY_DIR: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/../py");
 const BEBE_HOST: &str = concatcp!(PY_DIR, "/bebe_host.py");
@@ -28,12 +31,16 @@ const BEBE_HOST: &str = concatcp!(PY_DIR, "/bebe_host.py");
 pub struct BringupState {
     config: Config,
     pub(crate) tsi: Option<Tsi>,
+    pub(crate) lab: Option<Lab>,
 }
 
 impl Default for BringupState {
     fn default() -> Self {
-        let config = load_config();
-        BringupState { config, tsi: None }
+        BringupState {
+            config: load_config(),
+            tsi: None,
+            lab: None,
+        }
     }
 }
 
@@ -50,6 +57,10 @@ impl BringupState {
     pub fn tsi(&mut self) -> &mut Tsi {
         self.tsi
             .get_or_insert_with(|| Tsi::new(&self.config.fpga_com_port, FPGA_BAUD_RATE))
+    }
+
+    pub fn lab(&mut self) -> &mut Lab {
+        self.lab.get_or_insert_with(|| Lab::new())
     }
 
     pub fn set_div_ratio(&mut self, half_clk_div_ratio: u32) {
@@ -85,15 +96,17 @@ impl BringupState {
             }
         }
     }
-    pub fn init_chip(&mut self) {
+    pub fn init_chip(&mut self) -> std::io::Result<()> {
         self.enable_clk();
         self.reset_chip();
         match self.read_word(SCRATCHPAD_BASE) {
             Ok(_) => {
                 println!("Chip initialized!");
+                Ok(())
             }
             Err(e) => {
                 println!("{e}");
+                Err(e)
             }
         }
     }
