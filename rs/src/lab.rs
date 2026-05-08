@@ -42,13 +42,19 @@ impl Instrument {
     }
 }
 
-impl Lab {
-    pub fn new() -> Self {
+impl Default for Lab {
+    fn default() -> Self {
         Self {
             rm: DefaultRM::new().expect("failed to create VISA resource manager"),
             psu: None,
             clkgen: None,
         }
+    }
+}
+
+impl Lab {
+    pub fn new() -> Self {
+        Self::default()
     }
 
     pub fn open_instr(&self, addr: &str) -> Instrument {
