@@ -4,10 +4,11 @@ use std::time::Duration;
 
 use serde::{Deserialize, Serialize};
 
-use crate::{BringupState, march_cm_bist};
+use crate::{BringupState, config::ClkSel, march_cm_bist};
 
 pub const VDD_VOLTS: &[f64] = &[
-    1.20, 1.25, 1.30, 1.35, 1.40, 1.45, 1.50, 1.55, 1.60, 1.65, 1.70, 1.75, 1.80, 1.85, 1.90,
+    // 1.20, 1.25, 1.30, 1.35, 1.40, 1.45, 1.50, 1.55,
+    1.60, 1.65, 1.70, 1.75, 1.80, 1.85, 1.90,
 ];
 
 pub const CLOCK_FREQS_HZ: &[f64] = &[
@@ -17,7 +18,7 @@ pub const CLOCK_FREQS_HZ: &[f64] = &[
 
 #[derive(Debug, Copy, Clone, Serialize, Deserialize)]
 pub enum ShmooResult {
-    TsiFail,
+    IntfFail,
     BistFail,
     SramFail,
     Pass,
@@ -43,6 +44,9 @@ impl BringupState {
         srams: impl IntoIterator<Item = usize>,
         outdir: impl AsRef<Path>,
     ) -> Vec<SramShmoo> {
+        if !matches!(self.config.clk_sel, ClkSel::External) {
+            panic!("external clock must be selected to run Shmoo tests");
+        }
         let outdir = outdir.as_ref();
         std::fs::create_dir_all(outdir).expect("failed to create output dir");
 
@@ -73,12 +77,12 @@ impl BringupState {
                 let vdd_meas_psu: f64 = self.lab().psu_vdd_meas();
                 println!("  VDD set={vdd:.3}V  psu={vdd_meas_psu:.3}V");
 
-                let init_success = self.init_chip().is_ok();
+                let init_success = self.bebe_init().is_ok();
 
                 for shmoo in sram_shmoos.iter_mut() {
                     let id = shmoo.sram_id;
                     let result = if init_success {
-                        let intf = self.tsi_intf();
+                        let intf = self.bebe_intf();
                         let mut bist = march_cm_bist(intf, id as u64);
                         match bist.execute() {
                             Ok(res) => match bist.validate_res(res) {
@@ -86,12 +90,12 @@ impl BringupState {
                                 Err(_) => ShmooResult::SramFail,
                             },
                             Err(e) if e.downcast_ref::<std::io::Error>().is_some() => {
-                                ShmooResult::TsiFail
+                                ShmooResult::IntfFail
                             }
                             Err(_) => ShmooResult::BistFail,
                         }
                     } else {
-                        ShmooResult::TsiFail
+                        ShmooResult::IntfFail
                     };
                     let pt = ShmooPoint {
                         vdd_set_v: vdd,
@@ -99,6 +103,7 @@ impl BringupState {
                         clock_freq_hz: freq,
                         result,
                     };
+                    println!("SRAM {id}: {pt:?}");
                     shmoo.points.push(pt);
                     let json = serde_json::to_string_pretty(&shmoo).expect("serialization failed");
                     std::fs::write(outdir.join(format!("sram{id}_shmoo.json")), json)

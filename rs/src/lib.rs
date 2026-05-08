@@ -1,6 +1,4 @@
-use std::time::Duration;
-
-use const_format::concatcp;
+use std::{path::PathBuf, time::Duration};
 
 pub mod bebe;
 pub mod bist;
@@ -17,6 +15,7 @@ pub mod tsi;
 use ::tsi::Tsi;
 pub use bebe::*;
 pub use bist::*;
+use const_format::concatcp;
 pub use executor::*;
 pub use lab::*;
 pub use memory::*;
@@ -24,12 +23,13 @@ pub use shmoo::*;
 pub use tests::*;
 pub use tsi::*;
 
-use crate::config::{Config, load_config};
+use crate::config::{CONFIG_PATH, ClkSel, Config, load_config};
 
-const PY_DIR: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/../py");
-const BEBE_HOST: &str = concatcp!(PY_DIR, "/bebe_host.py");
+const RS_DIR: &str = env!("CARGO_MANIFEST_DIR");
+const PY_DIR: &str = concatcp!(RS_DIR, "/../py");
 
 pub struct BringupState {
+    config_path: Option<PathBuf>,
     config: Config,
     pub(crate) tsi: Option<Tsi>,
     pub(crate) lab: Option<Lab>,
@@ -38,7 +38,8 @@ pub struct BringupState {
 impl Default for BringupState {
     fn default() -> Self {
         BringupState {
-            config: load_config(),
+            config_path: Some(PathBuf::from(CONFIG_PATH)),
+            config: load_config(CONFIG_PATH),
             tsi: None,
             lab: None,
         }
@@ -51,8 +52,10 @@ impl BringupState {
     }
 
     pub fn reload_config(&mut self) {
-        self.config = load_config();
-        self.tsi = None;
+        if let Some(path) = &self.config_path {
+            self.config = load_config(path);
+            self.tsi = None;
+        }
     }
 
     pub(crate) fn tsi(&mut self) -> &mut Tsi {
@@ -93,8 +96,15 @@ impl BringupState {
             .expect("failed to write");
     }
 
+    pub fn reset_fpga(&mut self) {
+        self.tsi = None;
+        self.tsi();
+    }
+
     pub fn init_chip(&mut self) -> anyhow::Result<()> {
-        self.enable_clk();
+        if let ClkSel::Fpga = self.config.clk_sel {
+            self.enable_clk();
+        }
         self.reset_chip();
         match self.tsi_intf().read(SCRATCHPAD_BASE) {
             Ok(_) => {

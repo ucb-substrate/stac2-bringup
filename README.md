@@ -22,11 +22,16 @@ Checklist:
 - Ensure that both clksel switches (two leftmost switches of S5) are in the upmost position.
   Remaining switches should be in the lower position.
 - All 3 big switches (S1, S2, S3) should be in the lower position.
-- CK_RST header of the FPGA should not be shorted.
+- CK_RST header of the FPGA should be shorted.
 - A female-to-male jumper cable should be used to connect IO0 on the FPGA to pin 3 of J12 (bottom row, second to left).
 
 Connect the STAC board and FPGA via PMODs and connect the USBs of the two boards to a host computer.
-Note their respective serial ports. Update the config in `Stac.toml` with these serial ports.
+Note their respective serial ports. Update the config in `Stac.toml` with these serial ports. If you would like
+to use the FPGA clock source, ensure that `clk_sel = "fpga"`.
+
+To use external supplies, flip the appropriate switch (S1 for 1.8V and S2 for 3.3V). External clock
+can be provided via J5. If using an external clock source, make sure that the FPGA doesn't
+try to drive the clock simultaneously by setting `clk_sel = "external"`.
 
 Flash the FPGA with the latest bitstream:
 
@@ -64,7 +69,6 @@ You should see the following output. If you don't, something is probably wrong w
 
 ```bash
 Chip initialized!
-()
 ```
 
 You should then be able to write and read scratchpad memory on chip:
@@ -74,10 +78,10 @@ l.tsi_intf().write(SCRATCHPAD_BASE, 0xdeadbeef);
 l.tsi_intf().read(SCRATCHPAD_BASE)
 ```
 
-Available tests can be found in `rs/tests.rs`. To run the MATS+ test on SRAM 0:
+Available tests can be found in `rs/tests.rs`. To run the March C- test on SRAM 0:
 
 ```rs
-l.mats_plus_tsi_test_sram(0)
+l.march_cm_bist_tsi_test_sram(0)
 ```
 
 Other useful functions:
@@ -86,6 +90,7 @@ Other useful functions:
 l.enable_clk();  // Enable chip clock.
 l.disable_clk(); // Disable chip clock.
 l.reset_chip();  // Reset chip.
+l.reset_fpga();  // Reset FPGA.
 ```
 
 The chip can also be physically reset using BTN0 on the FPGA.
