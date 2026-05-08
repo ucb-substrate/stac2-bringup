@@ -1,0 +1,68 @@
+{
+  "sram_id": 21,
+  "points": [
+    {
+      "vdd_set_v": 2.0,
+      "vdd_meas_psu_v": 2.000096,
+      "idd_meas_psu_a": 0.06303754,
+      "clock_freq_hz": 100000000.0,
+      "result": "SramFail"
+    },
+    {
+      "vdd_set_v": 2.0,
+      "vdd_meas_psu_v": 2.000095,
+      "idd_meas_psu_a": 0.06482818,
+      "clock_freq_hz": 105000000.0,
+      "result": "SramFail"
+    },
+    {
+      "vdd_set_v": 2.0,
+      "vdd_meas_psu_v": 2.000093,
+      "idd_meas_psu_a": 0.0667816,
+      "clock_freq_hz": 110000000.0,
+      "result": "SramFail"
+    },
+    {
+      "vdd_set_v": 2.0,
+      "vdd_meas_psu_v": 2.000092,
+      "idd_meas_psu_a": 0.06873503,
+      "clock_freq_hz": 115000000.0,
+      "result": "IntfFail"
+    },
+    {
+      "vdd_set_v": 2.0,
+      "vdd_meas_psu_v": 2.000091,
+      "idd_meas_psu_a": 0.07068845,
+      "clock_freq_hz": 120000000.0,
+      "result": "IntfFail"
+    },
+    {
+      "vdd_set_v": 2.0,
+      "vdd_meas_psu_v": 2.00009,
+      "idd_meas_psu_a": 0.07296744,
+      "clock_freq_hz": 125000000.0,
+      "result": "IntfFail"
+    },
+    {
+      "vdd_set_v": 2.0,
+      "vdd_meas_psu_v": 2.000087,
+      "idd_meas_psu_a": 0.07638593,
+      "clock_freq_hz": 130000000.0,
+      "result": "IntfFail"
+    },
+    {
+      "vdd_set_v": 2.0,
+      "vdd_meas_psu_v": 2.000087,
+      "idd_meas_psu_a": 0.077851,
+      "clock_freq_hz": 135000000.0,
+      "result": "IntfFail"
+    },
+    {
+      "vdd_set_v": 2.0,
+      "vdd_meas_psu_v": 2.000086,
+      "idd_meas_psu_a": 0.07931606,
+      "clock_freq_hz": 140000000.0,
+      "result": "IntfFail"
+    }
+  ]
+}
