@@ -16,7 +16,7 @@ use crate::tests::SRAM_SIZES;
 
 pub const PSU_VISA_ADDR: &str = "USB0::0x2A8D::0x8F01::CN63270183::INSTR";
 pub const PSU_CHANNEL: u32 = 1;
-pub const CLOCK_GEN_VISA_ADDR: &str = "USB0::0x0957::0x4008::MY428EX302::INSTR";
+pub const CLKGEN_VISA_ADDR: &str = "USB0::0x0957::0x4008::MY428EX302::INSTR";
 
 pub const VDD_VOLTS: &[f64] = &[
     1.20, 1.25, 1.30, 1.35, 1.40, 1.45, 1.50, 1.55, 1.60, 1.65, 1.70, 1.75, 1.80, 1.85, 1.90, 1.95,
@@ -45,35 +45,6 @@ pub struct SramShmoo {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ShmooResult {
     pub srams: Vec<SramShmoo>,
-}
-
-pub fn scpi(instr: &mut Instrument, cmd: &str) {
-    let msg = format!("{cmd}\n");
-    instr.write_all(msg.as_bytes()).expect("SCPI write failed");
-}
-
-pub fn query(instr: &mut Instrument, cmd: &str) -> String {
-    scpi(instr, cmd);
-    let mut buf = vec![0u8; 4096];
-    let n = instr.read(&mut buf).expect("SCPI read failed");
-    String::from_utf8_lossy(&buf[..n])
-        .trim_end_matches(['\r', '\n'])
-        .to_string()
-}
-
-pub fn open_instr(rm: &DefaultRM, addr: &str) -> Instrument {
-    let expr: visa_rs::ResID = CString::new(addr).unwrap().into();
-    let rsc = rm
-        .find_res(&expr)
-        .unwrap_or_else(|e| panic!("instrument not found at {addr}: {e}"));
-    let instr = rm
-        .open(&rsc, AccessMode::NO_LOCK, TIMEOUT_IMMEDIATE)
-        .unwrap_or_else(|e| panic!("failed to open {addr}: {e}"));
-    // 10 second I/O timeout (TIMEOUT_IMMEDIATE = 0 causes reads to time out instantly)
-    instr
-        .set_attr(unsafe { AttrTmoValue::new_unchecked(10_000) })
-        .expect("failed to set I/O timeout");
-    instr
 }
 
 impl BringupState {
