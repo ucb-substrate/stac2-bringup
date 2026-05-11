@@ -30,7 +30,7 @@ impl BringupState {
         self.tsi.get_or_insert_with(|| {
             let tsi = Tsi::new(
                 serialport::new(&self.config.fpga_com_port, FPGA_BAUD_RATE)
-                    .timeout(Duration::from_millis(500))
+                    .timeout(self.config.timeout)
                     .open()
                     .expect("failed to open TTY"),
             );

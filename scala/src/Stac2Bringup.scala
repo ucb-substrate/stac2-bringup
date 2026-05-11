@@ -261,10 +261,15 @@ class Stac2BringupTop(implicit p: Parameters) extends LazyModule with BindingSco
     val io = IO(new Bundle {
       val clock = Input(Clock())
       val reset = Input(AsyncReset())
-      val ctl = new StacControllerIO()
+      val ctl = new StacControllerTopIO()
     })
 
-    io.ctl <> system.ctl
+    io.ctl <> system.ctl.top
+
+    val clkBufT = Module(new OBUFT)
+    clkBufT.io.I := system.ctl.top.clk
+    clkBufT.io.T := !system.ctl.clkEn
+    io.ctl.clk := clkBufT.io.O
 
     val rstBuf = Module(new IBUF)
     rstBuf.io.I := io.reset.asBool
@@ -323,7 +328,7 @@ class Stac2BringupTop(implicit p: Parameters) extends LazyModule with BindingSco
     led_7 := pattern.io.led_7
 
     val reset_btn = IO(Input(Bool()))
-    io.ctl.reset := !(reset_btn || system.ctl.reset)
+    io.ctl.reset := !(reset_btn || system.ctl.top.reset)
 
     // led_0 := system0.uart_tsi.get.tsi2tl_state(0)
     // led_1 := system0.uart_tsi.get.tsi2tl_state(1)

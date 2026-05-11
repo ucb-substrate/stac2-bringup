@@ -14,11 +14,11 @@ fn stepped_range(start: f64, end: f64, step: f64) -> impl Iterator<Item = f64> {
 }
 
 pub fn vdd_volts() -> impl Iterator<Item = f64> {
-    stepped_range(1.0, 2.0, 0.05)
+    stepped_range(1.8, 1.8, 0.05)
 }
 
 pub fn clock_freqs_hz() -> impl Iterator<Item = f64> {
-    stepped_range(15e6, 115e6, 5e6)
+    stepped_range(15e6, 30e6, 5e6)
 }
 
 #[derive(Debug, Copy, Clone, Serialize, Deserialize)]
@@ -29,7 +29,15 @@ pub enum ShmooResult {
     Pass,
 }
 
-pub struct ShmooTest<I> {
+pub trait ShmooSweep {
+    fn init(&mut self, state: &mut BringupState);
+    fn next(&mut self, state: &mut BringupState);
+    fn shutdown(&mut self, state: &mut BringupState);
+}
+
+pub struct LabSweep {}
+
+pub struct ShmooBistController<I> {
     pub tag: String,
     pub constructor: Box<dyn Fn(I, u64) -> BistController<I>>,
 }
@@ -99,18 +107,18 @@ impl BringupState {
                     }
                 };
                 for test in [
-                    ShmooTest::<BebeIntf> {
+                    ShmooBistController::<BebeIntf> {
                         tag: "rand".to_string(),
                         constructor: Box::new(rand_bist),
                     },
-                    ShmooTest {
-                        tag: "march_b".to_string(),
-                        constructor: Box::new(march_b_bist),
-                    },
-                    ShmooTest {
-                        tag: "march_cm".to_string(),
-                        constructor: Box::new(march_cm_bist),
-                    },
+                    // ShmooBistController::<BebeIntf> {
+                    //     tag: "march_b".to_string(),
+                    //     constructor: Box::new(march_b_bist),
+                    // },
+                    // ShmooBistController::<BebeIntf> {
+                    //     tag: "march_cm".to_string(),
+                    //     constructor: Box::new(march_cm_bist),
+                    // },
                 ] {
                     let mut bist_initialized = false;
 

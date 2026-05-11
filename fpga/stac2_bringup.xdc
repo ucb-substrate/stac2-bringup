@@ -48,7 +48,7 @@ set_property IOB {TRUE} [ get_cells -of_objects [ all_fanout -flat -endpoints_on
 set_property CLOCK_DEDICATED_ROUTE {FALSE} [get_nets [get_ports {serial_tl_clock_in}]]
 set_property PACKAGE_PIN {D13} [get_ports {io_ctl_clk}]
 set_property IOSTANDARD {LVCMOS33} [get_ports {io_ctl_clk}]
-set_property IOB {TRUE} [ get_cells -of_objects [ all_fanout -flat -endpoints_only [get_ports {io_ctl_clk}]]]
+set_property IOB {TRUE} [ get_cells -of_objects [ all_fanin -flat -endpoints_only [get_ports {io_ctl_clk}]]]
 set_property CLOCK_DEDICATED_ROUTE {FALSE} [get_nets [get_ports {io_ctl_clk}]]
 set_property SLEW FAST [get_ports io_ctl_clk]
 set_property DRIVE 16 [get_ports io_ctl_clk]

@@ -13,7 +13,7 @@ import org.chipsalliance.diplomacy.lazymodule._
 
 import scala.collection.mutable.LinkedHashMap
 
-class StacControllerIO extends Bundle {
+class StacControllerTopIO extends Bundle {
   val sramExtEn = Output(Bool())
   val sramScanMode = Output(Bool())
   val sramEn = Output(Bool())
@@ -32,6 +32,11 @@ class StacControllerIO extends Bundle {
   val pllScanOut = Input(Bool())
   val reset = Output(Bool())
   val clk = Output(Bool())
+}
+
+class StacControllerIO extends Bundle {
+  val top = new StacControllerTopIO
+  val clkEn = Output(Bool())
 }
 
 class StacController(
@@ -69,7 +74,7 @@ class StacController(
 
   override lazy val module = new StacControllerImpl
   class StacControllerImpl extends Impl {
-    val io = IO(new StacControllerIO())
+    val io = IO(new StacControllerIO)
 
     withClockAndReset(clock, reset) {
 
@@ -87,29 +92,24 @@ class StacController(
       val cycles = RegInit(0.U(32.W))
       val resetReg = RegInit(false.B)
 
-      io.sramExtEn := sramExtEn
-      io.sramScanMode := sramScanMode
-      io.sramEn := sramEn
-      io.sramBistEn := sramBistEn
-      io.sramBistStart := sramBistStart
-      io.pllSel := pllSel
-      io.pllScanRstn := pllScanRstn
-      io.pllArstb := pllArstb
+      io.top.sramExtEn := sramExtEn
+      io.top.sramScanMode := sramScanMode
+      io.top.sramEn := sramEn
+      io.top.sramBistEn := sramBistEn
+      io.top.sramBistStart := sramBistStart
+      io.top.pllSel := pllSel
+      io.top.pllScanRstn := pllScanRstn
+      io.top.pllArstb := pllArstb
 
-      io.sramScanIn := true.B
-      io.sramScanEn := false.B
-      io.pllScanEn := false.B
-      io.pllScanClk := false.B
-      io.pllScanIn := true.B
-      io.reset := reset.asBool || resetReg
+      io.top.sramScanIn := true.B
+      io.top.sramScanEn := false.B
+      io.top.pllScanEn := false.B
+      io.top.pllScanClk := false.B
+      io.top.pllScanIn := true.B
+      io.top.reset := reset.asBool || resetReg
 
-      val clkBufT = Module(new OBUFT)
-      clkBufT.io.I := divClk
-      clkBufT.io.T := false.B
-      io.clk := clkBufT.io.O
-      when(!clkEn) {
-        clkBufT.io.T := true.B
-      }
+      io.clkEn := clkEn
+      io.top.clk := divClk
 
       when(halfClkDivRatio === 0.U || cycles >= halfClkDivRatio - 1.U) {
         cycles := 0.U
@@ -130,7 +130,7 @@ class StacController(
         toRegFieldRw(halfClkDivRatio, "halfClkDivRatio"),
         toRegFieldRw(clkEn, "clkEn"),
         toRegFieldRw(resetReg, "resetReg"),
-        toRegFieldR(io.sramBistDone, "sramBistDone")
+        toRegFieldR(io.top.sramBistDone, "sramBistDone")
       )
 
       node.regmap(

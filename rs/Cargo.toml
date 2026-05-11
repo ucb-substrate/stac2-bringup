@@ -16,3 +16,4 @@ anyhow = "1"
 tsi = { path = "../tsi" }
 visa-rs = "0.7.0-alpha.1"
 serialport = "4"
+humantime-serde = "1"

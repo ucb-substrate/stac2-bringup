@@ -218,7 +218,7 @@ impl BringupState {
             let baudrate = self.bebe_baudrate() as u32;
             self.bebe = Some(BebeHost::new(
                 serialport::new(&self.config.stac_com_port, baudrate)
-                    .timeout(Duration::from_millis(500))
+                    .timeout(self.config.timeout)
                     .open()
                     .expect("failed to open TTY"),
                 false,
