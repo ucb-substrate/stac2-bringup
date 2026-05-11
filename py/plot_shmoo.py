@@ -3,6 +3,7 @@
 
 import argparse
 import json
+import re
 from pathlib import Path
 
 import matplotlib.patches as mpatches
@@ -10,14 +11,19 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.colors import ListedColormap
 
-PASS_COLOR = "#2ca02c"
-SRAM_FAIL_COLOR = "#d62728"
-BIST_FAIL_COLOR = "#ff7f0e"
-INTF_FAIL_COLOR = "#aaaaaa"
-
-# Maps result string → integer code used in the grid
+# Maps result string → integer code used in the grid (0=worst, 3=best)
 RESULT_CODE = {"IntfFail": 0, "BistFail": 1, "SramFail": 2, "Pass": 3}
-CMAP = ListedColormap([INTF_FAIL_COLOR, BIST_FAIL_COLOR, SRAM_FAIL_COLOR, PASS_COLOR])
+
+# Colors ordered by result code: 0=IntfFail, 1=BistFail, 2=SramFail, 3=Pass
+_COLORS = ["#d62728", "#ff7f0e", "#ffdd57", "#2ca02c"]
+CMAP = ListedColormap(_COLORS)
+
+LEGEND_HANDLES = [
+    mpatches.Patch(color=_COLORS[3], label="Pass"),
+    mpatches.Patch(color=_COLORS[2], label="BIST failure"),
+    mpatches.Patch(color=_COLORS[1], label="BIST timeout"),
+    mpatches.Patch(color=_COLORS[0], label="Intf timeout"),
+]
 
 # (depth, width) for each SRAM ID, from rs/src/tests.rs SRAM_SIZES
 SRAM_SIZES = [
@@ -36,13 +42,59 @@ def load_shmoo(path: Path) -> dict:
         return json.load(f)
 
 
-def build_grid(data: dict):
-    """Return (grid, freqs, vdds) or (None, None, None) if no points exist.
+def _trim_bounds(agg_grid):
+    """Return (r0, r1, c0, c1) trim bounds based on aggregate grid."""
+    intf = RESULT_CODE["IntfFail"]
+    active_rows = [i for i in range(agg_grid.shape[0]) if np.any(agg_grid[i] != intf)]
+    active_cols = [j for j in range(agg_grid.shape[1]) if np.any(agg_grid[:, j] != intf)]
+    if not active_rows or not active_cols:
+        return 0, agg_grid.shape[0], 0, agg_grid.shape[1]
+    r0 = max(0, min(active_rows) - 1)
+    r1 = min(agg_grid.shape[0], max(active_rows) + 2)
+    c0 = max(0, min(active_cols) - 1)
+    c1 = min(agg_grid.shape[1], max(active_cols) + 2)
+    return r0, r1, c0, c1
 
-    grid[vdd_row, freq_col]: 0=IntfFail, 1=BistFail, 2=SramFail, 3=Pass
-    Axes are ordered low→high for both VDD and frequency.
-    All-IntfFail rows/cols are trimmed from each edge, keeping at most one.
+
+def build_grids(data: dict) -> tuple[list[str], dict, list, list]:
+    """Build per-test grids and an aggregate grid, all sharing the same trim window.
+
+    Returns (test_names, grids, freqs, vdds) where grids maps test name (and "All")
+    to a 2-D numpy array. test_names lists the individual tests in sorted order.
     """
+    points = data["points"]
+    if not points:
+        return [], {}, [], []
+
+    tests = sorted({p["test"] for p in points})
+    freqs = sorted({p["clock_freq_hz"] for p in points})
+    vdds = sorted({p["vdd_set_v"] for p in points})
+    freq_idx = {f: i for i, f in enumerate(freqs)}
+    vdd_idx = {v: i for i, v in enumerate(vdds)}
+    intf = RESULT_CODE["IntfFail"]
+
+    grids = {}
+    for test in tests:
+        g = np.full((len(vdds), len(freqs)), intf, dtype=int)
+        for p in points:
+            if p["test"] == test:
+                g[vdd_idx[p["vdd_set_v"]], freq_idx[p["clock_freq_hz"]]] = RESULT_CODE[p["result"]]
+        grids[test] = g
+
+    # Aggregate: minimum result code across all tests (Pass only if all pass).
+    agg = np.full((len(vdds), len(freqs)), RESULT_CODE["Pass"], dtype=int)
+    for g in grids.values():
+        np.minimum(agg, g, out=agg)
+    grids["All"] = agg
+
+    # Trim all grids using the same window derived from the aggregate.
+    r0, r1, c0, c1 = _trim_bounds(agg)
+    trimmed = {name: g[r0:r1, c0:c1] for name, g in grids.items()}
+    return tests, trimmed, freqs[c0:c1], vdds[r0:r1]
+
+
+def build_single_grid(data: dict) -> tuple:
+    """Build a single grid (no per-test split) for backward-compatible single-test data."""
     points = data["points"]
     if not points:
         return None, None, None
@@ -51,68 +103,48 @@ def build_grid(data: dict):
     vdds = sorted({p["vdd_set_v"] for p in points})
     freq_idx = {f: i for i, f in enumerate(freqs)}
     vdd_idx = {v: i for i, v in enumerate(vdds)}
-
     intf = RESULT_CODE["IntfFail"]
     grid = np.full((len(vdds), len(freqs)), intf, dtype=int)
     for p in points:
         grid[vdd_idx[p["vdd_set_v"]], freq_idx[p["clock_freq_hz"]]] = RESULT_CODE[p["result"]]
 
-    # Trim all-IntfFail rows/cols from each edge, leaving at most one.
-    active_rows = [i for i in range(grid.shape[0]) if np.any(grid[i] != intf)]
-    active_cols = [j for j in range(grid.shape[1]) if np.any(grid[:, j] != intf)]
-    if active_rows and active_cols:
-        r0 = max(0, min(active_rows) - 1)
-        r1 = min(grid.shape[0], max(active_rows) + 2)
-        c0 = max(0, min(active_cols) - 1)
-        c1 = min(grid.shape[1], max(active_cols) + 2)
-        grid = grid[r0:r1, c0:c1]
-        vdds = vdds[r0:r1]
-        freqs = freqs[c0:c1]
-
-    return grid, freqs, vdds
+    r0, r1, c0, c1 = _trim_bounds(grid)
+    return grid[r0:r1, c0:c1], freqs[c0:c1], vdds[r0:r1]
 
 
-def plot_shmoo(data: dict, ax: plt.Axes) -> None:
-    sram_id = data["sram_id"]
-    grid, freqs, vdds = build_grid(data)
-
-    if sram_id < len(SRAM_SIZES):
-        depth, width = SRAM_SIZES[sram_id]
-        size_str = f"{depth}×{width}b"
-    else:
-        size_str = "?"
-    ax.set_title(f"SRAM {sram_id} ({size_str})", fontsize=9)
-
-    if grid is None:
+def _render_grid(grid, freqs, vdds, title: str, ax: plt.Axes) -> None:
+    ax.set_title(title, fontsize=8)
+    if grid is None or grid.size == 0:
         ax.text(0.5, 0.5, "No data", ha="center", va="center", transform=ax.transAxes)
+        ax.set_visible(True)
         return
 
-    ax.imshow(
-        grid,
-        origin="lower",
-        cmap=CMAP,
-        vmin=0,
-        vmax=3,
-        aspect="auto",
-        interpolation="nearest",
-    )
-
+    ax.imshow(grid, origin="lower", cmap=CMAP, vmin=0, vmax=3,
+              aspect="auto", interpolation="nearest")
     ax.set_xticks(range(len(freqs)))
-    ax.set_xticklabels(
-        [f"{f / 1e6:.0f}" for f in freqs], rotation=45, ha="right", fontsize=7
-    )
+    ax.set_xticklabels([f"{f / 1e6:.0f}" for f in freqs],
+                       rotation=45, ha="right", fontsize=6)
     ax.set_yticks(range(len(vdds)))
-    ax.set_yticklabels([f"{v:.2f}" for v in vdds], fontsize=7)
-    ax.set_xlabel("Clock (MHz)", fontsize=8)
-    ax.set_ylabel("VDD (V)", fontsize=8)
+    ax.set_yticklabels([f"{v:.2f}" for v in vdds], fontsize=6)
+    ax.set_xlabel("Clock (MHz)", fontsize=7)
+    ax.set_ylabel("VDD (V)", fontsize=7)
+    ax.legend(handles=LEGEND_HANDLES, fontsize=5, loc="lower right")
 
-    legend_handles = [
-        mpatches.Patch(color=PASS_COLOR, label="Pass"),
-        mpatches.Patch(color=SRAM_FAIL_COLOR, label="SRAM fail"),
-        mpatches.Patch(color=BIST_FAIL_COLOR, label="BIST fail"),
-        mpatches.Patch(color=INTF_FAIL_COLOR, label="Intf fail"),
-    ]
-    ax.legend(handles=legend_handles, fontsize=6, loc="lower right")
+
+def _sram_label(sram_id: int) -> str:
+    if sram_id < len(SRAM_SIZES):
+        depth, width = SRAM_SIZES[sram_id]
+        return f"SRAM {sram_id} ({depth}×{width}b)"
+    return f"SRAM {sram_id}"
+
+
+def _sram_id_from_path(p: Path) -> int:
+    m = re.search(r"sram(\d+)_shmoo", p.name)
+    return int(m.group(1)) if m else -1
+
+
+def _has_per_test(data: dict) -> bool:
+    return any("test" in p for p in data.get("points", []))
 
 
 def main() -> None:
@@ -121,34 +153,60 @@ def main() -> None:
     )
     parser.add_argument("dir", help="Directory containing sram*_shmoo.json files")
     parser.add_argument(
-        "--out", help="Output file (e.g. shmoo.png). Shows interactively if omitted."
+        "--out", help="Output file (e.g. shmoo.svg). Shows interactively if omitted."
     )
     args = parser.parse_args()
 
-    def sram_id_from_path(p: Path) -> int:
-        import re
-        m = re.search(r"sram(\d+)_shmoo", p.name)
-        return int(m.group(1)) if m else -1
-
-    paths = sorted(Path(args.dir).glob("sram*_shmoo.json"), key=sram_id_from_path)
+    paths = sorted(Path(args.dir).glob("sram*_shmoo.json"), key=_sram_id_from_path)
     if not paths:
         print(f"No sram*_shmoo.json files found in {args.dir}")
         return
 
-    n = len(paths)
-    ncols = min(4, n)
-    nrows = (n + ncols - 1) // ncols
+    datasets = [load_shmoo(p) for p in paths]
+    per_test = _has_per_test(datasets[0]) if datasets else False
 
-    fig, axes = plt.subplots(
-        nrows, ncols, figsize=(4 * ncols, 4 * nrows + 0.5), squeeze=False
-    )
-    fig.suptitle("SRAM Shmoo Plots", fontsize=13, fontweight="bold", y=1.0)
+    if per_test:
+        # Determine column layout: individual tests (sorted) + "All"
+        all_tests = sorted({p["test"] for d in datasets for p in d["points"]})
+        col_names = all_tests + ["All"]
+        ncols = len(col_names)
+        nrows = len(datasets)
 
-    for i, path in enumerate(paths):
-        plot_shmoo(load_shmoo(path), axes[i // ncols][i % ncols])
+        fig, axes = plt.subplots(
+            nrows, ncols,
+            figsize=(3 * ncols, 3 * nrows + 0.5),
+            squeeze=False,
+        )
+        fig.suptitle("SRAM Shmoo Plots", fontsize=13, fontweight="bold", y=1.0)
 
-    for i in range(n, nrows * ncols):
-        axes[i // ncols][i % ncols].set_visible(False)
+        for row, data in enumerate(datasets):
+            sram_id = data["sram_id"]
+            label = _sram_label(sram_id)
+            tests, grids, freqs, vdds = build_grids(data)
+            for col, name in enumerate(col_names):
+                grid = grids.get(name)
+                _render_grid(grid, freqs, vdds, f"{label}\n{name}", axes[row][col])
+
+    else:
+        # Legacy: single result per (vdd, freq) point, no "test" field
+        ncols = min(4, len(datasets))
+        nrows = (len(datasets) + ncols - 1) // ncols
+
+        fig, axes = plt.subplots(
+            nrows, ncols,
+            figsize=(4 * ncols, 4 * nrows + 0.5),
+            squeeze=False,
+        )
+        fig.suptitle("SRAM Shmoo Plots", fontsize=13, fontweight="bold", y=1.0)
+
+        for i, data in enumerate(datasets):
+            sram_id = data["sram_id"]
+            grid, freqs, vdds = build_single_grid(data)
+            _render_grid(grid, freqs, vdds, _sram_label(sram_id),
+                         axes[i // ncols][i % ncols])
+
+        for i in range(len(datasets), nrows * ncols):
+            axes[i // ncols][i % ncols].set_visible(False)
 
     fig.tight_layout()
 
