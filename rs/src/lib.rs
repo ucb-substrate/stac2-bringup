@@ -26,7 +26,7 @@ use crate::config::{CONFIG_PATH, ClkSel, Config, load_config};
 
 pub struct BringupState {
     config_path: Option<PathBuf>,
-    config: Config,
+    pub config: Config,
     pub(crate) tsi: Option<Tsi>,
     pub(crate) lab: Option<Lab>,
     pub(crate) bebe: Option<bebe::BebeHost>,
