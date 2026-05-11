@@ -55,21 +55,29 @@ impl<I> TestSramExecutor<I> {
 impl<I: MemoryIntf> Executor for TestSramExecutor<I> {
     fn init(&mut self) {}
     fn read(&mut self, addr: SramAddr) -> SramWord {
-        self.intf.write(ADDR, addr as u64).expect("TSI write failed");
+        self.intf
+            .write(ADDR, addr as u64)
+            .expect("TSI write failed");
         // no need to set the din/mask
         self.intf.write(WE, 0).expect("TSI write failed");
-        self.intf.write(SRAM_ID, self.sram_id).expect("TSI write failed");
+        self.intf
+            .write(SRAM_ID, self.sram_id)
+            .expect("TSI write failed");
         self.intf.write(SRAM_SEL, 0).expect("TSI write failed");
         self.intf.write(EX, u64::MAX).expect("TSI write failed");
         self.intf.read128(DOUT).expect("TSI read failed")
     }
 
     fn write(&mut self, addr: SramAddr, data: SramWord, mask: SramWord) {
-        self.intf.write(ADDR, addr as u64).expect("TSI write failed");
+        self.intf
+            .write(ADDR, addr as u64)
+            .expect("TSI write failed");
         self.intf.write128(DIN, data).expect("TSI write failed");
         self.intf.write128(MASK, mask).expect("TSI write failed");
         self.intf.write(WE, 1).expect("TSI write failed");
-        self.intf.write(SRAM_ID, self.sram_id).expect("TSI write failed");
+        self.intf
+            .write(SRAM_ID, self.sram_id)
+            .expect("TSI write failed");
         self.intf.write(SRAM_SEL, 0).expect("TSI write failed");
         self.intf.write(EX, u64::MAX).expect("TSI write failed");
     }

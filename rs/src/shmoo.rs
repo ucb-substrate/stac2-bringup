@@ -4,7 +4,9 @@ use std::time::Duration;
 
 use serde::{Deserialize, Serialize};
 
-use crate::{BringupState, config::ClkSel, march_cm_bist};
+use crate::{
+    BebeIntf, BistController, BringupState, config::ClkSel, march_b_bist, march_cm_bist, rand_bist,
+};
 
 fn stepped_range(start: f64, end: f64, step: f64) -> impl Iterator<Item = f64> {
     let n = ((end - start) / step).round() as usize + 1;
@@ -16,7 +18,7 @@ pub fn vdd_volts() -> impl Iterator<Item = f64> {
 }
 
 pub fn clock_freqs_hz() -> impl Iterator<Item = f64> {
-    stepped_range(15e6, 100e6, 5e6)
+    stepped_range(15e6, 115e6, 5e6)
 }
 
 #[derive(Debug, Copy, Clone, Serialize, Deserialize)]
@@ -27,8 +29,14 @@ pub enum ShmooResult {
     Pass,
 }
 
+pub struct ShmooTest<I> {
+    pub tag: String,
+    pub constructor: Box<dyn Fn(I, u64) -> BistController<I>>,
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ShmooPoint {
+    pub test: String,
     pub vdd_set_v: f64,
     pub vdd_meas_psu_v: f64,
     pub idd_meas_psu_a: f64,
@@ -90,52 +98,69 @@ impl BringupState {
                         false
                     }
                 };
-                let mut bist_initialized = false;
+                for test in [
+                    ShmooTest::<BebeIntf> {
+                        tag: "rand".to_string(),
+                        constructor: Box::new(rand_bist),
+                    },
+                    ShmooTest {
+                        tag: "march_b".to_string(),
+                        constructor: Box::new(march_b_bist),
+                    },
+                    ShmooTest {
+                        tag: "march_cm".to_string(),
+                        constructor: Box::new(march_cm_bist),
+                    },
+                ] {
+                    let mut bist_initialized = false;
 
-                for shmoo in sram_shmoos.iter_mut() {
-                    let id = shmoo.sram_id;
-                    let result = if init_success {
-                        let intf = self.bebe_intf();
-                        let mut bist = march_cm_bist(intf, id as u64);
-                        // If pattern/element registers are already set correctly,
-                        // don't waste time setting them again. Just set SRAM-specific
-                        // registers.
-                        let bist_init_success = if bist_initialized {
-                            bist.skip_init = true;
-                            bist.init_sram().is_ok()
-                        } else {
-                            bist_initialized = true;
-                            true
-                        };
-                        if bist_init_success {
-                            match bist.execute() {
-                                Ok(res) => match bist.validate_res(res) {
-                                    Ok(_) => ShmooResult::Pass,
-                                    Err(_) => ShmooResult::SramFail,
-                                },
-                                Err(e) if e.downcast_ref::<std::io::Error>().is_some() => {
-                                    ShmooResult::IntfFail
+                    for shmoo in sram_shmoos.iter_mut() {
+                        let id = shmoo.sram_id;
+                        let result = if init_success {
+                            let intf = self.bebe_intf();
+                            let mut bist = march_cm_bist(intf, id as u64);
+                            // If pattern/element registers are already set correctly,
+                            // don't waste time setting them again. Just set SRAM-specific
+                            // registers.
+                            let bist_init_success = if bist_initialized {
+                                bist.skip_init = true;
+                                bist.init_sram().is_ok()
+                            } else {
+                                bist_initialized = true;
+                                true
+                            };
+                            if bist_init_success {
+                                match bist.execute() {
+                                    Ok(res) => match bist.validate_res(res) {
+                                        Ok(_) => ShmooResult::Pass,
+                                        Err(_) => ShmooResult::SramFail,
+                                    },
+                                    Err(e) if e.downcast_ref::<std::io::Error>().is_some() => {
+                                        ShmooResult::IntfFail
+                                    }
+                                    Err(_) => ShmooResult::BistFail,
                                 }
-                                Err(_) => ShmooResult::BistFail,
+                            } else {
+                                ShmooResult::IntfFail
                             }
                         } else {
                             ShmooResult::IntfFail
-                        }
-                    } else {
-                        ShmooResult::IntfFail
-                    };
-                    let pt = ShmooPoint {
-                        vdd_set_v: vdd,
-                        vdd_meas_psu_v: vdd_meas_psu,
-                        idd_meas_psu_a: idd_meas_psu,
-                        clock_freq_hz: freq,
-                        result,
-                    };
-                    println!("SRAM {id}: {pt:?}");
-                    shmoo.points.push(pt);
-                    let json = serde_json::to_string_pretty(&shmoo).expect("serialization failed");
-                    std::fs::write(outdir.join(format!("sram{id}_shmoo.json")), json)
-                        .expect("failed to write shmoo json");
+                        };
+                        let pt = ShmooPoint {
+                            test: test.tag.clone(),
+                            vdd_set_v: vdd,
+                            vdd_meas_psu_v: vdd_meas_psu,
+                            idd_meas_psu_a: idd_meas_psu,
+                            clock_freq_hz: freq,
+                            result,
+                        };
+                        println!("SRAM {id}: {pt:?}");
+                        shmoo.points.push(pt);
+                        let json =
+                            serde_json::to_string_pretty(&shmoo).expect("serialization failed");
+                        std::fs::write(outdir.join(format!("sram{id}_shmoo.json")), json)
+                            .expect("failed to write shmoo json");
+                    }
                 }
             }
         }
