@@ -91,7 +91,7 @@ impl BringupState {
                 println!("  VDD set={vdd:.3}V  psu={vdd_meas_psu:.3}V");
                 println!("  IDD psu={idd_meas_psu:.3}V");
 
-                let init_success = match self.bebe_init() {
+                let mut init_success = match self.bebe_init() {
                     Ok(_) => true,
                     Err(e) => {
                         eprintln!("failed to initialize: {e}");
@@ -146,6 +146,9 @@ impl BringupState {
                         } else {
                             ShmooResult::IntfFail
                         };
+                        if let ShmooResult::IntfFail = result {
+                            init_success = false;
+                        }
                         let pt = ShmooPoint {
                             test: test.tag.clone(),
                             vdd_set_v: vdd,
