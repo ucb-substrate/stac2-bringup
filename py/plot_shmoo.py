@@ -12,15 +12,15 @@ import numpy as np
 from matplotlib.colors import ListedColormap
 
 # Maps result string → integer code used in the grid (0=worst, 3=best)
-RESULT_CODE = {"IntfFail": 0, "BistFail": 1, "SramFail": 2, "Pass": 3}
+RESULT_CODE = {"IntfTimeout": 0, "BistTimeout": 1, "BistFail": 2, "Pass": 3}
 
-# Colors ordered by result code: 0=IntfFail, 1=BistFail, 2=SramFail, 3=Pass
+# Colors ordered by result code: 0=IntfTimeout, 1=BistTimeout, 2=BistFail, 3=Pass
 _COLORS = ["#d62728", "#ff7f0e", "#ffdd57", "#2ca02c"]
 CMAP = ListedColormap(_COLORS)
 
 LEGEND_HANDLES = [
     mpatches.Patch(color=_COLORS[3], label="Pass"),
-    mpatches.Patch(color=_COLORS[2], label="BIST failure"),
+    mpatches.Patch(color=_COLORS[2], label="BIST fail"),
     mpatches.Patch(color=_COLORS[1], label="BIST timeout"),
     mpatches.Patch(color=_COLORS[0], label="Intf timeout"),
 ]
@@ -44,7 +44,7 @@ def load_shmoo(path: Path) -> dict:
 
 def _trim_bounds(agg_grid):
     """Return (r0, r1, c0, c1) trim bounds based on aggregate grid."""
-    intf = RESULT_CODE["IntfFail"]
+    intf = RESULT_CODE["IntfTimeout"]
     active_rows = [i for i in range(agg_grid.shape[0]) if np.any(agg_grid[i] != intf)]
     active_cols = [j for j in range(agg_grid.shape[1]) if np.any(agg_grid[:, j] != intf)]
     if not active_rows or not active_cols:
@@ -71,7 +71,7 @@ def build_grids(data: dict) -> tuple[list[str], dict, list, list]:
     vdds = sorted({p["vdd_set_v"] for p in points})
     freq_idx = {f: i for i, f in enumerate(freqs)}
     vdd_idx = {v: i for i, v in enumerate(vdds)}
-    intf = RESULT_CODE["IntfFail"]
+    intf = RESULT_CODE["IntfTimeout"]
 
     grids = {}
     for test in tests:
@@ -103,7 +103,7 @@ def build_single_grid(data: dict) -> tuple:
     vdds = sorted({p["vdd_set_v"] for p in points})
     freq_idx = {f: i for i, f in enumerate(freqs)}
     vdd_idx = {v: i for i, v in enumerate(vdds)}
-    intf = RESULT_CODE["IntfFail"]
+    intf = RESULT_CODE["IntfTimeout"]
     grid = np.full((len(vdds), len(freqs)), intf, dtype=int)
     for p in points:
         grid[vdd_idx[p["vdd_set_v"]], freq_idx[p["clock_freq_hz"]]] = RESULT_CODE[p["result"]]

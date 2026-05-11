@@ -23,9 +23,9 @@ pub fn clock_freqs_hz() -> impl Iterator<Item = f64> {
 
 #[derive(Debug, Copy, Clone, Serialize, Deserialize)]
 pub enum ShmooResult {
-    IntfFail,
+    IntfTimeout,
+    BistTimeout,
     BistFail,
-    SramFail,
     Pass,
 }
 
@@ -133,20 +133,20 @@ impl BringupState {
                                 match bist.execute() {
                                     Ok(res) => match bist.validate_res(res) {
                                         Ok(_) => ShmooResult::Pass,
-                                        Err(_) => ShmooResult::SramFail,
+                                        Err(_) => ShmooResult::BistFail,
                                     },
                                     Err(e) if e.downcast_ref::<std::io::Error>().is_some() => {
-                                        ShmooResult::IntfFail
+                                        ShmooResult::IntfTimeout
                                     }
-                                    Err(_) => ShmooResult::BistFail,
+                                    Err(_) => ShmooResult::BistTimeout,
                                 }
                             } else {
-                                ShmooResult::IntfFail
+                                ShmooResult::IntfTimeout
                             }
                         } else {
-                            ShmooResult::IntfFail
+                            ShmooResult::IntfTimeout
                         };
-                        if let ShmooResult::IntfFail = result {
+                        if let ShmooResult::IntfTimeout = result {
                             init_success = false;
                         }
                         let pt = ShmooPoint {

@@ -7,7 +7,7 @@
       "vdd_meas_psu_v": 0.9999917,
       "idd_meas_psu_a": 0.005347834,
       "clock_freq_hz": 15000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -15,7 +15,7 @@
       "vdd_meas_psu_v": 0.9999917,
       "idd_meas_psu_a": 0.005347834,
       "clock_freq_hz": 15000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -23,7 +23,7 @@
       "vdd_meas_psu_v": 0.9999917,
       "idd_meas_psu_a": 0.005347834,
       "clock_freq_hz": 15000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -31,7 +31,7 @@
       "vdd_meas_psu_v": 1.050148,
       "idd_meas_psu_a": 0.005831224,
       "clock_freq_hz": 15000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -39,7 +39,7 @@
       "vdd_meas_psu_v": 1.050148,
       "idd_meas_psu_a": 0.005831224,
       "clock_freq_hz": 15000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -47,7 +47,7 @@
       "vdd_meas_psu_v": 1.050148,
       "idd_meas_psu_a": 0.005831224,
       "clock_freq_hz": 15000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -511,7 +511,7 @@
       "vdd_meas_psu_v": 0.9999911,
       "idd_meas_psu_a": 0.00616176,
       "clock_freq_hz": 20000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -519,7 +519,7 @@
       "vdd_meas_psu_v": 0.9999911,
       "idd_meas_psu_a": 0.00616176,
       "clock_freq_hz": 20000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -527,7 +527,7 @@
       "vdd_meas_psu_v": 0.9999911,
       "idd_meas_psu_a": 0.00616176,
       "clock_freq_hz": 20000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -535,7 +535,7 @@
       "vdd_meas_psu_v": 1.050148,
       "idd_meas_psu_a": 0.006807934,
       "clock_freq_hz": 20000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -543,7 +543,7 @@
       "vdd_meas_psu_v": 1.050148,
       "idd_meas_psu_a": 0.006807934,
       "clock_freq_hz": 20000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -551,7 +551,7 @@
       "vdd_meas_psu_v": 1.050148,
       "idd_meas_psu_a": 0.006807934,
       "clock_freq_hz": 20000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -559,7 +559,7 @@
       "vdd_meas_psu_v": 1.100104,
       "idd_meas_psu_a": 0.007454129,
       "clock_freq_hz": 20000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -567,7 +567,7 @@
       "vdd_meas_psu_v": 1.100104,
       "idd_meas_psu_a": 0.007454129,
       "clock_freq_hz": 20000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -575,7 +575,7 @@
       "vdd_meas_psu_v": 1.100104,
       "idd_meas_psu_a": 0.007454129,
       "clock_freq_hz": 20000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -1015,7 +1015,7 @@
       "vdd_meas_psu_v": 0.9999908,
       "idd_meas_psu_a": 0.006812901,
       "clock_freq_hz": 25000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -1023,7 +1023,7 @@
       "vdd_meas_psu_v": 0.9999908,
       "idd_meas_psu_a": 0.006812901,
       "clock_freq_hz": 25000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -1031,7 +1031,7 @@
       "vdd_meas_psu_v": 0.9999908,
       "idd_meas_psu_a": 0.006812901,
       "clock_freq_hz": 25000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -1039,7 +1039,7 @@
       "vdd_meas_psu_v": 1.050147,
       "idd_meas_psu_a": 0.00762186,
       "clock_freq_hz": 25000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -1047,7 +1047,7 @@
       "vdd_meas_psu_v": 1.050147,
       "idd_meas_psu_a": 0.00762186,
       "clock_freq_hz": 25000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -1055,7 +1055,7 @@
       "vdd_meas_psu_v": 1.050147,
       "idd_meas_psu_a": 0.00762186,
       "clock_freq_hz": 25000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -1063,7 +1063,7 @@
       "vdd_meas_psu_v": 1.100103,
       "idd_meas_psu_a": 0.00875641,
       "clock_freq_hz": 25000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -1071,7 +1071,7 @@
       "vdd_meas_psu_v": 1.100103,
       "idd_meas_psu_a": 0.00875641,
       "clock_freq_hz": 25000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -1079,7 +1079,7 @@
       "vdd_meas_psu_v": 1.100103,
       "idd_meas_psu_a": 0.00875641,
       "clock_freq_hz": 25000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -1087,7 +1087,7 @@
       "vdd_meas_psu_v": 1.15026,
       "idd_meas_psu_a": 0.00956537,
       "clock_freq_hz": 25000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -1095,7 +1095,7 @@
       "vdd_meas_psu_v": 1.15026,
       "idd_meas_psu_a": 0.00956537,
       "clock_freq_hz": 25000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -1103,7 +1103,7 @@
       "vdd_meas_psu_v": 1.15026,
       "idd_meas_psu_a": 0.00956537,
       "clock_freq_hz": 25000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -1519,7 +1519,7 @@
       "vdd_meas_psu_v": 0.9999905,
       "idd_meas_psu_a": 0.007138472,
       "clock_freq_hz": 30000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -1527,7 +1527,7 @@
       "vdd_meas_psu_v": 0.9999905,
       "idd_meas_psu_a": 0.007138472,
       "clock_freq_hz": 30000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -1535,7 +1535,7 @@
       "vdd_meas_psu_v": 0.9999905,
       "idd_meas_psu_a": 0.007138472,
       "clock_freq_hz": 30000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -1543,7 +1543,7 @@
       "vdd_meas_psu_v": 1.050146,
       "idd_meas_psu_a": 0.008761357,
       "clock_freq_hz": 30000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -1551,7 +1551,7 @@
       "vdd_meas_psu_v": 1.050146,
       "idd_meas_psu_a": 0.008761357,
       "clock_freq_hz": 30000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -1559,7 +1559,7 @@
       "vdd_meas_psu_v": 1.050146,
       "idd_meas_psu_a": 0.008761357,
       "clock_freq_hz": 30000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -1567,7 +1567,7 @@
       "vdd_meas_psu_v": 1.100103,
       "idd_meas_psu_a": 0.01005869,
       "clock_freq_hz": 30000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -1575,7 +1575,7 @@
       "vdd_meas_psu_v": 1.100103,
       "idd_meas_psu_a": 0.01005869,
       "clock_freq_hz": 30000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -1583,7 +1583,7 @@
       "vdd_meas_psu_v": 1.100103,
       "idd_meas_psu_a": 0.01005869,
       "clock_freq_hz": 30000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -1591,7 +1591,7 @@
       "vdd_meas_psu_v": 1.150259,
       "idd_meas_psu_a": 0.01086765,
       "clock_freq_hz": 30000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -1599,7 +1599,7 @@
       "vdd_meas_psu_v": 1.150259,
       "idd_meas_psu_a": 0.01086765,
       "clock_freq_hz": 30000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -1607,7 +1607,7 @@
       "vdd_meas_psu_v": 1.150259,
       "idd_meas_psu_a": 0.01086765,
       "clock_freq_hz": 30000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -1615,7 +1615,7 @@
       "vdd_meas_psu_v": 1.200016,
       "idd_meas_psu_a": 0.01167665,
       "clock_freq_hz": 30000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -1623,7 +1623,7 @@
       "vdd_meas_psu_v": 1.200016,
       "idd_meas_psu_a": 0.01167665,
       "clock_freq_hz": 30000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -1631,7 +1631,7 @@
       "vdd_meas_psu_v": 1.200016,
       "idd_meas_psu_a": 0.01167665,
       "clock_freq_hz": 30000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -2023,7 +2023,7 @@
       "vdd_meas_psu_v": 0.9999892,
       "idd_meas_psu_a": 0.009254678,
       "clock_freq_hz": 35000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -2031,7 +2031,7 @@
       "vdd_meas_psu_v": 0.9999892,
       "idd_meas_psu_a": 0.009254678,
       "clock_freq_hz": 35000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -2039,7 +2039,7 @@
       "vdd_meas_psu_v": 0.9999892,
       "idd_meas_psu_a": 0.009254678,
       "clock_freq_hz": 35000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -2047,7 +2047,7 @@
       "vdd_meas_psu_v": 1.050146,
       "idd_meas_psu_a": 0.009900873,
       "clock_freq_hz": 35000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -2055,7 +2055,7 @@
       "vdd_meas_psu_v": 1.050146,
       "idd_meas_psu_a": 0.009900873,
       "clock_freq_hz": 35000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -2063,7 +2063,7 @@
       "vdd_meas_psu_v": 1.050146,
       "idd_meas_psu_a": 0.009900873,
       "clock_freq_hz": 35000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -2071,7 +2071,7 @@
       "vdd_meas_psu_v": 1.100102,
       "idd_meas_psu_a": 0.01070983,
       "clock_freq_hz": 35000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -2079,7 +2079,7 @@
       "vdd_meas_psu_v": 1.100102,
       "idd_meas_psu_a": 0.01070983,
       "clock_freq_hz": 35000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -2087,7 +2087,7 @@
       "vdd_meas_psu_v": 1.100102,
       "idd_meas_psu_a": 0.01070983,
       "clock_freq_hz": 35000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -2095,7 +2095,7 @@
       "vdd_meas_psu_v": 1.150258,
       "idd_meas_psu_a": 0.01200715,
       "clock_freq_hz": 35000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -2103,7 +2103,7 @@
       "vdd_meas_psu_v": 1.150258,
       "idd_meas_psu_a": 0.01200715,
       "clock_freq_hz": 35000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -2111,7 +2111,7 @@
       "vdd_meas_psu_v": 1.150258,
       "idd_meas_psu_a": 0.01200715,
       "clock_freq_hz": 35000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -2119,7 +2119,7 @@
       "vdd_meas_psu_v": 1.200015,
       "idd_meas_psu_a": 0.01297893,
       "clock_freq_hz": 35000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -2127,7 +2127,7 @@
       "vdd_meas_psu_v": 1.200015,
       "idd_meas_psu_a": 0.01297893,
       "clock_freq_hz": 35000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -2135,7 +2135,7 @@
       "vdd_meas_psu_v": 1.200015,
       "idd_meas_psu_a": 0.01297893,
       "clock_freq_hz": 35000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -2143,7 +2143,7 @@
       "vdd_meas_psu_v": 1.249971,
       "idd_meas_psu_a": 0.0139507,
       "clock_freq_hz": 35000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -2151,7 +2151,7 @@
       "vdd_meas_psu_v": 1.249971,
       "idd_meas_psu_a": 0.0139507,
       "clock_freq_hz": 35000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -2159,7 +2159,7 @@
       "vdd_meas_psu_v": 1.249971,
       "idd_meas_psu_a": 0.0139507,
       "clock_freq_hz": 35000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -2527,7 +2527,7 @@
       "vdd_meas_psu_v": 0.9999902,
       "idd_meas_psu_a": 0.007626826,
       "clock_freq_hz": 40000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -2535,7 +2535,7 @@
       "vdd_meas_psu_v": 0.9999902,
       "idd_meas_psu_a": 0.007626826,
       "clock_freq_hz": 40000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -2543,7 +2543,7 @@
       "vdd_meas_psu_v": 0.9999902,
       "idd_meas_psu_a": 0.007626826,
       "clock_freq_hz": 40000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -2551,7 +2551,7 @@
       "vdd_meas_psu_v": 1.050144,
       "idd_meas_psu_a": 0.01331934,
       "clock_freq_hz": 40000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -2559,7 +2559,7 @@
       "vdd_meas_psu_v": 1.050144,
       "idd_meas_psu_a": 0.01331934,
       "clock_freq_hz": 40000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -2567,7 +2567,7 @@
       "vdd_meas_psu_v": 1.050144,
       "idd_meas_psu_a": 0.01331934,
       "clock_freq_hz": 40000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -2575,7 +2575,7 @@
       "vdd_meas_psu_v": 1.1001,
       "idd_meas_psu_a": 0.01429111,
       "clock_freq_hz": 40000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -2583,7 +2583,7 @@
       "vdd_meas_psu_v": 1.1001,
       "idd_meas_psu_a": 0.01429111,
       "clock_freq_hz": 40000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -2591,7 +2591,7 @@
       "vdd_meas_psu_v": 1.1001,
       "idd_meas_psu_a": 0.01429111,
       "clock_freq_hz": 40000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -2599,7 +2599,7 @@
       "vdd_meas_psu_v": 1.150256,
       "idd_meas_psu_a": 0.01575121,
       "clock_freq_hz": 40000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -2607,7 +2607,7 @@
       "vdd_meas_psu_v": 1.150256,
       "idd_meas_psu_a": 0.01575121,
       "clock_freq_hz": 40000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -2615,7 +2615,7 @@
       "vdd_meas_psu_v": 1.150256,
       "idd_meas_psu_a": 0.01575121,
       "clock_freq_hz": 40000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -2623,7 +2623,7 @@
       "vdd_meas_psu_v": 1.200014,
       "idd_meas_psu_a": 0.01411845,
       "clock_freq_hz": 40000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -2631,7 +2631,7 @@
       "vdd_meas_psu_v": 1.200014,
       "idd_meas_psu_a": 0.01411845,
       "clock_freq_hz": 40000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -2639,7 +2639,7 @@
       "vdd_meas_psu_v": 1.200014,
       "idd_meas_psu_a": 0.01411845,
       "clock_freq_hz": 40000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -2647,7 +2647,7 @@
       "vdd_meas_psu_v": 1.249972,
       "idd_meas_psu_a": 0.01362513,
       "clock_freq_hz": 40000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -2655,7 +2655,7 @@
       "vdd_meas_psu_v": 1.249972,
       "idd_meas_psu_a": 0.01362513,
       "clock_freq_hz": 40000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -2663,7 +2663,7 @@
       "vdd_meas_psu_v": 1.249972,
       "idd_meas_psu_a": 0.01362513,
       "clock_freq_hz": 40000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -2671,7 +2671,7 @@
       "vdd_meas_psu_v": 1.300127,
       "idd_meas_psu_a": 0.01606194,
       "clock_freq_hz": 40000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -2679,7 +2679,7 @@
       "vdd_meas_psu_v": 1.300127,
       "idd_meas_psu_a": 0.01606194,
       "clock_freq_hz": 40000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -2687,7 +2687,7 @@
       "vdd_meas_psu_v": 1.300127,
       "idd_meas_psu_a": 0.01606194,
       "clock_freq_hz": 40000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -3031,7 +3031,7 @@
       "vdd_meas_psu_v": 0.9999923,
       "idd_meas_psu_a": 0.004371123,
       "clock_freq_hz": 45000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -3039,7 +3039,7 @@
       "vdd_meas_psu_v": 0.9999923,
       "idd_meas_psu_a": 0.004371123,
       "clock_freq_hz": 45000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -3047,7 +3047,7 @@
       "vdd_meas_psu_v": 0.9999923,
       "idd_meas_psu_a": 0.004371123,
       "clock_freq_hz": 45000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -3055,7 +3055,7 @@
       "vdd_meas_psu_v": 1.050144,
       "idd_meas_psu_a": 0.01201708,
       "clock_freq_hz": 45000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -3063,7 +3063,7 @@
       "vdd_meas_psu_v": 1.050144,
       "idd_meas_psu_a": 0.01201708,
       "clock_freq_hz": 45000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -3071,7 +3071,7 @@
       "vdd_meas_psu_v": 1.050144,
       "idd_meas_psu_a": 0.01201708,
       "clock_freq_hz": 45000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -3079,7 +3079,7 @@
       "vdd_meas_psu_v": 1.100101,
       "idd_meas_psu_a": 0.01250047,
       "clock_freq_hz": 45000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -3087,7 +3087,7 @@
       "vdd_meas_psu_v": 1.100101,
       "idd_meas_psu_a": 0.01250047,
       "clock_freq_hz": 45000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -3095,7 +3095,7 @@
       "vdd_meas_psu_v": 1.100101,
       "idd_meas_psu_a": 0.01250047,
       "clock_freq_hz": 45000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -3103,7 +3103,7 @@
       "vdd_meas_psu_v": 1.150257,
       "idd_meas_psu_a": 0.01347221,
       "clock_freq_hz": 45000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -3111,7 +3111,7 @@
       "vdd_meas_psu_v": 1.150257,
       "idd_meas_psu_a": 0.01347221,
       "clock_freq_hz": 45000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -3119,7 +3119,7 @@
       "vdd_meas_psu_v": 1.150257,
       "idd_meas_psu_a": 0.01347221,
       "clock_freq_hz": 45000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -3127,7 +3127,7 @@
       "vdd_meas_psu_v": 1.200013,
       "idd_meas_psu_a": 0.01542073,
       "clock_freq_hz": 45000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -3135,7 +3135,7 @@
       "vdd_meas_psu_v": 1.200013,
       "idd_meas_psu_a": 0.01542073,
       "clock_freq_hz": 45000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -3143,7 +3143,7 @@
       "vdd_meas_psu_v": 1.200013,
       "idd_meas_psu_a": 0.01542073,
       "clock_freq_hz": 45000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -3151,7 +3151,7 @@
       "vdd_meas_psu_v": 1.24997,
       "idd_meas_psu_a": 0.01622969,
       "clock_freq_hz": 45000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -3159,7 +3159,7 @@
       "vdd_meas_psu_v": 1.24997,
       "idd_meas_psu_a": 0.01622969,
       "clock_freq_hz": 45000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -3167,7 +3167,7 @@
       "vdd_meas_psu_v": 1.24997,
       "idd_meas_psu_a": 0.01622969,
       "clock_freq_hz": 45000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -3175,7 +3175,7 @@
       "vdd_meas_psu_v": 1.300126,
       "idd_meas_psu_a": 0.01752701,
       "clock_freq_hz": 45000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -3183,7 +3183,7 @@
       "vdd_meas_psu_v": 1.300126,
       "idd_meas_psu_a": 0.01752701,
       "clock_freq_hz": 45000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -3191,7 +3191,7 @@
       "vdd_meas_psu_v": 1.300126,
       "idd_meas_psu_a": 0.01752701,
       "clock_freq_hz": 45000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -3199,7 +3199,7 @@
       "vdd_meas_psu_v": 1.350083,
       "idd_meas_psu_a": 0.01849877,
       "clock_freq_hz": 45000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -3207,7 +3207,7 @@
       "vdd_meas_psu_v": 1.350083,
       "idd_meas_psu_a": 0.01849877,
       "clock_freq_hz": 45000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -3215,7 +3215,7 @@
       "vdd_meas_psu_v": 1.350083,
       "idd_meas_psu_a": 0.01849877,
       "clock_freq_hz": 45000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -3535,7 +3535,7 @@
       "vdd_meas_psu_v": 0.9999936,
       "idd_meas_psu_a": 0.002254916,
       "clock_freq_hz": 50000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -3543,7 +3543,7 @@
       "vdd_meas_psu_v": 0.9999936,
       "idd_meas_psu_a": 0.002254916,
       "clock_freq_hz": 50000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -3551,7 +3551,7 @@
       "vdd_meas_psu_v": 0.9999936,
       "idd_meas_psu_a": 0.002254916,
       "clock_freq_hz": 50000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -3559,7 +3559,7 @@
       "vdd_meas_psu_v": 1.050144,
       "idd_meas_psu_a": 0.01250541,
       "clock_freq_hz": 50000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -3567,7 +3567,7 @@
       "vdd_meas_psu_v": 1.050144,
       "idd_meas_psu_a": 0.01250541,
       "clock_freq_hz": 50000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -3575,7 +3575,7 @@
       "vdd_meas_psu_v": 1.050144,
       "idd_meas_psu_a": 0.01250541,
       "clock_freq_hz": 50000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -3583,7 +3583,7 @@
       "vdd_meas_psu_v": 1.100101,
       "idd_meas_psu_a": 0.01347718,
       "clock_freq_hz": 50000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -3591,7 +3591,7 @@
       "vdd_meas_psu_v": 1.100101,
       "idd_meas_psu_a": 0.01347718,
       "clock_freq_hz": 50000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -3599,7 +3599,7 @@
       "vdd_meas_psu_v": 1.100101,
       "idd_meas_psu_a": 0.01347718,
       "clock_freq_hz": 50000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -3607,7 +3607,7 @@
       "vdd_meas_psu_v": 1.150256,
       "idd_meas_psu_a": 0.01558842,
       "clock_freq_hz": 50000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -3615,7 +3615,7 @@
       "vdd_meas_psu_v": 1.150256,
       "idd_meas_psu_a": 0.01558842,
       "clock_freq_hz": 50000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -3623,7 +3623,7 @@
       "vdd_meas_psu_v": 1.150256,
       "idd_meas_psu_a": 0.01558842,
       "clock_freq_hz": 50000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -3631,7 +3631,7 @@
       "vdd_meas_psu_v": 1.200013,
       "idd_meas_psu_a": 0.01558349,
       "clock_freq_hz": 50000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -3639,7 +3639,7 @@
       "vdd_meas_psu_v": 1.200013,
       "idd_meas_psu_a": 0.01558349,
       "clock_freq_hz": 50000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -3647,7 +3647,7 @@
       "vdd_meas_psu_v": 1.200013,
       "idd_meas_psu_a": 0.01558349,
       "clock_freq_hz": 50000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -3655,7 +3655,7 @@
       "vdd_meas_psu_v": 1.249969,
       "idd_meas_psu_a": 0.01769476,
       "clock_freq_hz": 50000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -3663,7 +3663,7 @@
       "vdd_meas_psu_v": 1.249969,
       "idd_meas_psu_a": 0.01769476,
       "clock_freq_hz": 50000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -3671,7 +3671,7 @@
       "vdd_meas_psu_v": 1.249969,
       "idd_meas_psu_a": 0.01769476,
       "clock_freq_hz": 50000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -3679,7 +3679,7 @@
       "vdd_meas_psu_v": 1.300125,
       "idd_meas_psu_a": 0.01899207,
       "clock_freq_hz": 50000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -3687,7 +3687,7 @@
       "vdd_meas_psu_v": 1.300125,
       "idd_meas_psu_a": 0.01899207,
       "clock_freq_hz": 50000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -3695,7 +3695,7 @@
       "vdd_meas_psu_v": 1.300125,
       "idd_meas_psu_a": 0.01899207,
       "clock_freq_hz": 50000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -3703,7 +3703,7 @@
       "vdd_meas_psu_v": 1.350082,
       "idd_meas_psu_a": 0.01996384,
       "clock_freq_hz": 50000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -3711,7 +3711,7 @@
       "vdd_meas_psu_v": 1.350082,
       "idd_meas_psu_a": 0.01996384,
       "clock_freq_hz": 50000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -3719,7 +3719,7 @@
       "vdd_meas_psu_v": 1.350082,
       "idd_meas_psu_a": 0.01996384,
       "clock_freq_hz": 50000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -3727,7 +3727,7 @@
       "vdd_meas_psu_v": 1.399838,
       "idd_meas_psu_a": 0.02126119,
       "clock_freq_hz": 50000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -3735,7 +3735,7 @@
       "vdd_meas_psu_v": 1.399838,
       "idd_meas_psu_a": 0.02126119,
       "clock_freq_hz": 50000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -3743,7 +3743,7 @@
       "vdd_meas_psu_v": 1.399838,
       "idd_meas_psu_a": 0.02126119,
       "clock_freq_hz": 50000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -4039,7 +4039,7 @@
       "vdd_meas_psu_v": 0.9999924,
       "idd_meas_psu_a": 0.004208338,
       "clock_freq_hz": 55000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -4047,7 +4047,7 @@
       "vdd_meas_psu_v": 0.9999924,
       "idd_meas_psu_a": 0.004208338,
       "clock_freq_hz": 55000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -4055,7 +4055,7 @@
       "vdd_meas_psu_v": 0.9999924,
       "idd_meas_psu_a": 0.004208338,
       "clock_freq_hz": 55000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -4063,7 +4063,7 @@
       "vdd_meas_psu_v": 1.050146,
       "idd_meas_psu_a": 0.009412497,
       "clock_freq_hz": 55000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -4071,7 +4071,7 @@
       "vdd_meas_psu_v": 1.050146,
       "idd_meas_psu_a": 0.009412497,
       "clock_freq_hz": 55000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -4079,7 +4079,7 @@
       "vdd_meas_psu_v": 1.050146,
       "idd_meas_psu_a": 0.009412497,
       "clock_freq_hz": 55000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -4087,7 +4087,7 @@
       "vdd_meas_psu_v": 1.100099,
       "idd_meas_psu_a": 0.01591896,
       "clock_freq_hz": 55000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -4095,7 +4095,7 @@
       "vdd_meas_psu_v": 1.100099,
       "idd_meas_psu_a": 0.01591896,
       "clock_freq_hz": 55000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -4103,7 +4103,7 @@
       "vdd_meas_psu_v": 1.100099,
       "idd_meas_psu_a": 0.01591896,
       "clock_freq_hz": 55000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -4111,7 +4111,7 @@
       "vdd_meas_psu_v": 1.150256,
       "idd_meas_psu_a": 0.01575121,
       "clock_freq_hz": 55000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -4119,7 +4119,7 @@
       "vdd_meas_psu_v": 1.150256,
       "idd_meas_psu_a": 0.01575121,
       "clock_freq_hz": 55000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -4127,7 +4127,7 @@
       "vdd_meas_psu_v": 1.150256,
       "idd_meas_psu_a": 0.01575121,
       "clock_freq_hz": 55000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -4135,7 +4135,7 @@
       "vdd_meas_psu_v": 1.200013,
       "idd_meas_psu_a": 0.01672301,
       "clock_freq_hz": 55000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -4143,7 +4143,7 @@
       "vdd_meas_psu_v": 1.200013,
       "idd_meas_psu_a": 0.01672301,
       "clock_freq_hz": 55000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -4151,7 +4151,7 @@
       "vdd_meas_psu_v": 1.200013,
       "idd_meas_psu_a": 0.01672301,
       "clock_freq_hz": 55000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -4159,7 +4159,7 @@
       "vdd_meas_psu_v": 1.249968,
       "idd_meas_psu_a": 0.01932261,
       "clock_freq_hz": 55000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -4167,7 +4167,7 @@
       "vdd_meas_psu_v": 1.249968,
       "idd_meas_psu_a": 0.01932261,
       "clock_freq_hz": 55000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -4175,7 +4175,7 @@
       "vdd_meas_psu_v": 1.249968,
       "idd_meas_psu_a": 0.01932261,
       "clock_freq_hz": 55000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -4183,7 +4183,7 @@
       "vdd_meas_psu_v": 1.300124,
       "idd_meas_psu_a": 0.02013157,
       "clock_freq_hz": 55000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -4191,7 +4191,7 @@
       "vdd_meas_psu_v": 1.300124,
       "idd_meas_psu_a": 0.02013157,
       "clock_freq_hz": 55000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -4199,7 +4199,7 @@
       "vdd_meas_psu_v": 1.300124,
       "idd_meas_psu_a": 0.02013157,
       "clock_freq_hz": 55000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -4207,7 +4207,7 @@
       "vdd_meas_psu_v": 1.350082,
       "idd_meas_psu_a": 0.01914991,
       "clock_freq_hz": 55000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -4215,7 +4215,7 @@
       "vdd_meas_psu_v": 1.350082,
       "idd_meas_psu_a": 0.01914991,
       "clock_freq_hz": 55000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -4223,7 +4223,7 @@
       "vdd_meas_psu_v": 1.350082,
       "idd_meas_psu_a": 0.01914991,
       "clock_freq_hz": 55000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -4231,7 +4231,7 @@
       "vdd_meas_psu_v": 1.399837,
       "idd_meas_psu_a": 0.02272626,
       "clock_freq_hz": 55000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -4239,7 +4239,7 @@
       "vdd_meas_psu_v": 1.399837,
       "idd_meas_psu_a": 0.02272626,
       "clock_freq_hz": 55000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -4247,7 +4247,7 @@
       "vdd_meas_psu_v": 1.399837,
       "idd_meas_psu_a": 0.02272626,
       "clock_freq_hz": 55000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -4255,7 +4255,7 @@
       "vdd_meas_psu_v": 1.449993,
       "idd_meas_psu_a": 0.02386079,
       "clock_freq_hz": 55000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -4263,7 +4263,7 @@
       "vdd_meas_psu_v": 1.449993,
       "idd_meas_psu_a": 0.02386079,
       "clock_freq_hz": 55000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -4271,7 +4271,7 @@
       "vdd_meas_psu_v": 1.449993,
       "idd_meas_psu_a": 0.02386079,
       "clock_freq_hz": 55000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -4543,7 +4543,7 @@
       "vdd_meas_psu_v": 0.9999924,
       "idd_meas_psu_a": 0.004045553,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -4551,7 +4551,7 @@
       "vdd_meas_psu_v": 0.9999924,
       "idd_meas_psu_a": 0.004045553,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -4559,7 +4559,7 @@
       "vdd_meas_psu_v": 0.9999924,
       "idd_meas_psu_a": 0.004045553,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -4567,7 +4567,7 @@
       "vdd_meas_psu_v": 1.049949,
       "idd_meas_psu_a": 0.005668458,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -4575,7 +4575,7 @@
       "vdd_meas_psu_v": 1.049949,
       "idd_meas_psu_a": 0.005668458,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -4583,7 +4583,7 @@
       "vdd_meas_psu_v": 1.049949,
       "idd_meas_psu_a": 0.005668458,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -4591,7 +4591,7 @@
       "vdd_meas_psu_v": 1.100097,
       "idd_meas_psu_a": 0.01868631,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -4599,7 +4599,7 @@
       "vdd_meas_psu_v": 1.100097,
       "idd_meas_psu_a": 0.01868631,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -4607,7 +4607,7 @@
       "vdd_meas_psu_v": 1.100097,
       "idd_meas_psu_a": 0.01868631,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -4615,7 +4615,7 @@
       "vdd_meas_psu_v": 1.150254,
       "idd_meas_psu_a": 0.01933248,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -4623,7 +4623,7 @@
       "vdd_meas_psu_v": 1.150254,
       "idd_meas_psu_a": 0.01933248,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -4631,7 +4631,7 @@
       "vdd_meas_psu_v": 1.150254,
       "idd_meas_psu_a": 0.01933248,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -4639,7 +4639,7 @@
       "vdd_meas_psu_v": 1.200009,
       "idd_meas_psu_a": 0.02225769,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -4647,7 +4647,7 @@
       "vdd_meas_psu_v": 1.200009,
       "idd_meas_psu_a": 0.02225769,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -4655,7 +4655,7 @@
       "vdd_meas_psu_v": 1.200009,
       "idd_meas_psu_a": 0.02225769,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -4663,7 +4663,7 @@
       "vdd_meas_psu_v": 1.249965,
       "idd_meas_psu_a": 0.02339224,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -4671,7 +4671,7 @@
       "vdd_meas_psu_v": 1.249965,
       "idd_meas_psu_a": 0.02339224,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -4679,7 +4679,7 @@
       "vdd_meas_psu_v": 1.249965,
       "idd_meas_psu_a": 0.02339224,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -4687,7 +4687,7 @@
       "vdd_meas_psu_v": 1.30012,
       "idd_meas_psu_a": 0.02680576,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -4695,7 +4695,7 @@
       "vdd_meas_psu_v": 1.30012,
       "idd_meas_psu_a": 0.02680576,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -4703,7 +4703,7 @@
       "vdd_meas_psu_v": 1.30012,
       "idd_meas_psu_a": 0.02680576,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -4711,7 +4711,7 @@
       "vdd_meas_psu_v": 1.35008,
       "idd_meas_psu_a": 0.02289397,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -4719,7 +4719,7 @@
       "vdd_meas_psu_v": 1.35008,
       "idd_meas_psu_a": 0.02289397,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -4727,7 +4727,7 @@
       "vdd_meas_psu_v": 1.35008,
       "idd_meas_psu_a": 0.02289397,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -4735,7 +4735,7 @@
       "vdd_meas_psu_v": 1.399836,
       "idd_meas_psu_a": 0.0245169,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -4743,7 +4743,7 @@
       "vdd_meas_psu_v": 1.399836,
       "idd_meas_psu_a": 0.0245169,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -4751,7 +4751,7 @@
       "vdd_meas_psu_v": 1.399836,
       "idd_meas_psu_a": 0.0245169,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -4759,7 +4759,7 @@
       "vdd_meas_psu_v": 1.449992,
       "idd_meas_psu_a": 0.02548864,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -4767,7 +4767,7 @@
       "vdd_meas_psu_v": 1.449992,
       "idd_meas_psu_a": 0.02548864,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -4775,7 +4775,7 @@
       "vdd_meas_psu_v": 1.449992,
       "idd_meas_psu_a": 0.02548864,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -4783,7 +4783,7 @@
       "vdd_meas_psu_v": 1.499948,
       "idd_meas_psu_a": 0.02678598,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -4791,7 +4791,7 @@
       "vdd_meas_psu_v": 1.499948,
       "idd_meas_psu_a": 0.02678598,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -4799,7 +4799,7 @@
       "vdd_meas_psu_v": 1.499948,
       "idd_meas_psu_a": 0.02678598,
       "clock_freq_hz": 60000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -5047,7 +5047,7 @@
       "vdd_meas_psu_v": 0.9999921,
       "idd_meas_psu_a": 0.004696694,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -5055,7 +5055,7 @@
       "vdd_meas_psu_v": 0.9999921,
       "idd_meas_psu_a": 0.004696694,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -5063,7 +5063,7 @@
       "vdd_meas_psu_v": 0.9999921,
       "idd_meas_psu_a": 0.004696694,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -5071,7 +5071,7 @@
       "vdd_meas_psu_v": 1.050148,
       "idd_meas_psu_a": 0.006156814,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -5079,7 +5079,7 @@
       "vdd_meas_psu_v": 1.050148,
       "idd_meas_psu_a": 0.006156814,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -5087,7 +5087,7 @@
       "vdd_meas_psu_v": 1.050148,
       "idd_meas_psu_a": 0.006156814,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -5095,7 +5095,7 @@
       "vdd_meas_psu_v": 1.100099,
       "idd_meas_psu_a": 0.01640731,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -5103,7 +5103,7 @@
       "vdd_meas_psu_v": 1.100099,
       "idd_meas_psu_a": 0.01640731,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -5111,7 +5111,7 @@
       "vdd_meas_psu_v": 1.100099,
       "idd_meas_psu_a": 0.01640731,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -5119,7 +5119,7 @@
       "vdd_meas_psu_v": 1.150252,
       "idd_meas_psu_a": 0.02193704,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -5127,7 +5127,7 @@
       "vdd_meas_psu_v": 1.150252,
       "idd_meas_psu_a": 0.02193704,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -5135,7 +5135,7 @@
       "vdd_meas_psu_v": 1.150252,
       "idd_meas_psu_a": 0.02193704,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -5143,7 +5143,7 @@
       "vdd_meas_psu_v": 1.200009,
       "idd_meas_psu_a": 0.02274604,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -5151,7 +5151,7 @@
       "vdd_meas_psu_v": 1.200009,
       "idd_meas_psu_a": 0.02274604,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -5159,7 +5159,7 @@
       "vdd_meas_psu_v": 1.200009,
       "idd_meas_psu_a": 0.02274604,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -5167,7 +5167,7 @@
       "vdd_meas_psu_v": 1.249965,
       "idd_meas_psu_a": 0.02469452,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -5175,7 +5175,7 @@
       "vdd_meas_psu_v": 1.249965,
       "idd_meas_psu_a": 0.02469452,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -5183,7 +5183,7 @@
       "vdd_meas_psu_v": 1.249965,
       "idd_meas_psu_a": 0.02469452,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -5191,7 +5191,7 @@
       "vdd_meas_psu_v": 1.30012,
       "idd_meas_psu_a": 0.02648019,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -5199,7 +5199,7 @@
       "vdd_meas_psu_v": 1.30012,
       "idd_meas_psu_a": 0.02648019,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -5207,7 +5207,7 @@
       "vdd_meas_psu_v": 1.30012,
       "idd_meas_psu_a": 0.02648019,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -5215,7 +5215,7 @@
       "vdd_meas_psu_v": 1.350078,
       "idd_meas_psu_a": 0.02517296,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -5223,7 +5223,7 @@
       "vdd_meas_psu_v": 1.350078,
       "idd_meas_psu_a": 0.02517296,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -5231,7 +5231,7 @@
       "vdd_meas_psu_v": 1.350078,
       "idd_meas_psu_a": 0.02517296,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -5239,7 +5239,7 @@
       "vdd_meas_psu_v": 1.399835,
       "idd_meas_psu_a": 0.0266331,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -5247,7 +5247,7 @@
       "vdd_meas_psu_v": 1.399835,
       "idd_meas_psu_a": 0.0266331,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -5255,7 +5255,7 @@
       "vdd_meas_psu_v": 1.399835,
       "idd_meas_psu_a": 0.0266331,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -5263,7 +5263,7 @@
       "vdd_meas_psu_v": 1.449991,
       "idd_meas_psu_a": 0.02776763,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -5271,7 +5271,7 @@
       "vdd_meas_psu_v": 1.449991,
       "idd_meas_psu_a": 0.02776763,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -5279,7 +5279,7 @@
       "vdd_meas_psu_v": 1.449991,
       "idd_meas_psu_a": 0.02776763,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -5287,7 +5287,7 @@
       "vdd_meas_psu_v": 1.499948,
       "idd_meas_psu_a": 0.02808826,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -5295,7 +5295,7 @@
       "vdd_meas_psu_v": 1.499948,
       "idd_meas_psu_a": 0.02808826,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -5303,7 +5303,7 @@
       "vdd_meas_psu_v": 1.499948,
       "idd_meas_psu_a": 0.02808826,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -5327,7 +5327,7 @@
       "vdd_meas_psu_v": 1.550104,
       "idd_meas_psu_a": 0.02954836,
       "clock_freq_hz": 65000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -5551,7 +5551,7 @@
       "vdd_meas_psu_v": 0.9999937,
       "idd_meas_psu_a": 0.001929346,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -5559,7 +5559,7 @@
       "vdd_meas_psu_v": 0.9999937,
       "idd_meas_psu_a": 0.001929346,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -5567,7 +5567,7 @@
       "vdd_meas_psu_v": 0.9999937,
       "idd_meas_psu_a": 0.001929346,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -5575,7 +5575,7 @@
       "vdd_meas_psu_v": 1.05015,
       "idd_meas_psu_a": 0.002901091,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -5583,7 +5583,7 @@
       "vdd_meas_psu_v": 1.05015,
       "idd_meas_psu_a": 0.002901091,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -5591,7 +5591,7 @@
       "vdd_meas_psu_v": 1.05015,
       "idd_meas_psu_a": 0.002901091,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -5599,7 +5599,7 @@
       "vdd_meas_psu_v": 1.100102,
       "idd_meas_psu_a": 0.01087262,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -5607,7 +5607,7 @@
       "vdd_meas_psu_v": 1.100102,
       "idd_meas_psu_a": 0.01087262,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -5615,7 +5615,7 @@
       "vdd_meas_psu_v": 1.100102,
       "idd_meas_psu_a": 0.01087262,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -5623,7 +5623,7 @@
       "vdd_meas_psu_v": 1.150249,
       "idd_meas_psu_a": 0.02633224,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -5631,7 +5631,7 @@
       "vdd_meas_psu_v": 1.150249,
       "idd_meas_psu_a": 0.02633224,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -5639,7 +5639,7 @@
       "vdd_meas_psu_v": 1.150249,
       "idd_meas_psu_a": 0.02633224,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -5647,7 +5647,7 @@
       "vdd_meas_psu_v": 1.200007,
       "idd_meas_psu_a": 0.02567618,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -5655,7 +5655,7 @@
       "vdd_meas_psu_v": 1.200007,
       "idd_meas_psu_a": 0.02567618,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -5663,7 +5663,7 @@
       "vdd_meas_psu_v": 1.200007,
       "idd_meas_psu_a": 0.02567618,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -5671,7 +5671,7 @@
       "vdd_meas_psu_v": 1.249963,
       "idd_meas_psu_a": 0.02762465,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -5679,7 +5679,7 @@
       "vdd_meas_psu_v": 1.249963,
       "idd_meas_psu_a": 0.02762465,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -5687,7 +5687,7 @@
       "vdd_meas_psu_v": 1.249963,
       "idd_meas_psu_a": 0.02762465,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -5695,7 +5695,7 @@
       "vdd_meas_psu_v": 1.300118,
       "idd_meas_psu_a": 0.03006146,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -5703,7 +5703,7 @@
       "vdd_meas_psu_v": 1.300118,
       "idd_meas_psu_a": 0.03006146,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -5711,7 +5711,7 @@
       "vdd_meas_psu_v": 1.300118,
       "idd_meas_psu_a": 0.03006146,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -5719,7 +5719,7 @@
       "vdd_meas_psu_v": 1.350273,
       "idd_meas_psu_a": 0.0333122,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -5727,7 +5727,7 @@
       "vdd_meas_psu_v": 1.350273,
       "idd_meas_psu_a": 0.0333122,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -5735,7 +5735,7 @@
       "vdd_meas_psu_v": 1.350273,
       "idd_meas_psu_a": 0.0333122,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -5743,7 +5743,7 @@
       "vdd_meas_psu_v": 1.400229,
       "idd_meas_psu_a": 0.0360746,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -5751,7 +5751,7 @@
       "vdd_meas_psu_v": 1.400229,
       "idd_meas_psu_a": 0.0360746,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -5759,7 +5759,7 @@
       "vdd_meas_psu_v": 1.400229,
       "idd_meas_psu_a": 0.0360746,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -5767,7 +5767,7 @@
       "vdd_meas_psu_v": 1.449986,
       "idd_meas_psu_a": 0.03460461,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -5775,7 +5775,7 @@
       "vdd_meas_psu_v": 1.449986,
       "idd_meas_psu_a": 0.03460461,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -5783,7 +5783,7 @@
       "vdd_meas_psu_v": 1.449986,
       "idd_meas_psu_a": 0.03460461,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -5791,7 +5791,7 @@
       "vdd_meas_psu_v": 1.499944,
       "idd_meas_psu_a": 0.03378574,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -5799,7 +5799,7 @@
       "vdd_meas_psu_v": 1.499944,
       "idd_meas_psu_a": 0.03378574,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -5807,7 +5807,7 @@
       "vdd_meas_psu_v": 1.499944,
       "idd_meas_psu_a": 0.03378574,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -5815,7 +5815,7 @@
       "vdd_meas_psu_v": 1.5501,
       "idd_meas_psu_a": 0.03540862,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -5823,7 +5823,7 @@
       "vdd_meas_psu_v": 1.5501,
       "idd_meas_psu_a": 0.03540862,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -5831,7 +5831,7 @@
       "vdd_meas_psu_v": 1.5501,
       "idd_meas_psu_a": 0.03540862,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -5839,7 +5839,7 @@
       "vdd_meas_psu_v": 1.600256,
       "idd_meas_psu_a": 0.03735708,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -5847,7 +5847,7 @@
       "vdd_meas_psu_v": 1.600256,
       "idd_meas_psu_a": 0.03735708,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -5855,7 +5855,7 @@
       "vdd_meas_psu_v": 1.600256,
       "idd_meas_psu_a": 0.03735708,
       "clock_freq_hz": 70000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -6055,7 +6055,7 @@
       "vdd_meas_psu_v": 0.9999931,
       "idd_meas_psu_a": 0.002906057,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -6063,7 +6063,7 @@
       "vdd_meas_psu_v": 0.9999931,
       "idd_meas_psu_a": 0.002906057,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -6071,7 +6071,7 @@
       "vdd_meas_psu_v": 0.9999931,
       "idd_meas_psu_a": 0.002906057,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -6079,7 +6079,7 @@
       "vdd_meas_psu_v": 1.050149,
       "idd_meas_psu_a": 0.004040587,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -6087,7 +6087,7 @@
       "vdd_meas_psu_v": 1.050149,
       "idd_meas_psu_a": 0.004040587,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -6095,7 +6095,7 @@
       "vdd_meas_psu_v": 1.050149,
       "idd_meas_psu_a": 0.004040587,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -6103,7 +6103,7 @@
       "vdd_meas_psu_v": 1.100105,
       "idd_meas_psu_a": 0.006802988,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -6111,7 +6111,7 @@
       "vdd_meas_psu_v": 1.100105,
       "idd_meas_psu_a": 0.006802988,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -6119,7 +6119,7 @@
       "vdd_meas_psu_v": 1.100105,
       "idd_meas_psu_a": 0.006802988,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -6127,7 +6127,7 @@
       "vdd_meas_psu_v": 1.150252,
       "idd_meas_psu_a": 0.02144869,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -6135,7 +6135,7 @@
       "vdd_meas_psu_v": 1.150252,
       "idd_meas_psu_a": 0.02144869,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -6143,7 +6143,7 @@
       "vdd_meas_psu_v": 1.150252,
       "idd_meas_psu_a": 0.02144869,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -6151,7 +6151,7 @@
       "vdd_meas_psu_v": 1.199809,
       "idd_meas_psu_a": 0.02242047,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -6159,7 +6159,7 @@
       "vdd_meas_psu_v": 1.199809,
       "idd_meas_psu_a": 0.02242047,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -6167,7 +6167,7 @@
       "vdd_meas_psu_v": 1.199809,
       "idd_meas_psu_a": 0.02242047,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -6175,7 +6175,7 @@
       "vdd_meas_psu_v": 1.249965,
       "idd_meas_psu_a": 0.0248573,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -6183,7 +6183,7 @@
       "vdd_meas_psu_v": 1.249965,
       "idd_meas_psu_a": 0.0248573,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -6191,7 +6191,7 @@
       "vdd_meas_psu_v": 1.249965,
       "idd_meas_psu_a": 0.0248573,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -6199,7 +6199,7 @@
       "vdd_meas_psu_v": 1.300119,
       "idd_meas_psu_a": 0.02843361,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -6207,7 +6207,7 @@
       "vdd_meas_psu_v": 1.300119,
       "idd_meas_psu_a": 0.02843361,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -6215,7 +6215,7 @@
       "vdd_meas_psu_v": 1.300119,
       "idd_meas_psu_a": 0.02843361,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -6223,7 +6223,7 @@
       "vdd_meas_psu_v": 1.350076,
       "idd_meas_psu_a": 0.02826586,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -6231,7 +6231,7 @@
       "vdd_meas_psu_v": 1.350076,
       "idd_meas_psu_a": 0.02826586,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -6239,7 +6239,7 @@
       "vdd_meas_psu_v": 1.350076,
       "idd_meas_psu_a": 0.02826586,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -6247,7 +6247,7 @@
       "vdd_meas_psu_v": 1.400231,
       "idd_meas_psu_a": 0.03184219,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -6255,7 +6255,7 @@
       "vdd_meas_psu_v": 1.400231,
       "idd_meas_psu_a": 0.03184219,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -6263,7 +6263,7 @@
       "vdd_meas_psu_v": 1.400231,
       "idd_meas_psu_a": 0.03184219,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -6271,7 +6271,7 @@
       "vdd_meas_psu_v": 1.449987,
       "idd_meas_psu_a": 0.03346511,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -6279,7 +6279,7 @@
       "vdd_meas_psu_v": 1.449987,
       "idd_meas_psu_a": 0.03346511,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -6287,7 +6287,7 @@
       "vdd_meas_psu_v": 1.449987,
       "idd_meas_psu_a": 0.03346511,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -6295,7 +6295,7 @@
       "vdd_meas_psu_v": 1.499945,
       "idd_meas_psu_a": 0.03183232,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -6303,7 +6303,7 @@
       "vdd_meas_psu_v": 1.499945,
       "idd_meas_psu_a": 0.03183232,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -6311,7 +6311,7 @@
       "vdd_meas_psu_v": 1.499945,
       "idd_meas_psu_a": 0.03183232,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -6319,7 +6319,7 @@
       "vdd_meas_psu_v": 1.550099,
       "idd_meas_psu_a": 0.03703647,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -6327,7 +6327,7 @@
       "vdd_meas_psu_v": 1.550099,
       "idd_meas_psu_a": 0.03703647,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -6335,7 +6335,7 @@
       "vdd_meas_psu_v": 1.550099,
       "idd_meas_psu_a": 0.03703647,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -6343,7 +6343,7 @@
       "vdd_meas_psu_v": 1.600255,
       "idd_meas_psu_a": 0.03882214,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -6351,7 +6351,7 @@
       "vdd_meas_psu_v": 1.600255,
       "idd_meas_psu_a": 0.03882214,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -6359,7 +6359,7 @@
       "vdd_meas_psu_v": 1.600255,
       "idd_meas_psu_a": 0.03882214,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -6367,7 +6367,7 @@
       "vdd_meas_psu_v": 1.65001,
       "idd_meas_psu_a": 0.041259,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -6375,7 +6375,7 @@
       "vdd_meas_psu_v": 1.65001,
       "idd_meas_psu_a": 0.041259,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -6383,7 +6383,7 @@
       "vdd_meas_psu_v": 1.65001,
       "idd_meas_psu_a": 0.041259,
       "clock_freq_hz": 75000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -6559,7 +6559,7 @@
       "vdd_meas_psu_v": 0.9999931,
       "idd_meas_psu_a": 0.002906057,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -6567,7 +6567,7 @@
       "vdd_meas_psu_v": 0.9999931,
       "idd_meas_psu_a": 0.002906057,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -6575,7 +6575,7 @@
       "vdd_meas_psu_v": 0.9999931,
       "idd_meas_psu_a": 0.002906057,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -6583,7 +6583,7 @@
       "vdd_meas_psu_v": 1.05015,
       "idd_meas_psu_a": 0.003715016,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -6591,7 +6591,7 @@
       "vdd_meas_psu_v": 1.05015,
       "idd_meas_psu_a": 0.003715016,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -6599,7 +6599,7 @@
       "vdd_meas_psu_v": 1.05015,
       "idd_meas_psu_a": 0.003715016,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -6607,7 +6607,7 @@
       "vdd_meas_psu_v": 1.100106,
       "idd_meas_psu_a": 0.005012351,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -6615,7 +6615,7 @@
       "vdd_meas_psu_v": 1.100106,
       "idd_meas_psu_a": 0.005012351,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -6623,7 +6623,7 @@
       "vdd_meas_psu_v": 1.100106,
       "idd_meas_psu_a": 0.005012351,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -6631,7 +6631,7 @@
       "vdd_meas_psu_v": 1.150254,
       "idd_meas_psu_a": 0.01835577,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -6639,7 +6639,7 @@
       "vdd_meas_psu_v": 1.150254,
       "idd_meas_psu_a": 0.01835577,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -6647,7 +6647,7 @@
       "vdd_meas_psu_v": 1.150254,
       "idd_meas_psu_a": 0.01835577,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -6655,7 +6655,7 @@
       "vdd_meas_psu_v": 1.200008,
       "idd_meas_psu_a": 0.02453668,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -6663,7 +6663,7 @@
       "vdd_meas_psu_v": 1.200008,
       "idd_meas_psu_a": 0.02453668,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -6671,7 +6671,7 @@
       "vdd_meas_psu_v": 1.200008,
       "idd_meas_psu_a": 0.02453668,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -6679,7 +6679,7 @@
       "vdd_meas_psu_v": 1.249964,
       "idd_meas_psu_a": 0.02550844,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -6687,7 +6687,7 @@
       "vdd_meas_psu_v": 1.249964,
       "idd_meas_psu_a": 0.02550844,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -6695,7 +6695,7 @@
       "vdd_meas_psu_v": 1.249964,
       "idd_meas_psu_a": 0.02550844,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -6703,7 +6703,7 @@
       "vdd_meas_psu_v": 1.30012,
       "idd_meas_psu_a": 0.02761969,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -6711,7 +6711,7 @@
       "vdd_meas_psu_v": 1.30012,
       "idd_meas_psu_a": 0.02761969,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -6719,7 +6719,7 @@
       "vdd_meas_psu_v": 1.30012,
       "idd_meas_psu_a": 0.02761969,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -6727,7 +6727,7 @@
       "vdd_meas_psu_v": 1.350076,
       "idd_meas_psu_a": 0.02924259,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -6735,7 +6735,7 @@
       "vdd_meas_psu_v": 1.350076,
       "idd_meas_psu_a": 0.02924259,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -6743,7 +6743,7 @@
       "vdd_meas_psu_v": 1.350076,
       "idd_meas_psu_a": 0.02924259,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -6751,7 +6751,7 @@
       "vdd_meas_psu_v": 1.400231,
       "idd_meas_psu_a": 0.03265611,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -6759,7 +6759,7 @@
       "vdd_meas_psu_v": 1.400231,
       "idd_meas_psu_a": 0.03265611,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -6767,7 +6767,7 @@
       "vdd_meas_psu_v": 1.400231,
       "idd_meas_psu_a": 0.03265611,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -6775,7 +6775,7 @@
       "vdd_meas_psu_v": 1.449986,
       "idd_meas_psu_a": 0.0347674,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -6783,7 +6783,7 @@
       "vdd_meas_psu_v": 1.449986,
       "idd_meas_psu_a": 0.0347674,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -6791,7 +6791,7 @@
       "vdd_meas_psu_v": 1.449986,
       "idd_meas_psu_a": 0.0347674,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -6799,7 +6799,7 @@
       "vdd_meas_psu_v": 1.499942,
       "idd_meas_psu_a": 0.03671587,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -6807,7 +6807,7 @@
       "vdd_meas_psu_v": 1.499942,
       "idd_meas_psu_a": 0.03671587,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -6815,7 +6815,7 @@
       "vdd_meas_psu_v": 1.499942,
       "idd_meas_psu_a": 0.03671587,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -6823,7 +6823,7 @@
       "vdd_meas_psu_v": 1.550098,
       "idd_meas_psu_a": 0.03882711,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -6831,7 +6831,7 @@
       "vdd_meas_psu_v": 1.550098,
       "idd_meas_psu_a": 0.03882711,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -6839,7 +6839,7 @@
       "vdd_meas_psu_v": 1.550098,
       "idd_meas_psu_a": 0.03882711,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -6847,7 +6847,7 @@
       "vdd_meas_psu_v": 1.600254,
       "idd_meas_psu_a": 0.04061278,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -6855,7 +6855,7 @@
       "vdd_meas_psu_v": 1.600254,
       "idd_meas_psu_a": 0.04061278,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -6863,7 +6863,7 @@
       "vdd_meas_psu_v": 1.600254,
       "idd_meas_psu_a": 0.04061278,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -6871,7 +6871,7 @@
       "vdd_meas_psu_v": 1.65001,
       "idd_meas_psu_a": 0.04239849,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -6879,7 +6879,7 @@
       "vdd_meas_psu_v": 1.65001,
       "idd_meas_psu_a": 0.04239849,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -6887,7 +6887,7 @@
       "vdd_meas_psu_v": 1.65001,
       "idd_meas_psu_a": 0.04239849,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -6895,7 +6895,7 @@
       "vdd_meas_psu_v": 1.699965,
       "idd_meas_psu_a": 0.04450975,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -6903,7 +6903,7 @@
       "vdd_meas_psu_v": 1.699965,
       "idd_meas_psu_a": 0.04450975,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -6911,7 +6911,7 @@
       "vdd_meas_psu_v": 1.699965,
       "idd_meas_psu_a": 0.04450975,
       "clock_freq_hz": 80000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7063,7 +7063,7 @@
       "vdd_meas_psu_v": 0.9999931,
       "idd_meas_psu_a": 0.002906057,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7071,7 +7071,7 @@
       "vdd_meas_psu_v": 0.9999931,
       "idd_meas_psu_a": 0.002906057,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7079,7 +7079,7 @@
       "vdd_meas_psu_v": 0.9999931,
       "idd_meas_psu_a": 0.002906057,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7087,7 +7087,7 @@
       "vdd_meas_psu_v": 1.05015,
       "idd_meas_psu_a": 0.003715016,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7095,7 +7095,7 @@
       "vdd_meas_psu_v": 1.05015,
       "idd_meas_psu_a": 0.003715016,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7103,7 +7103,7 @@
       "vdd_meas_psu_v": 1.05015,
       "idd_meas_psu_a": 0.003715016,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7111,7 +7111,7 @@
       "vdd_meas_psu_v": 1.100106,
       "idd_meas_psu_a": 0.005012351,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7119,7 +7119,7 @@
       "vdd_meas_psu_v": 1.100106,
       "idd_meas_psu_a": 0.005012351,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7127,7 +7127,7 @@
       "vdd_meas_psu_v": 1.100106,
       "idd_meas_psu_a": 0.005012351,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7135,7 +7135,7 @@
       "vdd_meas_psu_v": 1.150258,
       "idd_meas_psu_a": 0.01314664,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7143,7 +7143,7 @@
       "vdd_meas_psu_v": 1.150258,
       "idd_meas_psu_a": 0.01314664,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7151,7 +7151,7 @@
       "vdd_meas_psu_v": 1.150258,
       "idd_meas_psu_a": 0.01314664,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7159,7 +7159,7 @@
       "vdd_meas_psu_v": 1.200006,
       "idd_meas_psu_a": 0.02746683,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7167,7 +7167,7 @@
       "vdd_meas_psu_v": 1.200006,
       "idd_meas_psu_a": 0.02746683,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7175,7 +7175,7 @@
       "vdd_meas_psu_v": 1.200006,
       "idd_meas_psu_a": 0.02746683,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7183,7 +7183,7 @@
       "vdd_meas_psu_v": 1.249965,
       "idd_meas_psu_a": 0.02420616,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7191,7 +7191,7 @@
       "vdd_meas_psu_v": 1.249965,
       "idd_meas_psu_a": 0.02420616,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7199,7 +7199,7 @@
       "vdd_meas_psu_v": 1.249965,
       "idd_meas_psu_a": 0.02420616,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7207,7 +7207,7 @@
       "vdd_meas_psu_v": 1.300119,
       "idd_meas_psu_a": 0.02875918,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7215,7 +7215,7 @@
       "vdd_meas_psu_v": 1.300119,
       "idd_meas_psu_a": 0.02875918,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7223,7 +7223,7 @@
       "vdd_meas_psu_v": 1.300119,
       "idd_meas_psu_a": 0.02875918,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7231,7 +7231,7 @@
       "vdd_meas_psu_v": 1.350077,
       "idd_meas_psu_a": 0.02761474,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7239,7 +7239,7 @@
       "vdd_meas_psu_v": 1.350077,
       "idd_meas_psu_a": 0.02761474,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7247,7 +7247,7 @@
       "vdd_meas_psu_v": 1.350077,
       "idd_meas_psu_a": 0.02761474,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7255,7 +7255,7 @@
       "vdd_meas_psu_v": 1.400231,
       "idd_meas_psu_a": 0.03200497,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7263,7 +7263,7 @@
       "vdd_meas_psu_v": 1.400231,
       "idd_meas_psu_a": 0.03200497,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7271,7 +7271,7 @@
       "vdd_meas_psu_v": 1.400231,
       "idd_meas_psu_a": 0.03200497,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7279,7 +7279,7 @@
       "vdd_meas_psu_v": 1.449987,
       "idd_meas_psu_a": 0.03379069,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7287,7 +7287,7 @@
       "vdd_meas_psu_v": 1.449987,
       "idd_meas_psu_a": 0.03379069,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7295,7 +7295,7 @@
       "vdd_meas_psu_v": 1.449987,
       "idd_meas_psu_a": 0.03379069,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7303,7 +7303,7 @@
       "vdd_meas_psu_v": 1.499943,
       "idd_meas_psu_a": 0.03476245,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7311,7 +7311,7 @@
       "vdd_meas_psu_v": 1.499943,
       "idd_meas_psu_a": 0.03476245,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7319,7 +7319,7 @@
       "vdd_meas_psu_v": 1.499943,
       "idd_meas_psu_a": 0.03476245,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7327,7 +7327,7 @@
       "vdd_meas_psu_v": 1.550102,
       "idd_meas_psu_a": 0.03215292,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7335,7 +7335,7 @@
       "vdd_meas_psu_v": 1.550102,
       "idd_meas_psu_a": 0.03215292,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7343,7 +7343,7 @@
       "vdd_meas_psu_v": 1.550102,
       "idd_meas_psu_a": 0.03215292,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7351,7 +7351,7 @@
       "vdd_meas_psu_v": 1.600255,
       "idd_meas_psu_a": 0.03849658,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7359,7 +7359,7 @@
       "vdd_meas_psu_v": 1.600255,
       "idd_meas_psu_a": 0.03849658,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7367,7 +7367,7 @@
       "vdd_meas_psu_v": 1.600255,
       "idd_meas_psu_a": 0.03849658,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7375,7 +7375,7 @@
       "vdd_meas_psu_v": 1.650011,
       "idd_meas_psu_a": 0.03946836,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7383,7 +7383,7 @@
       "vdd_meas_psu_v": 1.650011,
       "idd_meas_psu_a": 0.03946836,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7391,7 +7391,7 @@
       "vdd_meas_psu_v": 1.650011,
       "idd_meas_psu_a": 0.03946836,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7399,7 +7399,7 @@
       "vdd_meas_psu_v": 1.699967,
       "idd_meas_psu_a": 0.04141684,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7407,7 +7407,7 @@
       "vdd_meas_psu_v": 1.699967,
       "idd_meas_psu_a": 0.04141684,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7415,7 +7415,7 @@
       "vdd_meas_psu_v": 1.699967,
       "idd_meas_psu_a": 0.04141684,
       "clock_freq_hz": 85000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7567,7 +7567,7 @@
       "vdd_meas_psu_v": 0.9999933,
       "idd_meas_psu_a": 0.002580486,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7575,7 +7575,7 @@
       "vdd_meas_psu_v": 0.9999933,
       "idd_meas_psu_a": 0.002580486,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7583,7 +7583,7 @@
       "vdd_meas_psu_v": 0.9999933,
       "idd_meas_psu_a": 0.002580486,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7591,7 +7591,7 @@
       "vdd_meas_psu_v": 1.04995,
       "idd_meas_psu_a": 0.003226681,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7599,7 +7599,7 @@
       "vdd_meas_psu_v": 1.04995,
       "idd_meas_psu_a": 0.003226681,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7607,7 +7607,7 @@
       "vdd_meas_psu_v": 1.04995,
       "idd_meas_psu_a": 0.003226681,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7615,7 +7615,7 @@
       "vdd_meas_psu_v": 1.100106,
       "idd_meas_psu_a": 0.00436121,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7623,7 +7623,7 @@
       "vdd_meas_psu_v": 1.100106,
       "idd_meas_psu_a": 0.00436121,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7631,7 +7631,7 @@
       "vdd_meas_psu_v": 1.100106,
       "idd_meas_psu_a": 0.00436121,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7639,7 +7639,7 @@
       "vdd_meas_psu_v": 1.150261,
       "idd_meas_psu_a": 0.007774733,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7647,7 +7647,7 @@
       "vdd_meas_psu_v": 1.150261,
       "idd_meas_psu_a": 0.007774733,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7655,7 +7655,7 @@
       "vdd_meas_psu_v": 1.150261,
       "idd_meas_psu_a": 0.007774733,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7663,7 +7663,7 @@
       "vdd_meas_psu_v": 1.200009,
       "idd_meas_psu_a": 0.0232344,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7671,7 +7671,7 @@
       "vdd_meas_psu_v": 1.200009,
       "idd_meas_psu_a": 0.0232344,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7679,7 +7679,7 @@
       "vdd_meas_psu_v": 1.200009,
       "idd_meas_psu_a": 0.0232344,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7687,7 +7687,7 @@
       "vdd_meas_psu_v": 1.249964,
       "idd_meas_psu_a": 0.02518287,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7695,7 +7695,7 @@
       "vdd_meas_psu_v": 1.249964,
       "idd_meas_psu_a": 0.02518287,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7703,7 +7703,7 @@
       "vdd_meas_psu_v": 1.249964,
       "idd_meas_psu_a": 0.02518287,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7711,7 +7711,7 @@
       "vdd_meas_psu_v": 1.30012,
       "idd_meas_psu_a": 0.02713133,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7719,7 +7719,7 @@
       "vdd_meas_psu_v": 1.30012,
       "idd_meas_psu_a": 0.02713133,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7727,7 +7727,7 @@
       "vdd_meas_psu_v": 1.30012,
       "idd_meas_psu_a": 0.02713133,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7735,7 +7735,7 @@
       "vdd_meas_psu_v": 1.350075,
       "idd_meas_psu_a": 0.03070766,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7743,7 +7743,7 @@
       "vdd_meas_psu_v": 1.350075,
       "idd_meas_psu_a": 0.03070766,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7751,7 +7751,7 @@
       "vdd_meas_psu_v": 1.350075,
       "idd_meas_psu_a": 0.03070766,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7759,7 +7759,7 @@
       "vdd_meas_psu_v": 1.400232,
       "idd_meas_psu_a": 0.03086548,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7767,7 +7767,7 @@
       "vdd_meas_psu_v": 1.400232,
       "idd_meas_psu_a": 0.03086548,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7775,7 +7775,7 @@
       "vdd_meas_psu_v": 1.400232,
       "idd_meas_psu_a": 0.03086548,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7783,7 +7783,7 @@
       "vdd_meas_psu_v": 1.449986,
       "idd_meas_psu_a": 0.03623246,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7791,7 +7791,7 @@
       "vdd_meas_psu_v": 1.449986,
       "idd_meas_psu_a": 0.03623246,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7799,7 +7799,7 @@
       "vdd_meas_psu_v": 1.449986,
       "idd_meas_psu_a": 0.03623246,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7807,7 +7807,7 @@
       "vdd_meas_psu_v": 1.499941,
       "idd_meas_psu_a": 0.03801815,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7815,7 +7815,7 @@
       "vdd_meas_psu_v": 1.499941,
       "idd_meas_psu_a": 0.03801815,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7823,7 +7823,7 @@
       "vdd_meas_psu_v": 1.499941,
       "idd_meas_psu_a": 0.03801815,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7831,7 +7831,7 @@
       "vdd_meas_psu_v": 1.550097,
       "idd_meas_psu_a": 0.04078053,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7839,7 +7839,7 @@
       "vdd_meas_psu_v": 1.550097,
       "idd_meas_psu_a": 0.04078053,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7847,7 +7847,7 @@
       "vdd_meas_psu_v": 1.550097,
       "idd_meas_psu_a": 0.04078053,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7855,7 +7855,7 @@
       "vdd_meas_psu_v": 1.600257,
       "idd_meas_psu_a": 0.03524087,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7863,7 +7863,7 @@
       "vdd_meas_psu_v": 1.600257,
       "idd_meas_psu_a": 0.03524087,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7871,7 +7871,7 @@
       "vdd_meas_psu_v": 1.600257,
       "idd_meas_psu_a": 0.03524087,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7879,7 +7879,7 @@
       "vdd_meas_psu_v": 1.650009,
       "idd_meas_psu_a": 0.04337522,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7887,7 +7887,7 @@
       "vdd_meas_psu_v": 1.650009,
       "idd_meas_psu_a": 0.04337522,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7895,7 +7895,7 @@
       "vdd_meas_psu_v": 1.650009,
       "idd_meas_psu_a": 0.04337522,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7903,7 +7903,7 @@
       "vdd_meas_psu_v": 1.699966,
       "idd_meas_psu_a": 0.04304469,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7911,7 +7911,7 @@
       "vdd_meas_psu_v": 1.699966,
       "idd_meas_psu_a": 0.04304469,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7919,7 +7919,7 @@
       "vdd_meas_psu_v": 1.699966,
       "idd_meas_psu_a": 0.04304469,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -7927,7 +7927,7 @@
       "vdd_meas_psu_v": 1.750122,
       "idd_meas_psu_a": 0.04531872,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -7935,7 +7935,7 @@
       "vdd_meas_psu_v": 1.750122,
       "idd_meas_psu_a": 0.04531872,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -7943,7 +7943,7 @@
       "vdd_meas_psu_v": 1.750122,
       "idd_meas_psu_a": 0.04531872,
       "clock_freq_hz": 90000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8071,7 +8071,7 @@
       "vdd_meas_psu_v": 0.9999937,
       "idd_meas_psu_a": 0.001929346,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8079,7 +8079,7 @@
       "vdd_meas_psu_v": 0.9999937,
       "idd_meas_psu_a": 0.001929346,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8087,7 +8087,7 @@
       "vdd_meas_psu_v": 0.9999937,
       "idd_meas_psu_a": 0.001929346,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8095,7 +8095,7 @@
       "vdd_meas_psu_v": 1.05015,
       "idd_meas_psu_a": 0.002412735,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8103,7 +8103,7 @@
       "vdd_meas_psu_v": 1.05015,
       "idd_meas_psu_a": 0.002412735,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8111,7 +8111,7 @@
       "vdd_meas_psu_v": 1.05015,
       "idd_meas_psu_a": 0.002412735,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8119,7 +8119,7 @@
       "vdd_meas_psu_v": 1.100107,
       "idd_meas_psu_a": 0.003221715,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8127,7 +8127,7 @@
       "vdd_meas_psu_v": 1.100107,
       "idd_meas_psu_a": 0.003221715,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8135,7 +8135,7 @@
       "vdd_meas_psu_v": 1.100107,
       "idd_meas_psu_a": 0.003221715,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8143,7 +8143,7 @@
       "vdd_meas_psu_v": 1.150263,
       "idd_meas_psu_a": 0.00419346,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8151,7 +8151,7 @@
       "vdd_meas_psu_v": 1.150263,
       "idd_meas_psu_a": 0.00419346,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8159,7 +8159,7 @@
       "vdd_meas_psu_v": 1.150263,
       "idd_meas_psu_a": 0.00419346,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8167,7 +8167,7 @@
       "vdd_meas_psu_v": 1.200011,
       "idd_meas_psu_a": 0.01965312,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8175,7 +8175,7 @@
       "vdd_meas_psu_v": 1.200011,
       "idd_meas_psu_a": 0.01965312,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8183,7 +8183,7 @@
       "vdd_meas_psu_v": 1.200011,
       "idd_meas_psu_a": 0.01965312,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8191,7 +8191,7 @@
       "vdd_meas_psu_v": 1.249964,
       "idd_meas_psu_a": 0.02615959,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8199,7 +8199,7 @@
       "vdd_meas_psu_v": 1.249964,
       "idd_meas_psu_a": 0.02615959,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8207,7 +8207,7 @@
       "vdd_meas_psu_v": 1.249964,
       "idd_meas_psu_a": 0.02615959,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8215,7 +8215,7 @@
       "vdd_meas_psu_v": 1.300118,
       "idd_meas_psu_a": 0.02973589,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8223,7 +8223,7 @@
       "vdd_meas_psu_v": 1.300118,
       "idd_meas_psu_a": 0.02973589,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8231,7 +8231,7 @@
       "vdd_meas_psu_v": 1.300118,
       "idd_meas_psu_a": 0.02973589,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8239,7 +8239,7 @@
       "vdd_meas_psu_v": 1.350075,
       "idd_meas_psu_a": 0.03005652,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8247,7 +8247,7 @@
       "vdd_meas_psu_v": 1.350075,
       "idd_meas_psu_a": 0.03005652,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8255,7 +8255,7 @@
       "vdd_meas_psu_v": 1.350075,
       "idd_meas_psu_a": 0.03005652,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8263,7 +8263,7 @@
       "vdd_meas_psu_v": 1.400231,
       "idd_meas_psu_a": 0.03216776,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8271,7 +8271,7 @@
       "vdd_meas_psu_v": 1.400231,
       "idd_meas_psu_a": 0.03216776,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8279,7 +8279,7 @@
       "vdd_meas_psu_v": 1.400231,
       "idd_meas_psu_a": 0.03216776,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8287,7 +8287,7 @@
       "vdd_meas_psu_v": 1.449985,
       "idd_meas_psu_a": 0.03753474,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8295,7 +8295,7 @@
       "vdd_meas_psu_v": 1.449985,
       "idd_meas_psu_a": 0.03753474,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8303,7 +8303,7 @@
       "vdd_meas_psu_v": 1.449985,
       "idd_meas_psu_a": 0.03753474,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8311,7 +8311,7 @@
       "vdd_meas_psu_v": 1.49994,
       "idd_meas_psu_a": 0.039646,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8319,7 +8319,7 @@
       "vdd_meas_psu_v": 1.49994,
       "idd_meas_psu_a": 0.039646,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8327,7 +8327,7 @@
       "vdd_meas_psu_v": 1.49994,
       "idd_meas_psu_a": 0.039646,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8335,7 +8335,7 @@
       "vdd_meas_psu_v": 1.550098,
       "idd_meas_psu_a": 0.03915268,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8343,7 +8343,7 @@
       "vdd_meas_psu_v": 1.550098,
       "idd_meas_psu_a": 0.03915268,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8351,7 +8351,7 @@
       "vdd_meas_psu_v": 1.550098,
       "idd_meas_psu_a": 0.03915268,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8359,7 +8359,7 @@
       "vdd_meas_psu_v": 1.600252,
       "idd_meas_psu_a": 0.04386849,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8367,7 +8367,7 @@
       "vdd_meas_psu_v": 1.600252,
       "idd_meas_psu_a": 0.04386849,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8375,7 +8375,7 @@
       "vdd_meas_psu_v": 1.600252,
       "idd_meas_psu_a": 0.04386849,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8383,7 +8383,7 @@
       "vdd_meas_psu_v": 1.650008,
       "idd_meas_psu_a": 0.04516586,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8391,7 +8391,7 @@
       "vdd_meas_psu_v": 1.650008,
       "idd_meas_psu_a": 0.04516586,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8399,7 +8399,7 @@
       "vdd_meas_psu_v": 1.650008,
       "idd_meas_psu_a": 0.04516586,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8407,7 +8407,7 @@
       "vdd_meas_psu_v": 1.699964,
       "idd_meas_psu_a": 0.0472771,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8415,7 +8415,7 @@
       "vdd_meas_psu_v": 1.699964,
       "idd_meas_psu_a": 0.0472771,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8423,7 +8423,7 @@
       "vdd_meas_psu_v": 1.699964,
       "idd_meas_psu_a": 0.0472771,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8431,7 +8431,7 @@
       "vdd_meas_psu_v": 1.750121,
       "idd_meas_psu_a": 0.04694657,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8439,7 +8439,7 @@
       "vdd_meas_psu_v": 1.750121,
       "idd_meas_psu_a": 0.04694657,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8447,7 +8447,7 @@
       "vdd_meas_psu_v": 1.750121,
       "idd_meas_psu_a": 0.04694657,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8455,7 +8455,7 @@
       "vdd_meas_psu_v": 1.800276,
       "idd_meas_psu_a": 0.0493834,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8463,7 +8463,7 @@
       "vdd_meas_psu_v": 1.800276,
       "idd_meas_psu_a": 0.0493834,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8471,7 +8471,7 @@
       "vdd_meas_psu_v": 1.800276,
       "idd_meas_psu_a": 0.0493834,
       "clock_freq_hz": 95000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8575,7 +8575,7 @@
       "vdd_meas_psu_v": 0.9999937,
       "idd_meas_psu_a": 0.001929346,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8583,7 +8583,7 @@
       "vdd_meas_psu_v": 0.9999937,
       "idd_meas_psu_a": 0.001929346,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8591,7 +8591,7 @@
       "vdd_meas_psu_v": 0.9999937,
       "idd_meas_psu_a": 0.001929346,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8599,7 +8599,7 @@
       "vdd_meas_psu_v": 1.049951,
       "idd_meas_psu_a": 0.002412735,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8607,7 +8607,7 @@
       "vdd_meas_psu_v": 1.049951,
       "idd_meas_psu_a": 0.002412735,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8615,7 +8615,7 @@
       "vdd_meas_psu_v": 1.049951,
       "idd_meas_psu_a": 0.002412735,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8623,7 +8623,7 @@
       "vdd_meas_psu_v": 1.100107,
       "idd_meas_psu_a": 0.002896144,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8631,7 +8631,7 @@
       "vdd_meas_psu_v": 1.100107,
       "idd_meas_psu_a": 0.002896144,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8639,7 +8639,7 @@
       "vdd_meas_psu_v": 1.100107,
       "idd_meas_psu_a": 0.002896144,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8647,7 +8647,7 @@
       "vdd_meas_psu_v": 1.150263,
       "idd_meas_psu_a": 0.00419346,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8655,7 +8655,7 @@
       "vdd_meas_psu_v": 1.150263,
       "idd_meas_psu_a": 0.00419346,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8663,7 +8663,7 @@
       "vdd_meas_psu_v": 1.150263,
       "idd_meas_psu_a": 0.00419346,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8671,7 +8671,7 @@
       "vdd_meas_psu_v": 1.200015,
       "idd_meas_psu_a": 0.01363007,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8679,7 +8679,7 @@
       "vdd_meas_psu_v": 1.200015,
       "idd_meas_psu_a": 0.01363007,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8687,7 +8687,7 @@
       "vdd_meas_psu_v": 1.200015,
       "idd_meas_psu_a": 0.01363007,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8695,7 +8695,7 @@
       "vdd_meas_psu_v": 1.249962,
       "idd_meas_psu_a": 0.02876415,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8703,7 +8703,7 @@
       "vdd_meas_psu_v": 1.249962,
       "idd_meas_psu_a": 0.02876415,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8711,7 +8711,7 @@
       "vdd_meas_psu_v": 1.249962,
       "idd_meas_psu_a": 0.02876415,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8719,7 +8719,7 @@
       "vdd_meas_psu_v": 1.300119,
       "idd_meas_psu_a": 0.02924754,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8727,7 +8727,7 @@
       "vdd_meas_psu_v": 1.300119,
       "idd_meas_psu_a": 0.02924754,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8735,7 +8735,7 @@
       "vdd_meas_psu_v": 1.300119,
       "idd_meas_psu_a": 0.02924754,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8743,7 +8743,7 @@
       "vdd_meas_psu_v": 1.350274,
       "idd_meas_psu_a": 0.03119601,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8751,7 +8751,7 @@
       "vdd_meas_psu_v": 1.350274,
       "idd_meas_psu_a": 0.03119601,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8759,7 +8759,7 @@
       "vdd_meas_psu_v": 1.350274,
       "idd_meas_psu_a": 0.03119601,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8767,7 +8767,7 @@
       "vdd_meas_psu_v": 1.40023,
       "idd_meas_psu_a": 0.03379561,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8775,7 +8775,7 @@
       "vdd_meas_psu_v": 1.40023,
       "idd_meas_psu_a": 0.03379561,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8783,7 +8783,7 @@
       "vdd_meas_psu_v": 1.40023,
       "idd_meas_psu_a": 0.03379561,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8791,7 +8791,7 @@
       "vdd_meas_psu_v": 1.449986,
       "idd_meas_psu_a": 0.03509296,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8799,7 +8799,7 @@
       "vdd_meas_psu_v": 1.449986,
       "idd_meas_psu_a": 0.03509296,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8807,7 +8807,7 @@
       "vdd_meas_psu_v": 1.449986,
       "idd_meas_psu_a": 0.03509296,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8815,7 +8815,7 @@
       "vdd_meas_psu_v": 1.499941,
       "idd_meas_psu_a": 0.03850651,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8823,7 +8823,7 @@
       "vdd_meas_psu_v": 1.499941,
       "idd_meas_psu_a": 0.03850651,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8831,7 +8831,7 @@
       "vdd_meas_psu_v": 1.499941,
       "idd_meas_psu_a": 0.03850651,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8839,7 +8839,7 @@
       "vdd_meas_psu_v": 1.550095,
       "idd_meas_psu_a": 0.04289674,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8847,7 +8847,7 @@
       "vdd_meas_psu_v": 1.550095,
       "idd_meas_psu_a": 0.04289674,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8855,7 +8855,7 @@
       "vdd_meas_psu_v": 1.550095,
       "idd_meas_psu_a": 0.04289674,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8863,7 +8863,7 @@
       "vdd_meas_psu_v": 1.60025,
       "idd_meas_psu_a": 0.04631026,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8871,7 +8871,7 @@
       "vdd_meas_psu_v": 1.60025,
       "idd_meas_psu_a": 0.04631026,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8879,7 +8879,7 @@
       "vdd_meas_psu_v": 1.60025,
       "idd_meas_psu_a": 0.04631026,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8887,7 +8887,7 @@
       "vdd_meas_psu_v": 1.650011,
       "idd_meas_psu_a": 0.03979395,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8895,7 +8895,7 @@
       "vdd_meas_psu_v": 1.650011,
       "idd_meas_psu_a": 0.03979395,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8903,7 +8903,7 @@
       "vdd_meas_psu_v": 1.650011,
       "idd_meas_psu_a": 0.03979395,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8911,7 +8911,7 @@
       "vdd_meas_psu_v": 1.699963,
       "idd_meas_psu_a": 0.04906774,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8919,7 +8919,7 @@
       "vdd_meas_psu_v": 1.699963,
       "idd_meas_psu_a": 0.04906774,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8927,7 +8927,7 @@
       "vdd_meas_psu_v": 1.699963,
       "idd_meas_psu_a": 0.04906774,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8935,7 +8935,7 @@
       "vdd_meas_psu_v": 1.750119,
       "idd_meas_psu_a": 0.04938835,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8943,7 +8943,7 @@
       "vdd_meas_psu_v": 1.750119,
       "idd_meas_psu_a": 0.04938835,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8951,7 +8951,7 @@
       "vdd_meas_psu_v": 1.750119,
       "idd_meas_psu_a": 0.04938835,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8959,7 +8959,7 @@
       "vdd_meas_psu_v": 1.800275,
       "idd_meas_psu_a": 0.05101123,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8967,7 +8967,7 @@
       "vdd_meas_psu_v": 1.800275,
       "idd_meas_psu_a": 0.05101123,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8975,7 +8975,7 @@
       "vdd_meas_psu_v": 1.800275,
       "idd_meas_psu_a": 0.05101123,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -8983,7 +8983,7 @@
       "vdd_meas_psu_v": 1.849831,
       "idd_meas_psu_a": 0.05328532,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -8991,7 +8991,7 @@
       "vdd_meas_psu_v": 1.849831,
       "idd_meas_psu_a": 0.05328532,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -8999,7 +8999,7 @@
       "vdd_meas_psu_v": 1.849831,
       "idd_meas_psu_a": 0.05328532,
       "clock_freq_hz": 100000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9079,7 +9079,7 @@
       "vdd_meas_psu_v": 0.9999937,
       "idd_meas_psu_a": 0.001929346,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9087,7 +9087,7 @@
       "vdd_meas_psu_v": 0.9999937,
       "idd_meas_psu_a": 0.001929346,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9095,7 +9095,7 @@
       "vdd_meas_psu_v": 0.9999937,
       "idd_meas_psu_a": 0.001929346,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9103,7 +9103,7 @@
       "vdd_meas_psu_v": 1.049951,
       "idd_meas_psu_a": 0.002412755,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9111,7 +9111,7 @@
       "vdd_meas_psu_v": 1.049951,
       "idd_meas_psu_a": 0.002412755,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9119,7 +9119,7 @@
       "vdd_meas_psu_v": 1.049951,
       "idd_meas_psu_a": 0.002412755,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9127,7 +9127,7 @@
       "vdd_meas_psu_v": 1.100107,
       "idd_meas_psu_a": 0.002896144,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9135,7 +9135,7 @@
       "vdd_meas_psu_v": 1.100107,
       "idd_meas_psu_a": 0.002896144,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9143,7 +9143,7 @@
       "vdd_meas_psu_v": 1.100107,
       "idd_meas_psu_a": 0.002896144,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9151,7 +9151,7 @@
       "vdd_meas_psu_v": 1.150263,
       "idd_meas_psu_a": 0.00419346,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9159,7 +9159,7 @@
       "vdd_meas_psu_v": 1.150263,
       "idd_meas_psu_a": 0.00419346,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9167,7 +9167,7 @@
       "vdd_meas_psu_v": 1.150263,
       "idd_meas_psu_a": 0.00419346,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9175,7 +9175,7 @@
       "vdd_meas_psu_v": 1.200017,
       "idd_meas_psu_a": 0.009072088,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9183,7 +9183,7 @@
       "vdd_meas_psu_v": 1.200017,
       "idd_meas_psu_a": 0.009072088,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9191,7 +9191,7 @@
       "vdd_meas_psu_v": 1.200017,
       "idd_meas_psu_a": 0.009072088,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9199,7 +9199,7 @@
       "vdd_meas_psu_v": 1.249965,
       "idd_meas_psu_a": 0.02436895,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9207,7 +9207,7 @@
       "vdd_meas_psu_v": 1.249965,
       "idd_meas_psu_a": 0.02436895,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9215,7 +9215,7 @@
       "vdd_meas_psu_v": 1.249965,
       "idd_meas_psu_a": 0.02436895,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9223,7 +9223,7 @@
       "vdd_meas_psu_v": 1.300118,
       "idd_meas_psu_a": 0.03071261,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9231,7 +9231,7 @@
       "vdd_meas_psu_v": 1.300118,
       "idd_meas_psu_a": 0.03071261,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9239,7 +9239,7 @@
       "vdd_meas_psu_v": 1.300118,
       "idd_meas_psu_a": 0.03071261,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9247,7 +9247,7 @@
       "vdd_meas_psu_v": 1.350274,
       "idd_meas_psu_a": 0.03249827,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9255,7 +9255,7 @@
       "vdd_meas_psu_v": 1.350274,
       "idd_meas_psu_a": 0.03249827,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9263,7 +9263,7 @@
       "vdd_meas_psu_v": 1.350274,
       "idd_meas_psu_a": 0.03249827,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9271,7 +9271,7 @@
       "vdd_meas_psu_v": 1.400231,
       "idd_meas_psu_a": 0.03249333,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9279,7 +9279,7 @@
       "vdd_meas_psu_v": 1.400231,
       "idd_meas_psu_a": 0.03249333,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9287,7 +9287,7 @@
       "vdd_meas_psu_v": 1.400231,
       "idd_meas_psu_a": 0.03249333,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9295,7 +9295,7 @@
       "vdd_meas_psu_v": 1.449985,
       "idd_meas_psu_a": 0.03639525,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9303,7 +9303,7 @@
       "vdd_meas_psu_v": 1.449985,
       "idd_meas_psu_a": 0.03639525,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9311,7 +9311,7 @@
       "vdd_meas_psu_v": 1.449985,
       "idd_meas_psu_a": 0.03639525,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9319,7 +9319,7 @@
       "vdd_meas_psu_v": 1.499939,
       "idd_meas_psu_a": 0.04257613,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9327,7 +9327,7 @@
       "vdd_meas_psu_v": 1.499939,
       "idd_meas_psu_a": 0.04257613,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9335,7 +9335,7 @@
       "vdd_meas_psu_v": 1.499939,
       "idd_meas_psu_a": 0.04257613,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9343,7 +9343,7 @@
       "vdd_meas_psu_v": 1.550094,
       "idd_meas_psu_a": 0.04485016,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9351,7 +9351,7 @@
       "vdd_meas_psu_v": 1.550094,
       "idd_meas_psu_a": 0.04485016,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9359,7 +9359,7 @@
       "vdd_meas_psu_v": 1.550094,
       "idd_meas_psu_a": 0.04485016,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9367,7 +9367,7 @@
       "vdd_meas_psu_v": 1.600251,
       "idd_meas_psu_a": 0.04451963,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9375,7 +9375,7 @@
       "vdd_meas_psu_v": 1.600251,
       "idd_meas_psu_a": 0.04451963,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9383,7 +9383,7 @@
       "vdd_meas_psu_v": 1.600251,
       "idd_meas_psu_a": 0.04451963,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9391,7 +9391,7 @@
       "vdd_meas_psu_v": 1.650005,
       "idd_meas_psu_a": 0.05070054,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9399,7 +9399,7 @@
       "vdd_meas_psu_v": 1.650005,
       "idd_meas_psu_a": 0.05070054,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9407,7 +9407,7 @@
       "vdd_meas_psu_v": 1.650005,
       "idd_meas_psu_a": 0.05070054,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9415,7 +9415,7 @@
       "vdd_meas_psu_v": 1.699961,
       "idd_meas_psu_a": 0.05216066,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9423,7 +9423,7 @@
       "vdd_meas_psu_v": 1.699961,
       "idd_meas_psu_a": 0.05216066,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9431,7 +9431,7 @@
       "vdd_meas_psu_v": 1.699961,
       "idd_meas_psu_a": 0.05216066,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9439,7 +9439,7 @@
       "vdd_meas_psu_v": 1.750117,
       "idd_meas_psu_a": 0.0531324,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9447,7 +9447,7 @@
       "vdd_meas_psu_v": 1.750117,
       "idd_meas_psu_a": 0.0531324,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9455,7 +9455,7 @@
       "vdd_meas_psu_v": 1.750117,
       "idd_meas_psu_a": 0.0531324,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9463,7 +9463,7 @@
       "vdd_meas_psu_v": 1.800274,
       "idd_meas_psu_a": 0.05361579,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9471,7 +9471,7 @@
       "vdd_meas_psu_v": 1.800274,
       "idd_meas_psu_a": 0.05361579,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9479,7 +9479,7 @@
       "vdd_meas_psu_v": 1.800274,
       "idd_meas_psu_a": 0.05361579,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9487,7 +9487,7 @@
       "vdd_meas_psu_v": 1.84983,
       "idd_meas_psu_a": 0.05523874,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9495,7 +9495,7 @@
       "vdd_meas_psu_v": 1.84983,
       "idd_meas_psu_a": 0.05523874,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9503,7 +9503,7 @@
       "vdd_meas_psu_v": 1.84983,
       "idd_meas_psu_a": 0.05523874,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9511,7 +9511,7 @@
       "vdd_meas_psu_v": 1.899985,
       "idd_meas_psu_a": 0.05751277,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9519,7 +9519,7 @@
       "vdd_meas_psu_v": 1.899985,
       "idd_meas_psu_a": 0.05751277,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9527,7 +9527,7 @@
       "vdd_meas_psu_v": 1.899985,
       "idd_meas_psu_a": 0.05751277,
       "clock_freq_hz": 105000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9583,7 +9583,7 @@
       "vdd_meas_psu_v": 0.9999937,
       "idd_meas_psu_a": 0.001929346,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9591,7 +9591,7 @@
       "vdd_meas_psu_v": 0.9999937,
       "idd_meas_psu_a": 0.001929346,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9599,7 +9599,7 @@
       "vdd_meas_psu_v": 0.9999937,
       "idd_meas_psu_a": 0.001929346,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9607,7 +9607,7 @@
       "vdd_meas_psu_v": 1.05015,
       "idd_meas_psu_a": 0.002412735,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9615,7 +9615,7 @@
       "vdd_meas_psu_v": 1.05015,
       "idd_meas_psu_a": 0.002412735,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9623,7 +9623,7 @@
       "vdd_meas_psu_v": 1.05015,
       "idd_meas_psu_a": 0.002412735,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9631,7 +9631,7 @@
       "vdd_meas_psu_v": 1.100107,
       "idd_meas_psu_a": 0.002896144,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9639,7 +9639,7 @@
       "vdd_meas_psu_v": 1.100107,
       "idd_meas_psu_a": 0.002896144,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9647,7 +9647,7 @@
       "vdd_meas_psu_v": 1.100107,
       "idd_meas_psu_a": 0.002896144,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9655,7 +9655,7 @@
       "vdd_meas_psu_v": 1.150263,
       "idd_meas_psu_a": 0.003867889,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9663,7 +9663,7 @@
       "vdd_meas_psu_v": 1.150263,
       "idd_meas_psu_a": 0.003867889,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9671,7 +9671,7 @@
       "vdd_meas_psu_v": 1.150263,
       "idd_meas_psu_a": 0.003867889,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9679,7 +9679,7 @@
       "vdd_meas_psu_v": 1.19982,
       "idd_meas_psu_a": 0.005165244,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9687,7 +9687,7 @@
       "vdd_meas_psu_v": 1.19982,
       "idd_meas_psu_a": 0.005165244,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9695,7 +9695,7 @@
       "vdd_meas_psu_v": 1.19982,
       "idd_meas_psu_a": 0.005165244,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9703,7 +9703,7 @@
       "vdd_meas_psu_v": 1.249967,
       "idd_meas_psu_a": 0.0216016,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9711,7 +9711,7 @@
       "vdd_meas_psu_v": 1.249967,
       "idd_meas_psu_a": 0.0216016,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9719,7 +9719,7 @@
       "vdd_meas_psu_v": 1.249967,
       "idd_meas_psu_a": 0.0216016,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9727,7 +9727,7 @@
       "vdd_meas_psu_v": 1.300117,
       "idd_meas_psu_a": 0.03201488,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9735,7 +9735,7 @@
       "vdd_meas_psu_v": 1.300117,
       "idd_meas_psu_a": 0.03201488,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9743,7 +9743,7 @@
       "vdd_meas_psu_v": 1.300117,
       "idd_meas_psu_a": 0.03201488,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9751,7 +9751,7 @@
       "vdd_meas_psu_v": 1.350073,
       "idd_meas_psu_a": 0.03347501,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9759,7 +9759,7 @@
       "vdd_meas_psu_v": 1.350073,
       "idd_meas_psu_a": 0.03347501,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9767,7 +9767,7 @@
       "vdd_meas_psu_v": 1.350073,
       "idd_meas_psu_a": 0.03347501,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9775,7 +9775,7 @@
       "vdd_meas_psu_v": 1.400229,
       "idd_meas_psu_a": 0.03526067,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9783,7 +9783,7 @@
       "vdd_meas_psu_v": 1.400229,
       "idd_meas_psu_a": 0.03526067,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9791,7 +9791,7 @@
       "vdd_meas_psu_v": 1.400229,
       "idd_meas_psu_a": 0.03526067,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9799,7 +9799,7 @@
       "vdd_meas_psu_v": 1.449985,
       "idd_meas_psu_a": 0.03786031,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9807,7 +9807,7 @@
       "vdd_meas_psu_v": 1.449985,
       "idd_meas_psu_a": 0.03786031,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9815,7 +9815,7 @@
       "vdd_meas_psu_v": 1.449985,
       "idd_meas_psu_a": 0.03786031,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9823,7 +9823,7 @@
       "vdd_meas_psu_v": 1.499941,
       "idd_meas_psu_a": 0.03948322,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9831,7 +9831,7 @@
       "vdd_meas_psu_v": 1.499941,
       "idd_meas_psu_a": 0.03948322,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9839,7 +9839,7 @@
       "vdd_meas_psu_v": 1.499941,
       "idd_meas_psu_a": 0.03948322,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9847,7 +9847,7 @@
       "vdd_meas_psu_v": 1.550094,
       "idd_meas_psu_a": 0.04598966,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9855,7 +9855,7 @@
       "vdd_meas_psu_v": 1.550094,
       "idd_meas_psu_a": 0.04598966,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9863,7 +9863,7 @@
       "vdd_meas_psu_v": 1.550094,
       "idd_meas_psu_a": 0.04598966,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9871,7 +9871,7 @@
       "vdd_meas_psu_v": 1.600249,
       "idd_meas_psu_a": 0.04842647,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9879,7 +9879,7 @@
       "vdd_meas_psu_v": 1.600249,
       "idd_meas_psu_a": 0.04842647,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9887,7 +9887,7 @@
       "vdd_meas_psu_v": 1.600249,
       "idd_meas_psu_a": 0.04842647,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9895,7 +9895,7 @@
       "vdd_meas_psu_v": 1.649806,
       "idd_meas_psu_a": 0.04809598,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9903,7 +9903,7 @@
       "vdd_meas_psu_v": 1.649806,
       "idd_meas_psu_a": 0.04809598,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9911,7 +9911,7 @@
       "vdd_meas_psu_v": 1.649806,
       "idd_meas_psu_a": 0.04809598,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9919,7 +9919,7 @@
       "vdd_meas_psu_v": 1.699965,
       "idd_meas_psu_a": 0.04467254,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9927,7 +9927,7 @@
       "vdd_meas_psu_v": 1.699965,
       "idd_meas_psu_a": 0.04467254,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9935,7 +9935,7 @@
       "vdd_meas_psu_v": 1.699965,
       "idd_meas_psu_a": 0.04467254,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9943,7 +9943,7 @@
       "vdd_meas_psu_v": 1.750116,
       "idd_meas_psu_a": 0.05476025,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9951,7 +9951,7 @@
       "vdd_meas_psu_v": 1.750116,
       "idd_meas_psu_a": 0.05476025,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9959,7 +9959,7 @@
       "vdd_meas_psu_v": 1.750116,
       "idd_meas_psu_a": 0.05476025,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9967,7 +9967,7 @@
       "vdd_meas_psu_v": 1.800271,
       "idd_meas_psu_a": 0.05735985,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9975,7 +9975,7 @@
       "vdd_meas_psu_v": 1.800271,
       "idd_meas_psu_a": 0.05735985,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -9983,7 +9983,7 @@
       "vdd_meas_psu_v": 1.800271,
       "idd_meas_psu_a": 0.05735985,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -9991,7 +9991,7 @@
       "vdd_meas_psu_v": 1.849832,
       "idd_meas_psu_a": 0.05149468,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -9999,7 +9999,7 @@
       "vdd_meas_psu_v": 1.849832,
       "idd_meas_psu_a": 0.05149468,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -10007,7 +10007,7 @@
       "vdd_meas_psu_v": 1.849832,
       "idd_meas_psu_a": 0.05149468,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -10015,7 +10015,7 @@
       "vdd_meas_psu_v": 1.899984,
       "idd_meas_psu_a": 0.05946618,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -10023,7 +10023,7 @@
       "vdd_meas_psu_v": 1.899984,
       "idd_meas_psu_a": 0.05946618,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -10031,7 +10031,7 @@
       "vdd_meas_psu_v": 1.899984,
       "idd_meas_psu_a": 0.05946618,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -10039,7 +10039,7 @@
       "vdd_meas_psu_v": 1.95014,
       "idd_meas_psu_a": 0.061903,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -10047,7 +10047,7 @@
       "vdd_meas_psu_v": 1.95014,
       "idd_meas_psu_a": 0.061903,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -10055,7 +10055,7 @@
       "vdd_meas_psu_v": 1.95014,
       "idd_meas_psu_a": 0.061903,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -10063,7 +10063,7 @@
       "vdd_meas_psu_v": 2.000095,
       "idd_meas_psu_a": 0.06450261,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -10071,7 +10071,7 @@
       "vdd_meas_psu_v": 2.000095,
       "idd_meas_psu_a": 0.06450261,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -10079,7 +10079,7 @@
       "vdd_meas_psu_v": 2.000095,
       "idd_meas_psu_a": 0.06450261,
       "clock_freq_hz": 110000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -10087,7 +10087,7 @@
       "vdd_meas_psu_v": 0.9999937,
       "idd_meas_psu_a": 0.001929346,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -10095,7 +10095,7 @@
       "vdd_meas_psu_v": 0.9999937,
       "idd_meas_psu_a": 0.001929346,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -10103,7 +10103,7 @@
       "vdd_meas_psu_v": 0.9999937,
       "idd_meas_psu_a": 0.001929346,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -10111,7 +10111,7 @@
       "vdd_meas_psu_v": 1.05015,
       "idd_meas_psu_a": 0.002412735,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -10119,7 +10119,7 @@
       "vdd_meas_psu_v": 1.05015,
       "idd_meas_psu_a": 0.002412735,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -10127,7 +10127,7 @@
       "vdd_meas_psu_v": 1.05015,
       "idd_meas_psu_a": 0.002412735,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -10135,7 +10135,7 @@
       "vdd_meas_psu_v": 1.100107,
       "idd_meas_psu_a": 0.002896144,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -10143,7 +10143,7 @@
       "vdd_meas_psu_v": 1.100107,
       "idd_meas_psu_a": 0.002896144,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -10151,7 +10151,7 @@
       "vdd_meas_psu_v": 1.100107,
       "idd_meas_psu_a": 0.002896144,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -10159,7 +10159,7 @@
       "vdd_meas_psu_v": 1.150264,
       "idd_meas_psu_a": 0.003542319,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -10167,7 +10167,7 @@
       "vdd_meas_psu_v": 1.150264,
       "idd_meas_psu_a": 0.003542319,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -10175,7 +10175,7 @@
       "vdd_meas_psu_v": 1.150264,
       "idd_meas_psu_a": 0.003542319,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -10183,7 +10183,7 @@
       "vdd_meas_psu_v": 1.20002,
       "idd_meas_psu_a": 0.004839674,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -10191,7 +10191,7 @@
       "vdd_meas_psu_v": 1.20002,
       "idd_meas_psu_a": 0.004839674,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -10199,7 +10199,7 @@
       "vdd_meas_psu_v": 1.20002,
       "idd_meas_psu_a": 0.004839674,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -10207,7 +10207,7 @@
       "vdd_meas_psu_v": 1.24997,
       "idd_meas_psu_a": 0.01639247,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -10215,7 +10215,7 @@
       "vdd_meas_psu_v": 1.24997,
       "idd_meas_psu_a": 0.01639247,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -10223,7 +10223,7 @@
       "vdd_meas_psu_v": 1.24997,
       "idd_meas_psu_a": 0.01639247,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -10231,7 +10231,7 @@
       "vdd_meas_psu_v": 1.300117,
       "idd_meas_psu_a": 0.03217767,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -10239,7 +10239,7 @@
       "vdd_meas_psu_v": 1.300117,
       "idd_meas_psu_a": 0.03217767,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -10247,7 +10247,7 @@
       "vdd_meas_psu_v": 1.300117,
       "idd_meas_psu_a": 0.03217767,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -10255,7 +10255,7 @@
       "vdd_meas_psu_v": 1.350073,
       "idd_meas_psu_a": 0.03428894,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -10263,7 +10263,7 @@
       "vdd_meas_psu_v": 1.350073,
       "idd_meas_psu_a": 0.03428894,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -10271,7 +10271,7 @@
       "vdd_meas_psu_v": 1.350073,
       "idd_meas_psu_a": 0.03428894,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -10279,7 +10279,7 @@
       "vdd_meas_psu_v": 1.400226,
       "idd_meas_psu_a": 0.04063259,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -10287,7 +10287,7 @@
       "vdd_meas_psu_v": 1.400226,
       "idd_meas_psu_a": 0.04063259,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -10295,7 +10295,7 @@
       "vdd_meas_psu_v": 1.400226,
       "idd_meas_psu_a": 0.04063259,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -10303,7 +10303,7 @@
       "vdd_meas_psu_v": 1.449981,
       "idd_meas_psu_a": 0.04355779,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -10311,7 +10311,7 @@
       "vdd_meas_psu_v": 1.449981,
       "idd_meas_psu_a": 0.04355779,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -10319,7 +10319,7 @@
       "vdd_meas_psu_v": 1.449981,
       "idd_meas_psu_a": 0.04355779,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -10327,7 +10327,7 @@
       "vdd_meas_psu_v": 1.49994,
       "idd_meas_psu_a": 0.0407855,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -10335,7 +10335,7 @@
       "vdd_meas_psu_v": 1.49994,
       "idd_meas_psu_a": 0.0407855,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -10343,7 +10343,7 @@
       "vdd_meas_psu_v": 1.49994,
       "idd_meas_psu_a": 0.0407855,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -10351,7 +10351,7 @@
       "vdd_meas_psu_v": 1.550089,
       "idd_meas_psu_a": 0.05364056,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -10359,7 +10359,7 @@
       "vdd_meas_psu_v": 1.550089,
       "idd_meas_psu_a": 0.05364056,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -10367,7 +10367,7 @@
       "vdd_meas_psu_v": 1.550089,
       "idd_meas_psu_a": 0.05364056,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -10375,7 +10375,7 @@
       "vdd_meas_psu_v": 1.600248,
       "idd_meas_psu_a": 0.04972875,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -10383,7 +10383,7 @@
       "vdd_meas_psu_v": 1.600248,
       "idd_meas_psu_a": 0.04972875,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -10391,7 +10391,7 @@
       "vdd_meas_psu_v": 1.600248,
       "idd_meas_psu_a": 0.04972875,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -10399,7 +10399,7 @@
       "vdd_meas_psu_v": 1.650004,
       "idd_meas_psu_a": 0.05200282,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -10407,7 +10407,7 @@
       "vdd_meas_psu_v": 1.650004,
       "idd_meas_psu_a": 0.05200282,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -10415,7 +10415,7 @@
       "vdd_meas_psu_v": 1.650004,
       "idd_meas_psu_a": 0.05200282,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -10423,7 +10423,7 @@
       "vdd_meas_psu_v": 1.699959,
       "idd_meas_psu_a": 0.05443965,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -10431,7 +10431,7 @@
       "vdd_meas_psu_v": 1.699959,
       "idd_meas_psu_a": 0.05443965,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -10439,7 +10439,7 @@
       "vdd_meas_psu_v": 1.699959,
       "idd_meas_psu_a": 0.05443965,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -10447,7 +10447,7 @@
       "vdd_meas_psu_v": 1.75012,
       "idd_meas_psu_a": 0.04824885,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -10455,7 +10455,7 @@
       "vdd_meas_psu_v": 1.75012,
       "idd_meas_psu_a": 0.04824885,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -10463,7 +10463,7 @@
       "vdd_meas_psu_v": 1.75012,
       "idd_meas_psu_a": 0.04824885,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -10471,7 +10471,7 @@
       "vdd_meas_psu_v": 1.80027,
       "idd_meas_psu_a": 0.05898771,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -10479,7 +10479,7 @@
       "vdd_meas_psu_v": 1.80027,
       "idd_meas_psu_a": 0.05898771,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -10487,7 +10487,7 @@
       "vdd_meas_psu_v": 1.80027,
       "idd_meas_psu_a": 0.05898771,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -10495,7 +10495,7 @@
       "vdd_meas_psu_v": 1.849826,
       "idd_meas_psu_a": 0.06175015,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -10503,7 +10503,7 @@
       "vdd_meas_psu_v": 1.849826,
       "idd_meas_psu_a": 0.06175015,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -10511,7 +10511,7 @@
       "vdd_meas_psu_v": 1.849826,
       "idd_meas_psu_a": 0.06175015,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -10519,7 +10519,7 @@
       "vdd_meas_psu_v": 1.899987,
       "idd_meas_psu_a": 0.05539656,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -10527,7 +10527,7 @@
       "vdd_meas_psu_v": 1.899987,
       "idd_meas_psu_a": 0.05539656,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -10535,7 +10535,7 @@
       "vdd_meas_psu_v": 1.899987,
       "idd_meas_psu_a": 0.05539656,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -10543,7 +10543,7 @@
       "vdd_meas_psu_v": 1.950138,
       "idd_meas_psu_a": 0.06385644,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -10551,7 +10551,7 @@
       "vdd_meas_psu_v": 1.950138,
       "idd_meas_psu_a": 0.06385644,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -10559,7 +10559,7 @@
       "vdd_meas_psu_v": 1.950138,
       "idd_meas_psu_a": 0.06385644,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "rand",
@@ -10567,7 +10567,7 @@
       "vdd_meas_psu_v": 2.000094,
       "idd_meas_psu_a": 0.06629325,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_b",
@@ -10575,7 +10575,7 @@
       "vdd_meas_psu_v": 2.000094,
       "idd_meas_psu_a": 0.06629325,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     },
     {
       "test": "march_cm",
@@ -10583,7 +10583,7 @@
       "vdd_meas_psu_v": 2.000094,
       "idd_meas_psu_a": 0.06629325,
       "clock_freq_hz": 115000000.0,
-      "result": "IntfFail"
+      "result": "IntfTimeout"
     }
   ]
 }
