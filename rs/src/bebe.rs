@@ -256,7 +256,8 @@ impl BringupState {
         std::thread::sleep(Duration::from_millis(500));
         self.reset_chip();
         std::thread::sleep(Duration::from_millis(500));
-        let res = self.bebe().nock(Some(Duration::from_millis(500)));
+        let timeout = self.config.timeout;
+        let res = self.bebe().nock(Some(timeout));
         if res.is_err() {
             self.bebe = None;
         }
@@ -264,7 +265,8 @@ impl BringupState {
     }
 
     pub fn bebe_write(&mut self, addr: u64, data: u64, len: u64) -> anyhow::Result<()> {
-        self.bebe().nock(Some(Duration::from_millis(500)))?;
+        let timeout = self.config.timeout;
+        self.bebe().nock(Some(timeout))?;
         let res = self.bebe().write_int(addr, data, len as usize);
         if res.is_err() {
             self.bebe = None;
@@ -273,7 +275,8 @@ impl BringupState {
     }
 
     pub fn bebe_read(&mut self, addr: u64, len: u64) -> anyhow::Result<u64> {
-        self.bebe().nock(Some(Duration::from_millis(2)))?;
+        let timeout = self.config.timeout;
+        self.bebe().nock(Some(timeout))?;
         let res = self.bebe.as_mut().unwrap().read_int(addr, len as usize);
         if res.is_err() {
             self.bebe = None;

@@ -164,8 +164,8 @@ impl BringupState {
         out_dir: impl AsRef<Path>,
     ) -> Vec<SramShmoo> {
         self.shmoo(
-            FpgaSweep::new(24..26),
-            stepped_range(1.2, 1.2, 0.1),
+            FpgaSweep::new([250]),
+            stepped_range(0.7, 0.9, 0.05),
             vec![ShmooTest {
                 tag: "rand".to_string(),
                 constructor: Box::new(|intf, id| rand_bist(intf, id)),
@@ -212,10 +212,6 @@ impl BringupState {
         let outdir = outdir.as_ref();
         std::fs::create_dir_all(outdir).expect("failed to create output dir");
 
-        if !matches!(self.config.clk_sel, ClkSel::External) {
-            panic!("external clock must be selected to run Shmoo tests");
-        }
-
         println!("PSU:       {}", self.lab().psu_idn());
         self.lab().psu_on();
         freq_sweep.init(self);
@@ -253,8 +249,10 @@ impl BringupState {
                     for shmoo in sram_shmoos.iter_mut() {
                         let id = shmoo.sram_id;
                         let result = if init_success {
+                            let timeout = self.config.timeout;
                             let intf = self.bebe_intf();
                             let mut bist = (test.constructor)(intf, id as u64);
+                            bist.timeout = Some(timeout);
                             // If pattern/element registers are already set correctly,
                             // don't waste time setting them again. Just set SRAM-specific
                             // registers.

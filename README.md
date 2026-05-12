@@ -35,6 +35,7 @@ Create a `Stac.toml` file at the root of the repository. An example is shown bel
 fpga_com_port = "/dev/tty.usbserial-210319B7CBD91"
 stac_com_port = "/dev/tty.usbserial-101"
 clk_sel = "fpga"
+timeout = "500ms"
 ```
 
 Update the config in `Stac.toml` with the correct serial ports. If you would like
