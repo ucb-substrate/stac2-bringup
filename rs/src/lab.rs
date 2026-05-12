@@ -135,7 +135,7 @@ impl Lab {
         self.psu()
             .query(&format!("MEAS:CURR? (@{PSU_CHANNEL})"))
             .parse()
-            .expect("unexpected PSU voltage response")
+            .expect("unexpected PSU current response")
     }
 
     pub fn clkgen_idn(&mut self) -> String {

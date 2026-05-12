@@ -164,7 +164,7 @@ impl BringupState {
         out_dir: impl AsRef<Path>,
     ) -> Vec<SramShmoo> {
         self.shmoo(
-            FpgaSweep::new(8..12),
+            FpgaSweep::new((5..=25).step_by(5)),
             stepped_range(0.8, 1.1, 0.05),
             vec![ShmooTest {
                 tag: "rand".to_string(),
@@ -234,7 +234,7 @@ impl BringupState {
                 let vdd_meas_psu: f64 = self.lab().psu_vdd_meas();
                 let idd_meas_psu: f64 = self.lab().psu_idd_meas();
                 println!("  VDD set={vdd:.3}V  psu={vdd_meas_psu:.3}V");
-                println!("  IDD psu={idd_meas_psu:.3}V");
+                println!("  IDD psu={idd_meas_psu:.3}A");
 
                 let mut init_success = match self.bebe_init() {
                     Ok(_) => true,

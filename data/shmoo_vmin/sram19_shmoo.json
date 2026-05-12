@@ -1,5 +1,5 @@
 {
-  "sram_id": 0,
+  "sram_id": 19,
   "points": [
     {
       "test": "rand",
@@ -23,7 +23,7 @@
       "vdd_meas_psu_v": 0.9000788,
       "idd_meas_psu_a": 0.003404305,
       "clock_freq_hz": 5000000.0,
-      "result": "BistFail"
+      "result": "Pass"
     },
     {
       "test": "rand",

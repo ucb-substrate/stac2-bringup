@@ -1,5 +1,5 @@
 {
-  "sram_id": 0,
+  "sram_id": 10,
   "points": [
     {
       "test": "rand",
@@ -23,7 +23,7 @@
       "vdd_meas_psu_v": 0.9000788,
       "idd_meas_psu_a": 0.003404305,
       "clock_freq_hz": 5000000.0,
-      "result": "BistFail"
+      "result": "Pass"
     },
     {
       "test": "rand",
@@ -71,7 +71,7 @@
       "vdd_meas_psu_v": 0.8501232,
       "idd_meas_psu_a": 0.001130258,
       "clock_freq_hz": 2500000.0,
-      "result": "BistFail"
+      "result": "Pass"
     },
     {
       "test": "rand",
@@ -127,7 +127,7 @@
       "vdd_meas_psu_v": 0.8501233,
       "idd_meas_psu_a": 0.0009674732,
       "clock_freq_hz": 1666666.6666666667,
-      "result": "BistFail"
+      "result": "Pass"
     },
     {
       "test": "rand",
@@ -183,7 +183,7 @@
       "vdd_meas_psu_v": 0.8501234,
       "idd_meas_psu_a": 0.0008046883,
       "clock_freq_hz": 1250000.0,
-      "result": "BistFail"
+      "result": "Pass"
     },
     {
       "test": "rand",
@@ -239,7 +239,7 @@
       "vdd_meas_psu_v": 0.8501234,
       "idd_meas_psu_a": 0.0008046883,
       "clock_freq_hz": 1000000.0,
-      "result": "BistFail"
+      "result": "Pass"
     },
     {
       "test": "rand",
