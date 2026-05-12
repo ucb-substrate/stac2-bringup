@@ -164,7 +164,7 @@ impl BringupState {
         out_dir: impl AsRef<Path>,
     ) -> Vec<SramShmoo> {
         self.shmoo(
-            FpgaSweep::new(1..10),
+            FpgaSweep::new(8..12),
             stepped_range(0.8, 1.1, 0.05),
             vec![ShmooTest {
                 tag: "rand".to_string(),
