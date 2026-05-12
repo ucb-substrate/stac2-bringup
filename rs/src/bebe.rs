@@ -244,11 +244,11 @@ impl BringupState {
                     .tsi_intf()
                     .read(HALF_CLK_DIV_RATIO)
                     .expect("failed to read half_clk_div_ratio");
-                (FPGA_FREQ_MHZ / half_clk_div_ratio / 2) as f64
+                FPGA_FREQ_MHZ as f64 / half_clk_div_ratio as f64 / 2.
             }
             ClkSel::External => self.lab().clkgen_freq_meas() / 1e6,
         };
-        (CHIP_INTENDED_BAUDRATE as f64 / CHIP_INTENDED_FREQ_MHZ as f64 * freq_mhz) as u64
+        (CHIP_INTENDED_BAUDRATE as f64 / CHIP_INTENDED_FREQ_MHZ as f64 * freq_mhz).round() as u64
     }
 
     pub fn bebe_init(&mut self) -> io::Result<()> {
