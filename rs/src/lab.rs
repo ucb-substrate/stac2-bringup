@@ -57,31 +57,33 @@ impl Lab {
         Self::default()
     }
 
-    pub fn open_instr(&self, addr: &str) -> Instrument {
+    pub fn open_instr(&self, addr: &str) -> anyhow::Result<Instrument> {
         let expr: visa_rs::ResID = CString::new(addr).unwrap().into();
-        let rsc = self
-            .rm
-            .find_res(&expr)
-            .unwrap_or_else(|e| panic!("instrument not found at {addr}: {e}"));
-        let instr = self
-            .rm
-            .open(&rsc, AccessMode::NO_LOCK, TIMEOUT_IMMEDIATE)
-            .unwrap_or_else(|e| panic!("failed to open {addr}: {e}"));
-        Instrument { inner: instr }
+        let rsc = self.rm.find_res(&expr)?;
+        let instr = self.rm.open(&rsc, AccessMode::NO_LOCK, TIMEOUT_IMMEDIATE)?;
+        Ok(Instrument { inner: instr })
+    }
+
+    pub fn try_psu(&mut self) -> anyhow::Result<&mut Instrument> {
+        if self.psu.is_none() {
+            self.psu = Some(self.open_instr(PSU_VISA_ADDR)?);
+        }
+        Ok(self.psu.as_mut().unwrap())
+    }
+
+    pub fn try_clkgen(&mut self) -> anyhow::Result<&mut Instrument> {
+        if self.clkgen.is_none() {
+            self.clkgen = Some(self.open_instr(CLKGEN_VISA_ADDR)?);
+        }
+        Ok(self.clkgen.as_mut().unwrap())
     }
 
     pub fn psu(&mut self) -> &mut Instrument {
-        if self.psu.is_none() {
-            self.psu = Some(self.open_instr(PSU_VISA_ADDR));
-        }
-        self.psu.as_mut().unwrap()
+        self.try_psu().unwrap()
     }
 
     pub fn clkgen(&mut self) -> &mut Instrument {
-        if self.clkgen.is_none() {
-            self.clkgen = Some(self.open_instr(CLKGEN_VISA_ADDR));
-        }
-        self.clkgen.as_mut().unwrap()
+        self.try_clkgen().unwrap()
     }
 
     pub fn status(&mut self) {
