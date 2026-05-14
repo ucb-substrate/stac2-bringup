@@ -34,7 +34,7 @@ impl BringupState {
                     .open()
                     .expect("failed to open TTY"),
             );
-            sleep(Duration::from_millis(500));
+            sleep(Duration::from_millis(750));
             tsi
         })
     }
