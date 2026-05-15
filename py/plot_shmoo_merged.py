@@ -22,7 +22,6 @@ from matplotlib.ticker import FixedLocator, MultipleLocator
 rcParams["font.family"] = "Arial"
 
 # Publication-scale font sizes.
-FS_SUPTITLE = 20
 FS_TITLE = 17
 FS_LABEL = 15
 FS_TICK = 13
@@ -36,15 +35,18 @@ LEGEND_HANDLES = [
     mpatches.Patch(color="#d62728", label="Fail"),
 ]
 
-# (depth, width) per SRAM id, mirrored from rs/src/tests.rs SRAM_SIZES.
+# (depth, width, mask_width, mux_ratio) per SRAM id, mirrored from
+# rs/src/tests.rs SRAM_SIZES.
 SRAM_SIZES = [
-    (64, 24), (64, 32), (128, 16), (128, 24), (128, 32),
-    (256, 8), (256, 16), (256, 32), (256, 64), (256, 128),
-    (512, 8), (512, 32), (512, 64), (512, 128),
-    (1024, 8), (1024, 32), (1024, 64),
-    (2048, 8), (2048, 32),
-    (4096, 8), (4096, 32),
-    (8192, 32),
+    (64, 24, 8, 4), (64, 32, 8, 4), (128, 16, 8, 4), (128, 24, 8, 4),
+    (128, 32, 8, 4),
+    (256, 8, 1, 8), (256, 16, 8, 8), (256, 32, 8, 4), (256, 64, 8, 4),
+    (256, 128, 8, 4),
+    (512, 8, 1, 8), (512, 32, 8, 4), (512, 64, 8, 4), (512, 128, 8, 4),
+    (1024, 8, 1, 8), (1024, 32, 8, 8), (1024, 64, 8, 4),
+    (2048, 8, 1, 8), (2048, 32, 8, 8),
+    (4096, 8, 1, 8), (4096, 32, 8, 8),
+    (8192, 32, 8, 8),
 ]
 
 
@@ -55,9 +57,9 @@ def load(path: Path) -> dict:
 
 def _sram_label(sram_id: int) -> str:
     if 0 <= sram_id < len(SRAM_SIZES):
-        depth, width = SRAM_SIZES[sram_id]
-        return f"SRAM {sram_id} ({depth}×{width}b)"
-    return f"SRAM {sram_id}"
+        depth, width, mask, mux = SRAM_SIZES[sram_id]
+        return f"sram22_{depth}x{width}m{mux}w{mask}"
+    return f"sram{sram_id}"
 
 
 def _sid_from_path(p: Path) -> int:
@@ -223,18 +225,14 @@ def main():
     nrows = (len(sram_ids) + ncols - 1) // ncols
 
     # Allocate fixed inch budgets so layout is consistent for a single SRAM and
-    # for the full 22-SRAM grid. title_h reserves vertical room for the suptitle
-    # plus per-SRAM titles; bot_h leaves room for x-axis labels below the last
-    # row.
+    # for the full grid. title_h reserves vertical room for per-SRAM titles;
+    # bot_h leaves room for x-axis labels below the last row.
     cell_h = 3.5
-    title_h = 1.0
-    bot_h = 1.0
+    title_h = 0.5
+    bot_h = 0.55
     fig_h = cell_h * nrows + title_h + bot_h
     fig_w = 7.0 * ncols
     fig = plt.figure(figsize=(fig_w, fig_h))
-    fig.suptitle("STAC2 SRAM Shmoo: vmin (low-freq) + all-pattern (high-freq)",
-                 fontsize=FS_SUPTITLE, fontweight="bold",
-                 y=1 - 0.3 * title_h / fig_h)
 
     outer = fig.add_gridspec(
         nrows, ncols,
